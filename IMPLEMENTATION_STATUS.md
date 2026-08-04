@@ -23,15 +23,17 @@
 - Fronteras de extensión: `ScannerEngine`, `ContentParserRegistry` y
   `FeatureFlags` (todas las capacidades futuras apagadas).
 - Accesibilidad: alto contraste, controles grandes y reducción de movimiento.
-- 42 pruebas unitarias, de widget y de integración, más catálogo de regresión.
+- 45 pruebas unitarias, de widget y de integración, más catálogo de regresión.
 - CI para Android, web, iOS y macOS; SBOM, inventario de licencias, checksums,
   Dependabot y documentación de seguridad.
 
 ## Parcial y declarado como tal
 
-- **Localización.** La infraestructura `es_CL`/`es`/`en` existe y la navegación
-  principal usa claves localizadas. El resto de la interfaz está escrito en
-  español y se migrará pantalla por pantalla.
+- **Localización.** La interfaz se entrega solo en español. La infraestructura
+  admite inglés y `AppLocalizations` ya contiene sus claves, pero el resto de las
+  pantallas usa literales en español, así que el idioma no se expone: una
+  interfaz a medio traducir se ve peor que una en un solo idioma. Se activará
+  cuando todas las pantallas lean sus cadenas de `AppLocalizations`.
 - **Catálogo de regresión.** Ocho imágenes reproducibles, todas QR. Las demás
   simbologías requieren capturas reales verificadas antes de incorporarse.
 

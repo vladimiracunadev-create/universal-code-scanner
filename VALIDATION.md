@@ -10,7 +10,7 @@
 |---|---|---|
 | Resolución de dependencias | `flutter pub get` | Correcta · `pubspec.lock` generado y versionado |
 | Análisis estático estricto | `flutter analyze --fatal-infos` | **0 hallazgos** |
-| Suite de pruebas | `flutter test` | **42 de 42 en verde** |
+| Suite de pruebas | `flutter test` | **45 de 45 en verde** |
 | Generación de plataformas | `python3 tool/bootstrap.py --platforms android,web` | Correcta · permisos, `minSdk 24`, `FlutterFragmentActivity` y etiqueta aplicados |
 | Compilación web | `flutter build web --release` | Compila |
 | Validación estructural | `python3 tool/validate_structure.py` | Sin errores |

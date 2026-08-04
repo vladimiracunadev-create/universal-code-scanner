@@ -20,7 +20,7 @@
 [![Flutter](https://img.shields.io/badge/Flutter-3.44.7-02569B.svg?logo=flutter)](.fvmrc)
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20macOS%20%7C%20Web-lightgrey.svg)](#-plataformas)
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](CHANGELOG.md)
-[![Tests](https://img.shields.io/badge/tests-42%20passing-brightgreen.svg)](VALIDATION.md)
+[![Tests](https://img.shields.io/badge/tests-45%20passing-brightgreen.svg)](VALIDATION.md)
 [![Analyzer](https://img.shields.io/badge/analyze%20--fatal--infos-0%20issues-brightgreen.svg)](VALIDATION.md)
 [![Telemetría](https://img.shields.io/badge/telemetr%C3%ADa-cero-success.svg)](docs/PRIVACY_POLICY.md)
 
@@ -50,10 +50,10 @@ operativo.
 
 | Plataforma | Estado en 1.0.0 | Notas |
 |---|---|---|
-| **Android** (API 24+) | Compila en CI (APK debug) | Motor ML Kit vía `mobile_scanner` |
-| **iOS** (15.5+) | Compila en CI (`--no-codesign`) | Motor Apple Vision |
-| **macOS** | Compila en CI + prueba de arranque | Cámara y galería |
-| **Web / PWA** | Compila en CI (release) | Sin lectura de PDF local |
+| **Android** (API 24+) | **APK compilado y ejecutado** en emulador | Motor ML Kit vía `mobile_scanner` |
+| **iOS** (15.5+) | Compila en CI (`--no-codesign`) | Motor Apple Vision · sin ejecución verificada |
+| **macOS** | Compila en CI | Cámara y galería · sin ejecución verificada |
+| **Web / PWA** | **Compila y se ejecuta** (release) | Sin lectura de PDF local |
 | **Windows · Linux** | Vía PWA | Sin motor nativo en 1.0.0 |
 
 Las carpetas nativas **no se versionan**: se generan de forma reproducible con
@@ -100,6 +100,27 @@ completa está en `tool/run_quality_gate.sh` y la de publicación en
 | ¿Queda mi historial expuesto? | Cifrado AES-256-GCM en disco; OTP y Wi-Fi con contraseña nunca se guardan solos |
 | ¿Qué pasa si la base se corrompe? | Modo temporal en memoria + Centro de recuperación por registro |
 | ¿Necesito generar un código? | Generador PNG/SVG de 10 simbologías |
+
+---
+
+## 📸 Capturas
+
+La aplicación corriendo en el emulador oficial de Android (API 36), desde el APK
+release compilado en este repositorio:
+
+<p align="center">
+  <img src="docs/images/capturas/escanear.png" width="235" alt="Pestaña Escanear: marco de lectura con esquinas, zoom, linterna, pausa y cambio de cámara" />
+  &nbsp;&nbsp;
+  <img src="docs/images/capturas/generar.png" width="235" alt="Pestaña Generar: tipo de contenido, formato, corrección de errores y QR renderizado" />
+  &nbsp;&nbsp;
+  <img src="docs/images/capturas/ajustes.png" width="235" alt="Pestaña Ajustes: apariencia, idioma, accesibilidad y opciones del escáner" />
+</p>
+
+<p align="center">
+  <img src="docs/images/capturas/inventario.png" width="235" alt="Pestaña Inventario: sesiones con nombre e importación JSON" />
+  &nbsp;&nbsp;
+  <img src="docs/images/capturas/historial.png" width="235" alt="Pestaña Historial: buscador y filtros por nivel de riesgo" />
+</p>
 
 ---
 
@@ -182,7 +203,7 @@ Ejecutado con Flutter 3.44.7 sobre esta misma versión del código:
 |---|---|
 | `flutter pub get` | Resuelve — `pubspec.lock` versionado |
 | `flutter analyze --fatal-infos` | **0 hallazgos** |
-| `flutter test` | **42 de 42 en verde** |
+| `flutter test` | **45 de 45 en verde** |
 | `flutter build web --release` | Compila |
 | `python3 tool/validate_structure.py` | Sin errores estructurales |
 
@@ -230,8 +251,10 @@ Esta versión prefiere decir lo que no hace antes que insinuar que lo hace:
   especificación pública.
 - **El analizador no consulta reputación remota.** Solo muestra señales locales
   y nunca declara que un enlace sea seguro.
-- **La interfaz está en español.** La infraestructura `es_CL`/`es`/`en` existe y
-  la navegación principal ya está localizada; el resto se migrará por pantalla.
+- **La interfaz está solo en español.** La infraestructura admite inglés y sus
+  claves ya existen, pero el idioma no se expone hasta que todas las pantallas
+  lean sus cadenas de `AppLocalizations`: media traducción se ve peor que
+  ninguna.
 
 ---
 

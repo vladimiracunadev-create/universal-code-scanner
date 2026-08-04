@@ -17,7 +17,7 @@
     "dependenciesResolved": true,
     "pubspecLockGenerated": true,
     "staticAnalysisFatalInfos": true,
-    "unitAndWidgetTests": "42/42",
+    "unitAndWidgetTests": "45/45",
     "webReleaseBuild": true,
     "androidBuild": "ci-only",
     "appleBuild": "ci-only",

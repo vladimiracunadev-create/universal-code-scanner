@@ -62,12 +62,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               title: const Text('Idioma'),
               trailing: DropdownButton<AppLanguage>(
-                value: value.language,
+                // English is not offered in 1.0.0. A preference stored by a
+                // future build must not leave the dropdown without a match.
+                value: value.language == AppLanguage.en ? AppLanguage.system : value.language,
                 items: const <DropdownMenuItem<AppLanguage>>[
                   DropdownMenuItem(value: AppLanguage.system, child: Text('Sistema')),
                   DropdownMenuItem(value: AppLanguage.esCl, child: Text('Español (Chile)')),
                   DropdownMenuItem(value: AppLanguage.es, child: Text('Español internacional')),
-                  DropdownMenuItem(value: AppLanguage.en, child: Text('English')),
                 ],
                 onChanged: (AppLanguage? language) => language == null ? null : _update(value.copyWith(language: language)),
               ),

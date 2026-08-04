@@ -1,6 +1,22 @@
 # Accesibilidad e idiomas
 
-La aplicación admite idioma del sistema, español de Chile (`es_CL`), español internacional (`es`) e inglés (`en`) para la navegación principal y la infraestructura de localización. Las nuevas cadenas deben añadirse a `AppLocalizations` antes de incorporarse a la interfaz.
+## Idiomas en 1.0.0
+
+La interfaz se entrega **solo en español**: idioma del sistema, español de Chile
+(`es_CL`) y español internacional (`es`).
+
+La infraestructura de localización admite inglés y `AppLocalizations` ya
+contiene sus claves, pero el resto de las pantallas todavía usa literales en
+español. Exponer `en` produciría una interfaz a medio traducir —barra de
+navegación en inglés sobre contenido en español—, así que el delegado rechaza
+ese idioma y Flutter recae en el primer idioma admitido. Una prueba verifica esa
+decisión para que no se revierta por accidente.
+
+El inglés se activará cuando todas las pantallas lean sus cadenas de
+`AppLocalizations`. Las cadenas nuevas deben añadirse allí antes de incorporarse
+a la interfaz.
+
+## Opciones de accesibilidad
 
 Opciones incluidas:
 
@@ -11,6 +27,9 @@ Opciones incluidas:
 - etiquetas semánticas en acciones críticas;
 - compatibilidad prevista con TalkBack, VoiceOver y teclado.
 
-La matriz de dispositivos exige revisar contraste, orden de foco, nombres accesibles y tamaño táctil.
+La matriz de dispositivos exige revisar contraste, orden de foco, nombres
+accesibles y tamaño táctil.
 
-La infraestructura está preparada para localizar todas las pantallas. La navegación principal ya utiliza claves localizadas; cualquier cadena nueva o aún heredada debe migrarse sin modificar la lógica de negocio.
+Una prueba de widget levanta el Centro de recuperación con la escala tipográfica
+al 200 % y comprueba las guías `labeledTapTargetGuideline` y
+`textContrastGuideline` de Flutter.

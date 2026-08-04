@@ -28,7 +28,55 @@ def insert_before(text: str, marker: str, content: str) -> str:
     return text.replace(marker, f"{content}\n{marker}", 1)
 
 
+# The Flutter 3.44.7 template generates Android Gradle Plugin 9, whose default is
+# built-in Kotlin. Several plugins in this dependency set (file_picker among
+# them) skip applying the Kotlin Gradle Plugin as soon as they detect AGP 9,
+# assuming built-in Kotlin is enabled — but the same template ships
+# `android.builtInKotlin=false`. The result is that nobody compiles those
+# plugins' Kotlin sources and the build fails with "cannot find symbol
+# FilePickerPlugin". Enabling built-in Kotlin instead breaks the plugins that do
+# apply KGP. Pinning AGP to the 8 series puts every plugin back on the path they
+# all support. Revisit when the plugins publish built-in Kotlin releases.
+ANDROID_GRADLE_PLUGIN = "8.11.1"
+KOTLIN_GRADLE_PLUGIN = "2.2.20"
+GRADLE_DISTRIBUTION = "8.14.3"
+
+
+def patch_android_toolchain() -> None:
+    settings = ROOT / "android/settings.gradle.kts"
+    if settings.exists():
+        text = settings.read_text(encoding="utf-8")
+        text = re.sub(
+            r'(id\("com\.android\.application"\) version )"[^"]+"',
+            rf'\g<1>"{ANDROID_GRADLE_PLUGIN}"',
+            text,
+        )
+        text = re.sub(
+            r'(id\("org\.jetbrains\.kotlin\.android"\) version )"[^"]+"',
+            rf'\g<1>"{KOTLIN_GRADLE_PLUGIN}"',
+            text,
+        )
+        settings.write_text(text, encoding="utf-8")
+
+    wrapper = ROOT / "android/gradle/wrapper/gradle-wrapper.properties"
+    if wrapper.exists():
+        text = wrapper.read_text(encoding="utf-8")
+        text = re.sub(
+            r"gradle-[0-9.]+-all\.zip",
+            f"gradle-{GRADLE_DISTRIBUTION}-all.zip",
+            text,
+        )
+        wrapper.write_text(text, encoding="utf-8")
+
+    properties = ROOT / "android/gradle.properties"
+    if properties.exists():
+        text = properties.read_text(encoding="utf-8")
+        text = text.replace("android.builtInKotlin=true", "android.builtInKotlin=false")
+        properties.write_text(text, encoding="utf-8")
+
+
 def patch_android() -> None:
+    patch_android_toolchain()
     manifest = ROOT / "android/app/src/main/AndroidManifest.xml"
     text = manifest.read_text(encoding="utf-8")
     missing = []

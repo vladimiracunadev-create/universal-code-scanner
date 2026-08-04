@@ -8,7 +8,7 @@ el proyecto usa [Versionado Semántico](https://semver.org/lang/es/).
 
 Primera versión pública. Todo lo que se describe a continuación está presente en
 el código fuente y verificado con Flutter 3.44.7 (`analyze --fatal-infos` sin
-hallazgos y 42 pruebas en verde).
+hallazgos y 45 pruebas en verde).
 
 ### Lectura
 
@@ -68,12 +68,14 @@ hallazgos y 42 pruebas en verde).
 ### Accesibilidad e idiomas
 
 - Alto contraste, controles táctiles grandes y reducción de movimiento.
-- Infraestructura de localización `es_CL`, `es` y `en`; la navegación principal
-  ya usa claves localizadas y el resto de la interfaz está en español.
+- Interfaz íntegramente en español: idioma del sistema, español de Chile y
+  español internacional. La infraestructura admite inglés y sus claves ya
+  existen, pero el idioma no se expone hasta que todas las pantallas lean sus
+  cadenas de `AppLocalizations`, para no entregar una interfaz a medio traducir.
 
 ### Calidad
 
-- 42 pruebas unitarias, de widget y de integración.
+- 45 pruebas unitarias, de widget y de integración.
 - Catálogo de regresión con 8 imágenes y manifiesto de resultados esperados.
 - Validador estructural offline, SBOM CycloneDX, inventario de licencias,
   checksums, Dependabot, modelo de amenazas y lista MASVS.

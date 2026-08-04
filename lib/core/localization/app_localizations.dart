@@ -6,7 +6,13 @@ class AppLocalizations {
   final Locale locale;
 
   static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
-  static const List<Locale> supportedLocales = <Locale>[Locale('es', 'CL'), Locale('es'), Locale('en')];
+
+  /// Version 1.0.0 ships a Spanish interface. English keys already exist here,
+  /// but the rest of the screens still hold Spanish literals, so offering
+  /// English would produce a half-translated interface: an English navigation
+  /// bar over Spanish content. The locale is therefore not exposed until every
+  /// screen reads its strings from this class.
+  static const List<Locale> supportedLocales = <Locale>[Locale('es', 'CL'), Locale('es')];
 
   static AppLocalizations of(BuildContext context) => Localizations.of<AppLocalizations>(context, AppLocalizations)!;
 
@@ -29,7 +35,7 @@ class AppLocalizations {
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
   @override
-  bool isSupported(Locale locale) => <String>{'es', 'en'}.contains(locale.languageCode);
+  bool isSupported(Locale locale) => locale.languageCode == 'es';
   @override
   Future<AppLocalizations> load(Locale locale) => SynchronousFuture<AppLocalizations>(AppLocalizations(locale));
   @override
