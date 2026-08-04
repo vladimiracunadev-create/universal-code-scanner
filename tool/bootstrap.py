@@ -75,8 +75,63 @@ def patch_android_toolchain() -> None:
         properties.write_text(text, encoding="utf-8")
 
 
+LAUNCHER_ASSETS = ROOT / "assets" / "launcher"
+ADAPTIVE_ICON_XML = """<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+    <monochrome android:drawable="@mipmap/ic_launcher_foreground" />
+</adaptive-icon>
+"""
+LAUNCHER_BACKGROUND_XML = """<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#005854</color>
+</resources>
+"""
+
+
+def patch_android_icons() -> None:
+    """Replace the template icon with the application icon.
+
+    The PNG files are produced by `tool/generate_launcher_icons.py` and
+    versioned under `assets/launcher/`, so this step needs no image library.
+    """
+    source = LAUNCHER_ASSETS / "android"
+    if not source.is_dir():
+        return
+    res = ROOT / "android/app/src/main/res"
+    for density in source.iterdir():
+        if not density.is_dir():
+            continue
+        destination = res / density.name
+        destination.mkdir(parents=True, exist_ok=True)
+        for icon in density.glob("*.png"):
+            shutil.copyfile(icon, destination / icon.name)
+
+    adaptive = res / "mipmap-anydpi-v26"
+    adaptive.mkdir(parents=True, exist_ok=True)
+    (adaptive / "ic_launcher.xml").write_text(ADAPTIVE_ICON_XML, encoding="utf-8")
+    values = res / "values"
+    values.mkdir(parents=True, exist_ok=True)
+    (values / "ic_launcher_background.xml").write_text(LAUNCHER_BACKGROUND_XML, encoding="utf-8")
+
+
+def patch_web_icons() -> None:
+    source = LAUNCHER_ASSETS / "web"
+    if not source.is_dir():
+        return
+    icons = ROOT / "web/icons"
+    icons.mkdir(parents=True, exist_ok=True)
+    for icon in source.glob("Icon-*.png"):
+        shutil.copyfile(icon, icons / icon.name)
+    favicon = source / "favicon.png"
+    if favicon.exists():
+        shutil.copyfile(favicon, ROOT / "web/favicon.png")
+
+
 def patch_android() -> None:
     patch_android_toolchain()
+    patch_android_icons()
     manifest = ROOT / "android/app/src/main/AndroidManifest.xml"
     text = manifest.read_text(encoding="utf-8")
     missing = []
@@ -235,6 +290,7 @@ def patch_macos() -> None:
 
 
 def patch_web() -> None:
+    patch_web_icons()
     manifest_path = ROOT / "web/manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest.update(

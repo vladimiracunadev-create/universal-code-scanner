@@ -65,16 +65,51 @@ class UniversalCodeScannerApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          home: BiometricLockGate(
-            settings: settingsStore,
-            child: HomeShell(
-              scanStore: scanStore,
-              inventoryStore: inventoryStore,
-              settingsStore: settingsStore,
-              recoveryRepository: recoveryRepository,
-              recoveryService: recoveryService,
-              dataMaintenanceService: dataMaintenanceService,
-              temporaryMode: temporaryMode,
+          home: HandheldFrame(
+            child: BiometricLockGate(
+              settings: settingsStore,
+              child: HomeShell(
+                scanStore: scanStore,
+                inventoryStore: inventoryStore,
+                settingsStore: settingsStore,
+                recoveryRepository: recoveryRepository,
+                recoveryService: recoveryService,
+                dataMaintenanceService: dataMaintenanceService,
+                temporaryMode: temporaryMode,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// Keeps the interface at a handheld width on large screens.
+///
+/// The layout is designed for a phone. On a desktop browser or a tablet it
+/// would otherwise stretch edge to edge, leaving the reading frame and the
+/// navigation bar absurdly wide. Below the threshold nothing is wrapped, so
+/// phones keep the exact same tree.
+class HandheldFrame extends StatelessWidget {
+  const HandheldFrame({required this.child, super.key});
+
+  static const double maxWidth = 560;
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth <= maxWidth) return child;
+        final ColorScheme colors = Theme.of(context).colorScheme;
+        return ColoredBox(
+          color: colors.surfaceContainerHighest,
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: maxWidth),
+              child: Material(color: colors.surface, child: child),
             ),
           ),
         );

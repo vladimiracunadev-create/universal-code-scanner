@@ -32,6 +32,18 @@ Resultado inmediato
 - `InventoryRepository`: aplica el mismo esquema a sesiones de inventario.
 - `SettingsRepository`: preferencias no sensibles mediante `SharedPreferencesAsync`.
 
+## Identidad visual
+
+El icono de la aplicación se dibuja por código en
+`tool/generate_launcher_icons.py` y sus PNG se versionan en `assets/launcher/`.
+`tool/bootstrap.py` los copia a los proyectos generados: iconos heredados,
+adaptativos y monocromos de Android, más los iconos y el favicon de la PWA.
+Regenerarlo requiere Pillow; compilar la aplicación, no.
+
+`HandheldFrame` mantiene la interfaz a un ancho de teléfono en pantallas
+grandes. Por debajo del umbral no envuelve nada, así que el árbol de widgets en
+un móvil es idéntico al que habría sin esa capa.
+
 ## Capas
 
 - `models`: entidades inmutables y serializables.

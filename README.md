@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/launcher/icon-1024.png" width="128" alt="Icono de Universal Code Scanner: marco de lectura con un patrón QR al centro" />
+</p>
+
 # Universal Code Scanner
 
 ```text
@@ -20,7 +24,7 @@
 [![Flutter](https://img.shields.io/badge/Flutter-3.44.7-02569B.svg?logo=flutter)](.fvmrc)
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20macOS%20%7C%20Web-lightgrey.svg)](#-plataformas)
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](CHANGELOG.md)
-[![Tests](https://img.shields.io/badge/tests-45%20passing-brightgreen.svg)](VALIDATION.md)
+[![Tests](https://img.shields.io/badge/tests-48%20passing-brightgreen.svg)](VALIDATION.md)
 [![Analyzer](https://img.shields.io/badge/analyze%20--fatal--infos-0%20issues-brightgreen.svg)](VALIDATION.md)
 [![Telemetría](https://img.shields.io/badge/telemetr%C3%ADa-cero-success.svg)](docs/PRIVACY_POLICY.md)
 
@@ -57,8 +61,12 @@ operativo.
 | **Windows · Linux** | Vía PWA | Sin motor nativo en 1.0.0 |
 
 Las carpetas nativas **no se versionan**: se generan de forma reproducible con
-`tool/bootstrap.py`, que además aplica permisos, `minSdk`, entitlements y
-descripciones de uso. Así el repositorio contiene únicamente fuente propia.
+`tool/bootstrap.py`, que además aplica permisos, `minSdk`, entitlements,
+descripciones de uso, la cadena de compilación de Gradle y los iconos. Así el
+repositorio contiene únicamente fuente propia.
+
+En pantallas anchas —navegador de escritorio o tablet— la interfaz se centra con
+un ancho máximo de teléfono en lugar de estirarse de borde a borde.
 
 ---
 
@@ -203,7 +211,7 @@ Ejecutado con Flutter 3.44.7 sobre esta misma versión del código:
 |---|---|
 | `flutter pub get` | Resuelve — `pubspec.lock` versionado |
 | `flutter analyze --fatal-infos` | **0 hallazgos** |
-| `flutter test` | **45 de 45 en verde** |
+| `flutter test` | **48 de 48 en verde** |
 | `flutter build web --release` | Compila |
 | `python3 tool/validate_structure.py` | Sin errores estructurales |
 

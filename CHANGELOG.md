@@ -8,7 +8,7 @@ el proyecto usa [Versionado Semántico](https://semver.org/lang/es/).
 
 Primera versión pública. Todo lo que se describe a continuación está presente en
 el código fuente y verificado con Flutter 3.44.7 (`analyze --fatal-infos` sin
-hallazgos y 45 pruebas en verde).
+hallazgos y 48 pruebas en verde).
 
 ### Lectura
 
@@ -65,6 +65,16 @@ hallazgos y 45 pruebas en verde).
 - Exportación a JSON, CSV, XLSX, VCF e ICS, con la codificación pesada fuera del
   hilo de interfaz mediante `compute`.
 
+### Identidad y adaptación de pantalla
+
+- Icono propio de la aplicación: el marco de lectura del escáner con un patrón
+  de localización QR al centro. Se dibuja por código desde
+  `tool/generate_launcher_icons.py` y se aplica a los iconos heredados,
+  adaptativos y monocromos de Android, además de los iconos y el favicon de la
+  PWA.
+- En pantallas anchas la interfaz se centra con un ancho máximo de teléfono en
+  lugar de estirarse de borde a borde.
+
 ### Accesibilidad e idiomas
 
 - Alto contraste, controles táctiles grandes y reducción de movimiento.
@@ -75,7 +85,7 @@ hallazgos y 45 pruebas en verde).
 
 ### Calidad
 
-- 45 pruebas unitarias, de widget y de integración.
+- 48 pruebas unitarias, de widget y de integración.
 - Catálogo de regresión con 8 imágenes y manifiesto de resultados esperados.
 - Validador estructural offline, SBOM CycloneDX, inventario de licencias,
   checksums, Dependabot, modelo de amenazas y lista MASVS.

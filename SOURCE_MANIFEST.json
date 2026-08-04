@@ -32,14 +32,24 @@
       "sha256": "537810069cbbd49c901356894eb181ae5b76c0512ffae43bb25a011a3a5fbf64"
     },
     {
+      "path": "assets/launcher/icon-1024.png",
+      "size": 8816,
+      "sha256": "8367d475bd323702db4b04f0d02f1691a9a01c73e3db5ee89a854c28dd4aedd8"
+    },
+    {
+      "path": "assets/launcher/README.md",
+      "size": 1090,
+      "sha256": "dc8c588a18ec96f0a7da1628045f0ad7432eae91495e1216b378b2345c8a6e2c"
+    },
+    {
       "path": "CHANGELOG.md",
-      "size": 4423,
-      "sha256": "d3b895c6cf2532d64801f8e9d7d21782f6bfcbd27b426076a8e9cddb33900154"
+      "size": 4887,
+      "sha256": "5d8316210af79cae617eb1f6206a09120284fb704ddbe4a115ab19316d237b51"
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "size": 2047,
-      "sha256": "5fd616fae3e338d6131ab5a88125bbfd8816d2e8fa1f656e9ba71f53b0c10be5"
+      "size": 2620,
+      "sha256": "ff9ef08acbecfefa22fb266f01b8e64b178c2eaf1e2d7420e7ea78db4c66abc1"
     },
     {
       "path": "docs/images/arquitectura.svg",
@@ -123,8 +133,8 @@
     },
     {
       "path": "docs/quality/SCOPE_1_0.md",
-      "size": 2565,
-      "sha256": "8a9cef4111260ac8381729a30c9f403b4a42045865ffd20281bdd2da45aa9224"
+      "size": 2736,
+      "sha256": "f346ec5e0b700bc23cf4594e8b21bebdc237b9b36aba69c544f04fa85d088240"
     },
     {
       "path": "docs/RELEASE.md",
@@ -163,8 +173,8 @@
     },
     {
       "path": "IMPLEMENTATION_STATUS.md",
-      "size": 2857,
-      "sha256": "74ef4fcaacd1303974b9e2de99ca32528f2f3f7dd8909c68e94f7f4bb819db09"
+      "size": 3025,
+      "sha256": "4ad87e3715743cf8ebaae5440330173ea2299e5df9f3667c7661aa17aeec5a12"
     },
     {
       "path": "integration_test/app_launch_test.dart",
@@ -173,8 +183,8 @@
     },
     {
       "path": "lib/app.dart",
-      "size": 9320,
-      "sha256": "e319d212d3a968317e43625db2786fbea7ae7d9bc3d8d6296343fdc69e00b4fa"
+      "size": 10493,
+      "sha256": "c93385849ad7e7126c81e8d5bbb45704b738aa768a294d2df6f4dc995462f643"
     },
     {
       "path": "lib/bootstrap.dart",
@@ -468,13 +478,13 @@
     },
     {
       "path": "README.md",
-      "size": 13872,
-      "sha256": "d1bdc8a0c9dab01af98a0824f47809234596676b667ca50b606685aa79508027"
+      "size": 14244,
+      "sha256": "26260dc3911425c931cc30620c169f6177ae18e57f7a214d616e256fcbd9300c"
     },
     {
       "path": "RELEASE_SOURCE.json",
       "size": 829,
-      "sha256": "98a1240d492846dcedd4360bdf91ed803500a86cd7333227a751f46ac4bf5abb"
+      "sha256": "f2049472d560b4494661add4a80f21995e22e57ed613d928fc1dab2de626bc7f"
     },
     {
       "path": "test/content_interpreter_test.dart",
@@ -505,6 +515,11 @@
       "path": "test/core/diagnostics_test.dart",
       "size": 765,
       "sha256": "d16e92f42a4fd107b51725077b603d61907b9e17211e3c6c466f3085da8ff3cc"
+    },
+    {
+      "path": "test/core/handheld_frame_test.dart",
+      "size": 1545,
+      "sha256": "57542c96a84425005c2a7c83a974321477869ea739b0507253225b0ebb8bb283"
     },
     {
       "path": "test/core/localization_test.dart",
@@ -643,8 +658,8 @@
     },
     {
       "path": "tool/bootstrap.py",
-      "size": 13306,
-      "sha256": "918a26b580a6efe6c7149cc4f127c805ff34bbfad4ebefcb64a1d217a6749d30"
+      "size": 15340,
+      "sha256": "b59ae5755d338923ef090a3c7d4350dae94b01eb6f6a267cfc43a06ed7ff5e07"
     },
     {
       "path": "tool/bootstrap.sh",
@@ -660,6 +675,11 @@
       "path": "tool/generate_checksums.py",
       "size": 281,
       "sha256": "f7fc53a0a142e0f6c9cf630a14da00f14d775f8327c96697812c060cd5679159"
+    },
+    {
+      "path": "tool/generate_launcher_icons.py",
+      "size": 5967,
+      "sha256": "54d7ce6c02b45f295afc54a6d5b7398809d3ec43f822c8b2597e67c6a7aa67eb"
     },
     {
       "path": "tool/generate_license_inventory.py",
@@ -689,7 +709,7 @@
     {
       "path": "VALIDATION.md",
       "size": 5148,
-      "sha256": "b9f493e272175dd7d359e4fa14d31bab36244f69f266d3c5ae8f21d8cf7df09e"
+      "sha256": "0831fbb67b983ba66c6a3943a1518452a45f92d58e00a7a01d71c73392416a1a"
     }
   ]
 }

@@ -10,7 +10,7 @@
 |---|---|---|
 | Resolución de dependencias | `flutter pub get` | Correcta · `pubspec.lock` generado y versionado |
 | Análisis estático estricto | `flutter analyze --fatal-infos` | **0 hallazgos** |
-| Suite de pruebas | `flutter test` | **45 de 45 en verde** |
+| Suite de pruebas | `flutter test` | **48 de 48 en verde** |
 | Generación de plataformas | `python3 tool/bootstrap.py --platforms android,web` | Correcta · permisos, `minSdk 24`, `FlutterFragmentActivity`, etiqueta y cadena Gradle aplicados |
 | Compilación web | `flutter build web --release` | Compila |
 | Compilación Android | `flutter build apk --debug` · `--release` | Compila · APK release de 87,7 MB |

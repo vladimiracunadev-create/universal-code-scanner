@@ -23,7 +23,10 @@
 - Fronteras de extensión: `ScannerEngine`, `ContentParserRegistry` y
   `FeatureFlags` (todas las capacidades futuras apagadas).
 - Accesibilidad: alto contraste, controles grandes y reducción de movimiento.
-- 45 pruebas unitarias, de widget y de integración, más catálogo de regresión.
+- Icono propio generado por código, aplicado a Android (heredado, adaptativo y
+  monocromo) y a la PWA; interfaz centrada a ancho de teléfono en pantallas
+  grandes.
+- 48 pruebas unitarias, de widget y de integración, más catálogo de regresión.
 - CI para Android, web, iOS y macOS; SBOM, inventario de licencias, checksums,
   Dependabot y documentación de seguridad.
 
