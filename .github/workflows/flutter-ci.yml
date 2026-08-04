@@ -50,7 +50,7 @@ jobs:
         run: flutter build apk --debug
       - name: Checksums
         run: python3 tool/generate_checksums.py build/app/outputs/flutter-apk/app-debug.apk > build/checksums.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: android-web-quality-artifacts
           path: |
