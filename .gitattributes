@@ -1,0 +1,13 @@
+# Keep line endings stable across platforms so the SHA-256 values recorded in
+# SOURCE_MANIFEST.json stay verifiable after a clone on Windows.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.zip binary
+*.ttf binary
+*.otf binary
+
+# Windows-only helper: keep CRLF so PowerShell reads it natively.
+*.ps1 text eol=crlf

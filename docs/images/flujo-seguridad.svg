@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="900" height="470" role="img" aria-label="Flujo desde la captura del código hasta la acción confirmada">
+  <title>Del código a la acción: interpretación, riesgo y confirmación explícita</title>
+  <defs>
+    <style>
+      .t     { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #e8f5f3; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h     { font-size: 13.5px; font-weight: 700; }
+      .item  { font-size: 12px; fill: #dff2ef; }
+      .note  { font-size: 11.5px; fill: #9dc3bf; }
+      .stage { fill: #143c39; stroke: #2f8f88; stroke-width: 1.4; rx: 10; }
+      .risk  { fill: #3a2a16; stroke: #d9a441; stroke-width: 1.6; rx: 10; }
+      .stop  { fill: #3a1d1d; stroke: #d9736b; stroke-width: 1.6; rx: 10; }
+      .safe  { fill: #16352c; stroke: #5fbf7d; stroke-width: 1.6; rx: 10; }
+      .arrow { stroke: #58b3aa; stroke-width: 2; fill: none; marker-end: url(#b); }
+      .gold  { fill: #f0c368; }
+      .green { fill: #8fe0a6; }
+      .red   { fill: #f0a49d; }
+    </style>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#58b3aa"/>
+    </marker>
+  </defs>
+
+  <text class="t title" x="24" y="34">Del código a la acción</text>
+  <text class="t note" x="24" y="54">Ninguna rama ejecuta nada sin confirmación explícita de la persona</text>
+
+  <!-- 1 captura -->
+  <rect class="stage" x="24" y="76" width="180" height="88"/>
+  <text class="t h" x="40" y="100">1 · Captura</text>
+  <text class="t item" x="40" y="120">Cámara · Imágenes</text>
+  <text class="t item" x="40" y="138">PDF (hasta 50 pág.)</text>
+  <text class="t note" x="40" y="155">progreso y cancelación</text>
+
+  <path class="arrow" d="M204 120 L244 120"/>
+
+  <!-- 2 interpretacion -->
+  <rect class="stage" x="248" y="76" width="196" height="88"/>
+  <text class="t h" x="264" y="100">2 · Interpretación</text>
+  <text class="t item" x="264" y="120">ContentParserRegistry</text>
+  <text class="t note" x="264" y="138">Wi-Fi · vCard · OTP · GS1</text>
+  <text class="t note" x="264" y="155">EMVCo · SEPA · AAMVA</text>
+
+  <path class="arrow" d="M444 120 L484 120"/>
+
+  <!-- 3 riesgo -->
+  <rect class="risk" x="488" y="76" width="196" height="88"/>
+  <text class="t h gold" x="504" y="100">3 · Análisis de riesgo</text>
+  <text class="t item" x="504" y="120">16 señales locales</text>
+  <text class="t note" x="504" y="138">Punycode · IP · acortador</text>
+  <text class="t note" x="504" y="155">credenciales · ejecutable</text>
+
+  <path class="arrow" d="M684 120 L724 120"/>
+
+  <!-- 4 presentacion -->
+  <rect class="stage" x="728" y="76" width="148" height="88"/>
+  <text class="t h" x="744" y="100">4 · Explicación</text>
+  <text class="t item" x="744" y="120">Campos legibles</text>
+  <text class="t note" x="744" y="138">dominio, ruta,</text>
+  <text class="t note" x="744" y="155">consulta y motivos</text>
+
+  <path class="arrow" d="M802 168 L802 196 L450 196 L450 216"/>
+
+  <!-- decision -->
+  <rect class="risk" x="330" y="220" width="240" height="52"/>
+  <text class="t h gold" x="352" y="243">5 · Confirmación explícita</text>
+  <text class="t note" x="352" y="261">nada se abre de forma automática</text>
+
+  <path class="arrow" d="M400 276 L280 276 L280 312"/>
+  <path class="arrow" d="M500 276 L640 276 L640 312"/>
+
+  <!-- rama accion -->
+  <rect class="safe" x="150" y="316" width="260" height="98"/>
+  <text class="t h green" x="170" y="340">Acción externa autorizada</text>
+  <text class="t item" x="170" y="360">Abrir enlace · correo · llamada</text>
+  <text class="t item" x="170" y="378">SMS · mapa · compartir</text>
+  <text class="t note" x="170" y="398">solo esquemas permitidos</text>
+
+  <!-- rama bloqueo -->
+  <rect class="stop" x="500" y="316" width="280" height="98"/>
+  <text class="t h red" x="520" y="340">Retenido en la aplicación</text>
+  <text class="t item" x="520" y="360">Esquema no permitido · riesgo alto</text>
+  <text class="t item" x="520" y="378">OTP y Wi-Fi con contraseña</text>
+  <text class="t note" x="520" y="398">fuera del historial automático</text>
+
+  <text class="t note" x="24" y="444">Lo que sí se guarda viaja cifrado: AES-256-GCM con nonce y MAC por registro, llave en el almacén seguro del sistema operativo.</text>
+</svg>

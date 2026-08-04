@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520" role="img" aria-label="Diagrama de capas de Universal Code Scanner">
+  <title>Arquitectura por capas de Universal Code Scanner 1.0.0</title>
+  <defs>
+    <style>
+      .bg     { fill: none; }
+      .layer  { fill: #0f2c2b; stroke: #1f6f6a; stroke-width: 1.5; rx: 10; }
+      .core   { fill: #10322f; stroke: #2f8f88; stroke-width: 1.5; rx: 10; }
+      .box    { fill: #143c39; stroke: #2f8f88; stroke-width: 1.2; rx: 8; }
+      .accent { fill: #16413a; stroke: #d9a441; stroke-width: 1.4; rx: 8; }
+      .t      { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #e8f5f3; }
+      .title  { font-size: 20px; font-weight: 700; }
+      .layerlabel { font-size: 13px; font-weight: 700; fill: #7fd6cd; letter-spacing: .08em; }
+      .item   { font-size: 12.5px; fill: #dff2ef; }
+      .note   { font-size: 11.5px; fill: #9dc3bf; }
+      .gold   { fill: #f0c368; }
+      .arrow  { stroke: #58b3aa; stroke-width: 2; fill: none; marker-end: url(#a); }
+    </style>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#58b3aa"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="900" height="520"/>
+  <text class="t title" x="24" y="34">Universal Code Scanner · arquitectura por capas</text>
+  <text class="t note" x="24" y="54">Cada frontera es sustituible sin tocar el formato persistente</text>
+
+  <!-- features -->
+  <rect class="layer" x="24" y="72" width="852" height="76"/>
+  <text class="t layerlabel" x="40" y="94">FEATURES</text>
+  <rect class="box" x="40" y="102" width="128" height="32"/><text class="t item" x="60" y="123">Escáner</text>
+  <rect class="box" x="180" y="102" width="128" height="32"/><text class="t item" x="198" y="123">Inventario</text>
+  <rect class="box" x="320" y="102" width="128" height="32"/><text class="t item" x="341" y="123">Generador</text>
+  <rect class="box" x="460" y="102" width="128" height="32"/><text class="t item" x="483" y="123">Historial</text>
+  <rect class="box" x="600" y="102" width="128" height="32"/><text class="t item" x="622" y="123">Ajustes</text>
+  <rect class="accent" x="740" y="102" width="120" height="32"/><text class="t item gold" x="752" y="123">Recuperación</text>
+
+  <path class="arrow" d="M450 152 L450 176"/>
+
+  <!-- state -->
+  <rect class="layer" x="24" y="180" width="852" height="66"/>
+  <text class="t layerlabel" x="40" y="202">STATE · ChangeNotifier</text>
+  <rect class="box" x="40" y="208" width="180" height="30"/><text class="t item" x="72" y="228">ScanStore</text>
+  <rect class="box" x="236" y="208" width="180" height="30"/><text class="t item" x="262" y="228">InventoryStore</text>
+  <rect class="box" x="432" y="208" width="180" height="30"/><text class="t item" x="462" y="228">SettingsStore</text>
+  <text class="t note" x="632" y="228">La UI nunca confirma antes de persistir</text>
+
+  <path class="arrow" d="M450 250 L450 274"/>
+
+  <!-- domain / services -->
+  <rect class="layer" x="24" y="278" width="852" height="82"/>
+  <text class="t layerlabel" x="40" y="300">SERVICES · fronteras de extensión</text>
+  <rect class="accent" x="40" y="308" width="196" height="38"/>
+  <text class="t item gold" x="56" y="325">ScannerEngine</text><text class="t note" x="56" y="340">mobile_scanner aislado</text>
+  <rect class="accent" x="252" y="308" width="216" height="38"/>
+  <text class="t item gold" x="268" y="325">ContentParserRegistry</text><text class="t note" x="268" y="340">parsers por prioridad</text>
+  <rect class="box" x="484" y="308" width="180" height="38"/>
+  <text class="t item" x="500" y="325">Import / Export</text><text class="t note" x="500" y="340">JSON · CSV · XLSX</text>
+  <rect class="accent" x="680" y="308" width="180" height="38"/>
+  <text class="t item gold" x="696" y="325">FeatureFlags</text><text class="t note" x="696" y="340">apagadas por defecto</text>
+
+  <path class="arrow" d="M450 364 L450 388"/>
+
+  <!-- core -->
+  <rect class="core" x="24" y="392" width="852" height="104"/>
+  <text class="t layerlabel" x="40" y="414">CORE · infraestructura transversal</text>
+  <rect class="box" x="40" y="422" width="196" height="56"/>
+  <text class="t item" x="56" y="442">PayloadCipher</text><text class="t note" x="56" y="459">AES-256-GCM · nonce+MAC</text>
+  <rect class="box" x="252" y="422" width="196" height="56"/>
+  <text class="t item" x="268" y="442">AppDatabase</text><text class="t note" x="268" y="459">Sembast · IndexedDB · memoria</text>
+  <rect class="box" x="464" y="422" width="196" height="56"/>
+  <text class="t item" x="480" y="442">SchemaMigrator</text><text class="t note" x="480" y="459">idempotente · transaccional</text>
+  <rect class="box" x="676" y="422" width="184" height="56"/>
+  <text class="t item" x="692" y="442">SecureStorage</text><text class="t note" x="692" y="459">Keychain · Keystore</text>
+</svg>

@@ -1,0 +1,86 @@
+name: Flutter quality and compatibility
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_VERSION: 3.44.7
+
+jobs:
+  quality:
+    name: Analyze, test and build (Android + web)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Python tooling
+        run: python3 -m pip install --upgrade pyyaml
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Offline structure checks
+        run: python3 tool/validate_structure.py --require-lock
+      - name: Generate Android and web projects
+        run: python3 tool/bootstrap.py --platforms android,web
+      - name: Verify dependency resolution
+        run: |
+          test -f pubspec.lock
+          flutter pub deps --style=compact
+      - name: Analyze
+        run: flutter analyze --fatal-infos
+      - name: Unit and widget tests
+        run: flutter test --coverage
+      - name: Generate SBOM and license inventory
+        run: |
+          python3 tool/generate_sbom.py
+          python3 tool/generate_license_inventory.py
+      - name: Build web
+        run: flutter build web --release
+      - name: Build Android debug APK
+        run: flutter build apk --debug
+      - name: Checksums
+        run: python3 tool/generate_checksums.py build/app/outputs/flutter-apk/app-debug.apk > build/checksums.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-web-quality-artifacts
+          path: |
+            build/app/outputs/flutter-apk/app-debug.apk
+            build/web
+            build/reports/sbom.cdx.json
+            build/reports/dependency-licenses.json
+            build/checksums.txt
+            coverage/lcov.info
+            pubspec.lock
+            test_assets/manifest.json
+
+  apple:
+    name: Build (iOS + macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Generate Apple projects
+        run: python3 tool/bootstrap.py --platforms ios,macos
+      - name: Build iOS without signing
+        run: flutter build ios --release --no-codesign
+      - name: Build macOS
+        run: flutter build macos --release
+      - name: Integration startup test on macOS
+        run: flutter test integration_test/app_launch_test.dart -d macos

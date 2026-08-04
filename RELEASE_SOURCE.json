@@ -1,0 +1,32 @@
+{
+  "application": "Universal Code Scanner",
+  "version": "1.0.0+1",
+  "releaseType": "initial-public-release",
+  "toolchain": {
+    "flutter": "3.44.7",
+    "dart": "3.12.2"
+  },
+  "sourceValidation": {
+    "offlineStructure": true,
+    "yaml": true,
+    "internalImports": true,
+    "testAssetManifest": true,
+    "sourceSbom": true
+  },
+  "runtimeValidation": {
+    "dependenciesResolved": true,
+    "pubspecLockGenerated": true,
+    "staticAnalysisFatalInfos": true,
+    "unitAndWidgetTests": "42/42",
+    "webReleaseBuild": true,
+    "androidBuild": "ci-only",
+    "appleBuild": "ci-only",
+    "physicalDeviceTestsExecuted": false
+  },
+  "excluded": [
+    "store-signing",
+    "store-publication",
+    "native-windows-engine",
+    "native-linux-engine"
+  ]
+}

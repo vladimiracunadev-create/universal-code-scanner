@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "file": "qr/url_https.png",
+      "expectedPayload": "https://example.com/product?id=42",
+      "format": "QR_CODE",
+      "scenario": "qr"
+    },
+    {
+      "file": "qr/wifi.png",
+      "expectedPayload": "WIFI:T:WPA;S:Laboratorio;P:Clave-Segura-2026;;",
+      "format": "QR_CODE",
+      "scenario": "qr"
+    },
+    {
+      "file": "qr/vcard.png",
+      "expectedPayload": "BEGIN:VCARD\nVERSION:3.0\nFN:Ada Lovelace\nTEL:+56911111111\nEMAIL:ada@example.com\nEND:VCARD",
+      "format": "QR_CODE",
+      "scenario": "qr"
+    },
+    {
+      "file": "gs1/gs1_text.png",
+      "expectedPayload": "(01)09501101530003(17)271231(10)LOTE42",
+      "format": "QR_CODE",
+      "scenario": "gs1"
+    },
+    {
+      "file": "damaged/url_partially_damaged.png",
+      "expectedPayload": "https://example.com/product?id=42",
+      "format": "QR_CODE",
+      "scenario": "damaged"
+    },
+    {
+      "file": "low_light/wifi_low_light.png",
+      "expectedPayload": "WIFI:T:WPA;S:Laboratorio;P:Clave-Segura-2026;;",
+      "format": "QR_CODE",
+      "scenario": "low_light"
+    },
+    {
+      "file": "multiple_codes/url_and_vcard.png",
+      "expectedPayloads": [
+        "https://example.com/product?id=42",
+        "BEGIN:VCARD\nVERSION:3.0\nFN:Ada Lovelace\nTEL:+56911111111\nEMAIL:ada@example.com\nEND:VCARD"
+      ],
+      "format": "QR_CODE",
+      "scenario": "multiple_codes"
+    },
+    {
+      "file": "curved/url_warped.png",
+      "expectedPayload": "https://example.com/product?id=42",
+      "format": "QR_CODE",
+      "scenario": "curved_simulation"
+    }
+  ]
+}

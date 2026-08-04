@@ -1,0 +1,260 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "universal_code_scanner",
+      "version": "1.0.0+1"
+    },
+    "properties": [
+      {
+        "name": "ucs:completeness",
+        "value": "declared-direct-only"
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "barcode_widget",
+      "version": "2.0.4",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "cross_file",
+      "version": "0.3.5+4",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "crypto",
+      "version": "3.0.7",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "cryptography",
+      "version": "2.9.0",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "cupertino_icons",
+      "version": "1.0.8",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "excel",
+      "version": "4.0.6",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "file_picker",
+      "version": "11.0.3",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "flutter_secure_storage",
+      "version": "10.3.1",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "image_picker",
+      "version": "1.2.3",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "local_auth",
+      "version": "3.0.2",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "mobile_scanner",
+      "version": "7.4.0",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "path_provider",
+      "version": "2.1.6",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pdfrx",
+      "version": "2.4.5",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "sembast",
+      "version": "3.8.9+1",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "sembast_web",
+      "version": "2.4.5+1",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "share_plus",
+      "version": "12.0.2",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "shared_preferences",
+      "version": "2.5.5",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "url_launcher",
+      "version": "6.3.2",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "flutter_lints",
+      "version": "6.0.0",
+      "scope": "optional",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "shared_preferences_platform_interface",
+      "version": "2.4.2",
+      "scope": "optional",
+      "properties": [
+        {
+          "name": "ucs:resolution",
+          "value": "declared-only"
+        }
+      ]
+    }
+  ]
+}
