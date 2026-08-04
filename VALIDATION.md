@@ -68,7 +68,7 @@ detectó y corrigió lo siguiente:
 
 | Pendiente | Motivo | Dónde se cubre |
 |---|---|---|
-| `flutter build appbundle` | Requiere firma, fuera del alcance de 1.0.0 | [`docs/RELEASE.md`](docs/RELEASE.md) |
+| `flutter build appbundle` y firma de publicación | Fuera del alcance de 1.0.0; los APK publicados usan la clave de depuración | [`docs/RELEASE.md`](docs/RELEASE.md) |
 | Ejecución en iOS y macOS | Requiere hardware Apple | Solo se verifica la compilación, en la CI |
 | Prueba de integración de arranque | Los runners de GitHub no tienen sesión gráfica | Ejecutar en local: `flutter test integration_test/app_launch_test.dart -d macos` |
 | Cámara real, biometría, PDF grandes, TalkBack y VoiceOver | Requieren hardware físico | [`docs/quality/DEVICE_TEST_MATRIX.md`](docs/quality/DEVICE_TEST_MATRIX.md) |

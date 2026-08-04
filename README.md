@@ -28,7 +28,7 @@
 [![Analyzer](https://img.shields.io/badge/analyze%20--fatal--infos-0%20issues-brightgreen.svg)](VALIDATION.md)
 [![Telemetría](https://img.shields.io/badge/telemetr%C3%ADa-cero-success.svg)](docs/PRIVACY_POLICY.md)
 
-📘 **[Arquitectura →](docs/ARCHITECTURE.md)** · 🔐 **[Seguridad →](docs/SECURITY.md)** · 🧾 **[Formatos →](docs/SUPPORTED_FORMATS.md)** · ✅ **[Validación real →](VALIDATION.md)**
+📲 **[Descargar APK para Android →](https://github.com/vladimiracunadev-create/universal-code-scanner/releases/latest)** · 📘 **[Arquitectura →](docs/ARCHITECTURE.md)** · 🔐 **[Seguridad →](docs/SECURITY.md)** · 🧾 **[Formatos →](docs/SUPPORTED_FORMATS.md)** · ✅ **[Validación real →](VALIDATION.md)**
 
 ---
 
@@ -67,6 +67,32 @@ repositorio contiene únicamente fuente propia.
 
 En pantallas anchas —navegador de escritorio o tablet— la interfaz se centra con
 un ancho máximo de teléfono en lugar de estirarse de borde a borde.
+
+---
+
+## 📲 Instalar en Android
+
+Los APK de cada versión están en
+[Releases](https://github.com/vladimiracunadev-create/universal-code-scanner/releases/latest).
+Descarga el que corresponda a tu teléfono:
+
+| Archivo | Para quién | Tamaño aproximado |
+|---|---|---|
+| `app-arm64-v8a-release.apk` | **Prácticamente cualquier móvil actual** | ~32 MB |
+| `app-armeabi-v7a-release.apk` | Móviles antiguos de 32 bits | ~30 MB |
+| `app-x86_64-release.apk` | Emuladores y equipos x86 | ~34 MB |
+| `app-release.apk` | Universal: funciona en todos, pesa el triple | ~92 MB |
+
+Android pedirá permiso para instalar desde una fuente desconocida; es el flujo
+normal de cualquier APK que no venga de una tienda. Cada archivo publica su
+SHA-256 para que puedas verificar la descarga.
+
+> [!IMPORTANT]
+> Estos APK están firmados con la **clave de depuración** de Android
+> (`CN=Android Debug`), porque 1.0.0 no incluye firma de publicación. Sirven
+> para instalar y probar. **No** sirven para subir a Google Play, y una versión
+> futura firmada con una clave propia no podrá actualizarlos: habrá que
+> desinstalar antes.
 
 ---
 
@@ -250,8 +276,10 @@ esta versión no ha sido probada en dispositivos físicos, y esa matriz vive en
 
 Esta versión prefiere decir lo que no hace antes que insinuar que lo hace:
 
-- **No hay firma ni publicación en tiendas.** No se incluyen certificados,
-  fichas, capturas comerciales, AAB ni IPA.
+- **No hay firma de publicación ni tiendas.** Los APK publicados van firmados
+  con la clave de depuración de Android: sirven para instalar y probar, no para
+  Google Play. No se incluyen certificados propios, fichas, capturas
+  comerciales, AAB ni IPA.
 - **No hay pruebas en dispositivos físicos.** Cámara real, biometría, PDF
   grandes, TalkBack y VoiceOver siguen pendientes.
 - **No hay motor nativo para Windows ni Linux.** Se cubren mediante la PWA.

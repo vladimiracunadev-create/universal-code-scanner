@@ -43,8 +43,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 4887,
-      "sha256": "5d8316210af79cae617eb1f6206a09120284fb704ddbe4a115ab19316d237b51"
+      "size": 5183,
+      "sha256": "2e8cf464caf9524d038d681cd370461a141e404855efb2077402b140b02744d5"
     },
     {
       "path": "docs/ARCHITECTURE.md",
@@ -478,8 +478,8 @@
     },
     {
       "path": "README.md",
-      "size": 14244,
-      "sha256": "26260dc3911425c931cc30620c169f6177ae18e57f7a214d616e256fcbd9300c"
+      "size": 15627,
+      "sha256": "a71dd04c68ec9d0b2177e21877cd5eb3b9009d750d74252fbb26f2821e9ab19d"
     },
     {
       "path": "RELEASE_SOURCE.json",
@@ -708,8 +708,8 @@
     },
     {
       "path": "VALIDATION.md",
-      "size": 5148,
-      "sha256": "0831fbb67b983ba66c6a3943a1518452a45f92d58e00a7a01d71c73392416a1a"
+      "size": 5205,
+      "sha256": "12f30523290b173408213bdea090e61166edb241be38fec4ff0d0560686b56e3"
     }
   ]
 }

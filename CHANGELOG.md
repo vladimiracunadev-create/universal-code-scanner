@@ -91,9 +91,16 @@ hallazgos y 48 pruebas en verde).
   checksums, Dependabot, modelo de amenazas y lista MASVS.
 - CI para Android, web, iOS y macOS sobre Flutter 3.44.7.
 
+### Distribución
+
+- APK de Android publicados en Releases: uno por arquitectura (`arm64-v8a`,
+  `armeabi-v7a`, `x86_64`) y uno universal, cada uno con su SHA-256.
+
 ### Fuera del alcance de 1.0.0
 
-- Firma de artefactos y publicación en Google Play o App Store.
+- Firma de publicación: los APK van firmados con la clave de depuración de
+  Android, así que sirven para instalar y probar pero no para las tiendas.
+- Publicación en Google Play o App Store.
 - Windows y Linux nativos: se cubren mediante la PWA.
 - OCR, NFC, reputación remota de URLs, consulta de productos, sincronización y
   funciones empresariales permanecen apagadas en `FeatureFlags`.
