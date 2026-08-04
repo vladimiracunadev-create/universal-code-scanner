@@ -2,6 +2,7 @@
   <title>Del código a la acción: interpretación, riesgo y confirmación explícita</title>
   <defs>
     <style>
+      .bg    { fill: #08201f; }
       .t     { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #e8f5f3; }
       .title { font-size: 20px; font-weight: 700; }
       .h     { font-size: 13.5px; font-weight: 700; }
@@ -21,6 +22,7 @@
     </marker>
   </defs>
 
+  <rect class="bg" width="900" height="470" rx="14"/>
   <text class="t title" x="24" y="34">Del código a la acción</text>
   <text class="t note" x="24" y="54">Ninguna rama ejecuta nada sin confirmación explícita de la persona</text>
 

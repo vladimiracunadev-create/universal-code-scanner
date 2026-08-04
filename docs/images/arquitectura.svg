@@ -2,7 +2,7 @@
   <title>Arquitectura por capas de Universal Code Scanner 1.0.0</title>
   <defs>
     <style>
-      .bg     { fill: none; }
+      .bg     { fill: #08201f; }
       .layer  { fill: #0f2c2b; stroke: #1f6f6a; stroke-width: 1.5; rx: 10; }
       .core   { fill: #10322f; stroke: #2f8f88; stroke-width: 1.5; rx: 10; }
       .box    { fill: #143c39; stroke: #2f8f88; stroke-width: 1.2; rx: 8; }
@@ -20,7 +20,7 @@
     </marker>
   </defs>
 
-  <rect class="bg" width="900" height="520"/>
+  <rect class="bg" width="900" height="520" rx="14"/>
   <text class="t title" x="24" y="34">Universal Code Scanner · arquitectura por capas</text>
   <text class="t note" x="24" y="54">Cada frontera es sustituible sin tocar el formato persistente</text>
 

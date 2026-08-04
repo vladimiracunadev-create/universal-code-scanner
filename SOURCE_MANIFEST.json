@@ -13,8 +13,8 @@
     },
     {
       "path": ".github/dependabot.yml",
-      "size": 226,
-      "sha256": "ad614e7d2f7729fea75dc8e880e6e24e471817136e6f40b803f4d287e03f994c"
+      "size": 746,
+      "sha256": "e6ef22ca0486a7c18f5733085214bf2efb7ca390c950ba4f67f9cf65e0b81430"
     },
     {
       "path": ".github/workflows/flutter-ci.yml",
@@ -43,13 +43,13 @@
     },
     {
       "path": "docs/images/arquitectura.svg",
-      "size": 4970,
-      "sha256": "190f8b6fc039205af4aff1c97850104cbaae6c25c8e3749cd66ef42bac59d5a9"
+      "size": 4981,
+      "sha256": "1cadeca7e42ed19c09d0d357e8638d78592a9459745484860120cd223f3098f4"
     },
     {
       "path": "docs/images/flujo-seguridad.svg",
-      "size": 4401,
-      "sha256": "d2974234c2befb7374783d3d8c80c6f40fe900d7d36192b49350c564e87bec9b"
+      "size": 4487,
+      "sha256": "fc07d9df62345283c9b8eea0f684f4920a2d16d2b7ba6ccfda649bbbbdfbbcc5"
     },
     {
       "path": "docs/PRIVACY_POLICY.md",

@@ -5,6 +5,17 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    # These upper bounds are deliberate: crossing them breaks dependency
+    # resolution outright. See docs/quality/LOCKFILE.md before lifting them.
+    ignore:
+      # share_plus >= 13.0.0 requires win32 ^6, incompatible with the win32 ^5.9
+      # required by file_picker 11.x.
+      - dependency-name: share_plus
+        versions: [">=13.0.0"]
+      # pdfrx >= 2.4.6 pulls archive ^4, incompatible with the archive ^3.6.1
+      # required by excel 4.0.6.
+      - dependency-name: pdfrx
+        versions: [">=2.4.6"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
