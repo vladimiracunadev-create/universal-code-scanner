@@ -17,8 +17,10 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def resolved_components() -> tuple[list[dict[str, object]], str]:
-    raw = subprocess.check_output(["flutter", "pub", "deps", "--json"], cwd=ROOT, text=True)
+def resolved_components(flutter: str) -> tuple[list[dict[str, object]], str]:
+    # The executable is passed already resolved: on Windows the entry point is
+    # `flutter.bat`, and CreateProcess does not apply PATHEXT to a bare name.
+    raw = subprocess.check_output([flutter, "pub", "deps", "--json"], cwd=ROOT, text=True)
     data = json.loads(raw)
     components: list[dict[str, object]] = []
     for package in data.get("packages", []):
@@ -61,8 +63,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default="build/reports/sbom.cdx.json")
     args = parser.parse_args()
-    if shutil.which("flutter"):
-        components, completeness = resolved_components()
+    flutter = shutil.which("flutter")
+    if flutter:
+        components, completeness = resolved_components(flutter)
     else:
         components, completeness = declared_components()
     output = {

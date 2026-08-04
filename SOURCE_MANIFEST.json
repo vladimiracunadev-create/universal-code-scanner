@@ -19,7 +19,7 @@
     {
       "path": ".github/workflows/flutter-ci.yml",
       "size": 2915,
-      "sha256": "af7829f8a2e901bb71894201c428b126f0e62be3dfc0dbeca0727b448bc858bb"
+      "sha256": "3de5d2aaf94fa837c5ac6e923394fead73f9ef30eacff0b97ba2f54f664cf693"
     },
     {
       "path": ".gitignore",
@@ -149,7 +149,7 @@
     {
       "path": "docs/security/sbom-source.cdx.json",
       "size": 5220,
-      "sha256": "815a811d30efce345ef092b3025579cf74a78750d0dffb23d4d2caf6c953b5b6"
+      "sha256": "259446e2d67915e31d0dff7596032809098dc45158f6503077caa3a664c8ed3e"
     },
     {
       "path": "docs/security/SECURITY_TEST_PLAN.md",
@@ -468,13 +468,13 @@
     },
     {
       "path": "pubspec.lock",
-      "size": 30722,
-      "sha256": "b3ccd53075f17370bed00f936eacf9d90c2a2798e4001a26dc17e6b7fb49dd11"
+      "size": 30724,
+      "sha256": "327529ee4506f7a494bf041406f1e24f0448b2ddeb91acec11fd69146c454d40"
     },
     {
       "path": "pubspec.yaml",
       "size": 894,
-      "sha256": "ee399ffdc352f5d7e287ce9c5316b3259a413f120559d05d3ff480237e0bb6f7"
+      "sha256": "1e94b0b5d6d6aabcce96261516424780c48dc447a6284600cd93ec3c469ccbc3"
     },
     {
       "path": "README.md",
@@ -688,8 +688,8 @@
     },
     {
       "path": "tool/generate_sbom.py",
-      "size": 2951,
-      "sha256": "9d3ab9dee52436a972bb2d57ba2ac66d7cbde98585e69eae9cefa417a64835af"
+      "size": 3147,
+      "sha256": "6a1f7dfa162b785dc12c899713c128cb8a4c8e89c3af3ac7310b3fc72b411e9b"
     },
     {
       "path": "tool/generate_source_manifest.py",
