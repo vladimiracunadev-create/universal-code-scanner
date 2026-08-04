@@ -19,7 +19,9 @@
     "staticAnalysisFatalInfos": true,
     "unitAndWidgetTests": "45/45",
     "webReleaseBuild": true,
-    "androidBuild": "ci-only",
+    "androidBuild": true,
+    "androidReleaseApk": "87.7MB",
+    "androidEmulatorLaunch": true,
     "appleBuild": "ci-only",
     "physicalDeviceTestsExecuted": false
   },

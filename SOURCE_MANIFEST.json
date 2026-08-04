@@ -473,8 +473,8 @@
     },
     {
       "path": "RELEASE_SOURCE.json",
-      "size": 764,
-      "sha256": "83bd803dc51d3482d0378ee4ddba0be67c0b24b57c29c2629b4206bf9d382bf8"
+      "size": 829,
+      "sha256": "98a1240d492846dcedd4360bdf91ed803500a86cd7333227a751f46ac4bf5abb"
     },
     {
       "path": "test/content_interpreter_test.dart",
@@ -688,8 +688,8 @@
     },
     {
       "path": "VALIDATION.md",
-      "size": 3462,
-      "sha256": "f740c41354a8ce537ddc0021838f48c399c4c224aea103fec4fac3f3234b0970"
+      "size": 5148,
+      "sha256": "b9f493e272175dd7d359e4fa14d31bab36244f69f266d3c5ae8f21d8cf7df09e"
     }
   ]
 }

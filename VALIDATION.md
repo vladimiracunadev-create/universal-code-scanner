@@ -11,9 +11,14 @@
 | Resolución de dependencias | `flutter pub get` | Correcta · `pubspec.lock` generado y versionado |
 | Análisis estático estricto | `flutter analyze --fatal-infos` | **0 hallazgos** |
 | Suite de pruebas | `flutter test` | **45 de 45 en verde** |
-| Generación de plataformas | `python3 tool/bootstrap.py --platforms android,web` | Correcta · permisos, `minSdk 24`, `FlutterFragmentActivity` y etiqueta aplicados |
+| Generación de plataformas | `python3 tool/bootstrap.py --platforms android,web` | Correcta · permisos, `minSdk 24`, `FlutterFragmentActivity`, etiqueta y cadena Gradle aplicados |
 | Compilación web | `flutter build web --release` | Compila |
-| Validación estructural | `python3 tool/validate_structure.py` | Sin errores |
+| Compilación Android | `flutter build apk --debug` · `--release` | Compila · APK release de 87,7 MB |
+| Ejecución en Android | Instalación y arranque en emulador API 36 | Arranca, la cámara transmite y las cinco pestañas responden |
+| Validación estructural | `python3 tool/validate_structure.py --require-lock` | Sin errores |
+
+Además, la CI de GitHub completa ambos trabajos en verde: análisis, pruebas,
+SBOM, compilación web, **APK de Android**, iOS sin firma y macOS.
 
 ## Defectos corregidos durante esta validación
 
@@ -44,17 +49,33 @@ detectó y corrigió lo siguiente:
    incluía. Reescrito el aviso.
 8. **Versión de aplicación fija en el SBOM.** `tool/generate_sbom.py` la
    escribía a mano; ahora la lee de `pubspec.yaml`.
+9. **Android no compilaba.** `flutter build apk` fallaba con
+   `cannot find symbol: class FilePickerPlugin`. La plantilla de Flutter 3.44.7
+   genera AGP 9 —cuyo valor por defecto es el Kotlin integrado— pero entrega
+   `android.builtInKotlin=false`; varios plugins dejan de aplicar el Kotlin
+   Gradle Plugin al detectar AGP 9, así que nadie compila su código Kotlin.
+   `tool/bootstrap.py` fija ahora AGP 8.11.1, Kotlin 2.2.20 y Gradle 8.14.3.
+10. **Interfaz a medio traducir.** En un dispositivo configurado en inglés la
+    aplicación mostraba la navegación traducida sobre contenido en español,
+    porque solo las nueve cadenas de navegación existen en `AppLocalizations`.
+    La versión 1.0.0 expone únicamente español; las claves en inglés se
+    conservan para cuando todas las pantallas lean sus cadenas de esa clase.
+11. **Validador estructural inservible tras `pub get`.** Recorría `.dart_tool`
+    y fallaba al encontrar rutas absolutas del entorno. Ahora excluye los
+    directorios generados, igual que el manifiesto de fuente.
 
 ## No ejecutado en este entorno
 
 | Pendiente | Motivo | Dónde se cubre |
 |---|---|---|
-| `flutter build apk` · `appbundle` | Sin Android SDK instalado | Trabajo `quality` de la CI |
-| `flutter build ios` · `macos` | Requiere macOS | Trabajo `apple` de la CI |
-| Prueba de integración de arranque | Requiere dispositivo o escritorio destino | Trabajo `apple` de la CI |
-| Cámara, biometría, PDF grandes, TalkBack y VoiceOver | Requieren hardware real | [`docs/quality/DEVICE_TEST_MATRIX.md`](docs/quality/DEVICE_TEST_MATRIX.md) |
+| `flutter build appbundle` | Requiere firma, fuera del alcance de 1.0.0 | [`docs/RELEASE.md`](docs/RELEASE.md) |
+| Ejecución en iOS y macOS | Requiere hardware Apple | Solo se verifica la compilación, en la CI |
+| Prueba de integración de arranque | Los runners de GitHub no tienen sesión gráfica | Ejecutar en local: `flutter test integration_test/app_launch_test.dart -d macos` |
+| Cámara real, biometría, PDF grandes, TalkBack y VoiceOver | Requieren hardware físico | [`docs/quality/DEVICE_TEST_MATRIX.md`](docs/quality/DEVICE_TEST_MATRIX.md) |
 | Compatibilidad XLSX con Excel, LibreOffice y Google Sheets | Requiere las aplicaciones destino | Matriz de dispositivos |
 
 Las comprobaciones ejecutadas demuestran que el proyecto **resuelve, analiza,
-prueba y compila**. No sustituyen la validación en dispositivos físicos, que
-sigue declarada como pendiente en [`IMPLEMENTATION_STATUS.md`](IMPLEMENTATION_STATUS.md).
+prueba, compila y arranca**. No sustituyen la validación en dispositivos
+físicos, que sigue declarada como pendiente en
+[`IMPLEMENTATION_STATUS.md`](IMPLEMENTATION_STATUS.md): un emulador no reproduce
+cámaras reales, sensores biométricos ni presión de memoria.
