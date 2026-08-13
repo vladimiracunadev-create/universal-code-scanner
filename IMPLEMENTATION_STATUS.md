@@ -1,9 +1,14 @@
-# Estado de implementación · 1.0.0
+# Estado de implementación · 1.1.0
 
 ## Presente en el código fuente y verificado
 
 - Escáner de cámara con marco, zoom, enfoque por toque, linterna, cambio de
   cámara y lectura de varios códigos simultáneos.
+- Estado del escáner siempre visible: barra que solo se mueve mientras el motor
+  analiza cuadros, línea que recorre el marco, botón «Escanear»/«Pausar»,
+  reinicio de cámara y mensaje concreto cuando falta el permiso.
+- Confirmación de lectura con tono propio empaquetado y vibración, cada uno con
+  su ajuste independiente.
 - Lotes de hasta 20 imágenes y 50 páginas de PDF, con progreso y cancelación.
 - Interpretación de URL, texto, binario, Wi-Fi, vCard, MeCard, vEvent, correo,
   teléfono, SMS, geo, OTP, GS1, ISBN, producto, EMVCo, EPC/SEPA, Swiss QR,
@@ -26,7 +31,7 @@
 - Icono propio generado por código, aplicado a Android (heredado, adaptativo y
   monocromo) y a la PWA; interfaz centrada a ancho de teléfono en pantallas
   grandes.
-- 48 pruebas unitarias, de widget y de integración, más catálogo de regresión.
+- 57 pruebas unitarias, de widget y de integración, más catálogo de regresión.
 - CI para Android, web, iOS y macOS; SBOM, inventario de licencias, checksums,
   Dependabot y documentación de seguridad.
 
@@ -43,12 +48,14 @@
 ## Requiere dispositivos reales
 
 - Cámara, enfoque, poca luz, códigos curvos o dañados y varios modelos.
+- Lectura tras las correcciones de 1.1.0: es el reporte de un teléfono real el
+  que originó esos arreglos y solo un teléfono real puede cerrarlos.
 - Biometría, Keychain/Keystore, reinstalación y regreso desde segundo plano.
 - PDF grandes y medición de memoria.
 - TalkBack, VoiceOver y navegación por teclado.
 - Compatibilidad de XLSX con Excel, LibreOffice y Google Sheets.
 
-## Fuera del alcance de 1.0.0
+## Fuera del alcance de 1.1.0
 
 - Firma de artefactos, cuentas de desarrollador, fichas, capturas comerciales,
   AAB/IPA y despliegue en tiendas.

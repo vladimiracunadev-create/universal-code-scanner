@@ -1,7 +1,7 @@
 # Lista de publicación
 
 Esta lista describe lo necesario para llevar la aplicación a las tiendas. **No
-forma parte del alcance de 1.0.0**, que se publica como código fuente verificado
+forma parte del alcance de 1.1.0**, que se publica como código fuente verificado
 sin firma ni artefactos distribuibles. El estado real de verificación de la
 versión actual está en [`../VALIDATION.md`](../VALIDATION.md).
 

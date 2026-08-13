@@ -15,7 +15,7 @@
 ║   ╚═════╝ ╚═╝  ╚═══╝╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝          ║
 ║                                                                                   ║
 ║                        C O D E   S C A N N E R                                    ║
-║          Lector · intérprete · inventario · generador  ·  Flutter · v1.0.0        ║
+║          Lector · intérprete · inventario · generador  ·  Flutter · v1.1.0        ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
 ```
 
@@ -23,8 +23,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Flutter](https://img.shields.io/badge/Flutter-3.44.7-02569B.svg?logo=flutter)](.fvmrc)
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20macOS%20%7C%20Web-lightgrey.svg)](#-plataformas)
-[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](CHANGELOG.md)
-[![Tests](https://img.shields.io/badge/tests-48%20passing-brightgreen.svg)](VALIDATION.md)
+[![Version](https://img.shields.io/badge/version-1.1.0-green.svg)](CHANGELOG.md)
+[![Tests](https://img.shields.io/badge/tests-57%20passing-brightgreen.svg)](VALIDATION.md)
 [![Analyzer](https://img.shields.io/badge/analyze%20--fatal--infos-0%20issues-brightgreen.svg)](VALIDATION.md)
 [![Telemetría](https://img.shields.io/badge/telemetr%C3%ADa-cero-success.svg)](docs/PRIVACY_POLICY.md)
 
@@ -52,13 +52,13 @@ operativo.
 
 ## 📱 Plataformas
 
-| Plataforma | Estado en 1.0.0 | Notas |
+| Plataforma | Estado en 1.1.0 | Notas |
 |---|---|---|
 | **Android** (API 24+) | **APK compilado y ejecutado** en emulador | Motor ML Kit vía `mobile_scanner` |
 | **iOS** (15.5+) | Compila en CI (`--no-codesign`) | Motor Apple Vision · sin ejecución verificada |
 | **macOS** | Compila en CI | Cámara y galería · sin ejecución verificada |
 | **Web / PWA** | **Compila y se ejecuta** (release) | Sin lectura de PDF local |
-| **Windows · Linux** | Vía PWA | Sin motor nativo en 1.0.0 |
+| **Windows · Linux** | Vía PWA | Sin motor nativo en 1.1.0 |
 
 Las carpetas nativas **no se versionan**: se generan de forma reproducible con
 `tool/bootstrap.py`, que además aplica permisos, `minSdk`, entitlements,
@@ -89,7 +89,7 @@ SHA-256 para que puedas verificar la descarga.
 
 > [!IMPORTANT]
 > Estos APK están firmados con la **clave de depuración** de Android
-> (`CN=Android Debug`), porque 1.0.0 no incluye firma de publicación. Sirven
+> (`CN=Android Debug`), porque 1.1.0 no incluye firma de publicación. Sirven
 > para instalar y probar. **No** sirven para subir a Google Play, y una versión
 > futura firmada con una clave propia no podrá actualizarlos: habrá que
 > desinstalar antes.
@@ -134,6 +134,32 @@ completa está en `tool/run_quality_gate.sh` y la de publicación en
 | ¿Queda mi historial expuesto? | Cifrado AES-256-GCM en disco; OTP y Wi-Fi con contraseña nunca se guardan solos |
 | ¿Qué pasa si la base se corrompe? | Modo temporal en memoria + Centro de recuperación por registro |
 | ¿Necesito generar un código? | Generador PNG/SVG de 10 simbologías |
+| ¿Está escaneando ahora mismo? | Barra de estado permanente: solo se mueve mientras el motor analiza cuadros |
+
+---
+
+## 🎯 Cómo se comporta el escáner
+
+La lectura es **automática**: no hay que pulsar nada para leer un código. Lo que
+sí está siempre a la vista es en qué estado se encuentra la cámara, porque una
+cámara que no arranca no puede parecerse a una cámara esperando un código.
+
+| Estado | Qué se ve | Qué se ofrece |
+|---|---|---|
+| Iniciando cámara | Barra en movimiento | — |
+| Escaneando | Barra en movimiento y línea que recorre el marco | Botón «Pausar» |
+| Escaneo en pausa | Barra detenida y vista atenuada | «Reanudar escaneo», o tocar la vista |
+| Cámara no disponible | Barra en color de error y motivo concreto | «Reintentar» y «Reiniciar cámara» |
+
+Cada lectura conseguida suena con un **tono propio empaquetado en la
+aplicación** —no con el efecto de sonido del sistema, que Android silencia en
+cuanto se apagan los sonidos táctiles— y vibra. Sonido y vibración son dos
+ajustes independientes, y con movimiento reducido activado la barra y el marco se
+dibujan quietos.
+
+Detalle por estado, causas del fallo corregido en 1.1.0 y comparación con las
+convenciones de otros lectores en
+[`docs/quality/SCANNER_UX.md`](docs/quality/SCANNER_UX.md).
 
 ---
 
@@ -195,7 +221,7 @@ sin que la persona lo confirme viendo antes los campos interpretados.
 
 ## 🧾 Formatos
 
-| Categoría | Cobertura en 1.0.0 |
+| Categoría | Cobertura en 1.1.0 |
 |---|---|
 | **2D** | QR, Micro QR, Data Matrix, Aztec, PDF417, MaxiCode |
 | **Lineales** | Code 128, Code 39, Code 93, Codabar, EAN-13, EAN-8, UPC-A, UPC-E, ITF |
@@ -237,7 +263,7 @@ Ejecutado con Flutter 3.44.7 sobre esta misma versión del código:
 |---|---|
 | `flutter pub get` | Resuelve — `pubspec.lock` versionado |
 | `flutter analyze --fatal-infos` | **0 hallazgos** |
-| `flutter test` | **48 de 48 en verde** |
+| `flutter test` | **57 de 57 en verde** |
 | `flutter build web --release` | Compila |
 | `python3 tool/validate_structure.py` | Sin errores estructurales |
 
@@ -257,6 +283,7 @@ esta versión no ha sido probada en dispositivos físicos, y esa matriz vive en
 | [`docs/SECURITY.md`](docs/SECURITY.md) | Modelo aplicado y señales de URL |
 | [`docs/PRIVACY_POLICY.md`](docs/PRIVACY_POLICY.md) | Política de privacidad de referencia |
 | [`docs/RELEASE.md`](docs/RELEASE.md) | Lista de publicación |
+| [`docs/quality/SCANNER_UX.md`](docs/quality/SCANNER_UX.md) | Estados del escáner, causas del fallo de lectura y comparación con otros lectores |
 | [`docs/quality/SCOPE_1_0.md`](docs/quality/SCOPE_1_0.md) | Alcance de 1.0.0 y verificación pendiente |
 | [`docs/quality/COMPATIBILITY_CONTRACT.md`](docs/quality/COMPATIBILITY_CONTRACT.md) | Compromisos hacia versiones futuras |
 | [`docs/quality/MIGRATIONS.md`](docs/quality/MIGRATIONS.md) | Esquema, sobres de cifrado y rotación |
@@ -272,7 +299,7 @@ esta versión no ha sido probada en dispositivos físicos, y esa matriz vive en
 
 ---
 
-## 🚧 Límites declarados de 1.0.0
+## 🚧 Límites declarados de 1.1.0
 
 Esta versión prefiere decir lo que no hace antes que insinuar que lo hace:
 

@@ -42,14 +42,19 @@
       "sha256": "dc8c588a18ec96f0a7da1628045f0ad7432eae91495e1216b378b2345c8a6e2c"
     },
     {
+      "path": "assets/sounds/scan_success.wav",
+      "size": 13094,
+      "sha256": "901502133dec61016e8ddbc531c910d825b33c21eca2bc81adf0e039e9ed3e6e"
+    },
+    {
       "path": "CHANGELOG.md",
-      "size": 5183,
-      "sha256": "2e8cf464caf9524d038d681cd370461a141e404855efb2077402b140b02744d5"
+      "size": 8206,
+      "sha256": "86b8542e7c5233495b76d9f405038dc3e43314655c4cb1b3e046dc2338421b7f"
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "size": 2620,
-      "sha256": "ff9ef08acbecfefa22fb266f01b8e64b178c2eaf1e2d7420e7ea78db4c66abc1"
+      "size": 3524,
+      "sha256": "2ee71c6e4f3fbaf175f9e88693803198c9f08f427f7b1425e235bda3cd8b1ec4"
     },
     {
       "path": "docs/images/arquitectura.svg",
@@ -93,8 +98,8 @@
     },
     {
       "path": "docs/quality/ACCESSIBILITY.md",
-      "size": 1367,
-      "sha256": "37a0524f431df393130796e890e1507006554476a819598d374d16f97bb019f8"
+      "size": 1803,
+      "sha256": "06ad19741df277209f27c3190273bab67fc1b97f650807f488bcdb6c0c954040"
     },
     {
       "path": "docs/quality/COMPATIBILITY_CONTRACT.md",
@@ -132,6 +137,11 @@
       "sha256": "4416de6b6db0055821be8b7f10436f2b4313fbf82d62c6841b552c9071af3571"
     },
     {
+      "path": "docs/quality/SCANNER_UX.md",
+      "size": 6599,
+      "sha256": "800b9724804b7f636ba5a8d7a0d91c5ddb5110137b628745caa3fd45897eabc6"
+    },
+    {
       "path": "docs/quality/SCOPE_1_0.md",
       "size": 2736,
       "sha256": "f346ec5e0b700bc23cf4594e8b21bebdc237b9b36aba69c544f04fa85d088240"
@@ -139,7 +149,7 @@
     {
       "path": "docs/RELEASE.md",
       "size": 1556,
-      "sha256": "49c500b0e02b4a42d9cb6fb2571c013e8ae252514b301439e06148d2836c8d8f"
+      "sha256": "8f735966f8ebc851dcbca36b435997dd98d10fb1c23beb9495b84f5b4e0da494"
     },
     {
       "path": "docs/security/MASVS_CHECKLIST.md",
@@ -148,8 +158,8 @@
     },
     {
       "path": "docs/security/sbom-source.cdx.json",
-      "size": 5220,
-      "sha256": "259446e2d67915e31d0dff7596032809098dc45158f6503077caa3a664c8ed3e"
+      "size": 5462,
+      "sha256": "8d60a38f40c079b727bd8439e293641ccee7241ba0ebe9c9d5575fc302fd1de6"
     },
     {
       "path": "docs/security/SECURITY_TEST_PLAN.md",
@@ -173,8 +183,8 @@
     },
     {
       "path": "IMPLEMENTATION_STATUS.md",
-      "size": 3025,
-      "sha256": "4ad87e3715743cf8ebaae5440330173ea2299e5df9f3667c7661aa17aeec5a12"
+      "size": 3512,
+      "sha256": "6a9b55e2be8362efdafc935ec9780787a6b7050b97187f9111daf8391e07384c"
     },
     {
       "path": "integration_test/app_launch_test.dart",
@@ -328,8 +338,8 @@
     },
     {
       "path": "lib/features/inventory/inventory_screen.dart",
-      "size": 17241,
-      "sha256": "5739cfd568637fae9b220c1a982f9df0a2e25b10d79584ab1f31d2f4aa7653b6"
+      "size": 21765,
+      "sha256": "9269f0dfebf66c9d0a9c67c259f110936e0c0d6a590ff84d3eb61161662509ff"
     },
     {
       "path": "lib/features/recovery/recovery_screen.dart",
@@ -353,13 +363,18 @@
     },
     {
       "path": "lib/features/scanner/scanner_screen.dart",
-      "size": 19936,
-      "sha256": "e801e5dc6f19226b97817e7b25cd86a77fdb17d357922764dd731e5e6fc29e48"
+      "size": 27458,
+      "sha256": "454b63553cad5c330275a48e56d625809a6f82000a8274ee8b562ef54b4bcf9e"
+    },
+    {
+      "path": "lib/features/scanner/widgets/scan_status_bar.dart",
+      "size": 4673,
+      "sha256": "3f24823aedea023bb3ee16baff07e2893cf6e44bc6ac88c3cf982d4cb571a418"
     },
     {
       "path": "lib/features/scanner/widgets/scanner_overlay.dart",
-      "size": 2135,
-      "sha256": "ab41ca840b6251ecbd13e7d932943fa6767770c4cbaefd6f60ed29469bcc7d45"
+      "size": 4611,
+      "sha256": "9426a51385ed7e595b6cb1b9e1583e83a85c40923e8b0bdd5f0bba2166d67819"
     },
     {
       "path": "lib/features/settings/settings_screen.dart",
@@ -442,6 +457,11 @@
       "sha256": "303b477f4e6f7a27e22d601ec1126bc0c0bc7e90bac1d44f8c2362a422af7604"
     },
     {
+      "path": "lib/services/scan_feedback.dart",
+      "size": 3665,
+      "sha256": "682a7335bdc3569c535fe19162aa36bc88d020fa7fe93a76c1f2467b7dc08811"
+    },
+    {
       "path": "lib/services/settings_repository.dart",
       "size": 4073,
       "sha256": "d44d840964599786ec4d26fce0159d7a255608fa18797adc3cf1b56282e51b4c"
@@ -468,23 +488,23 @@
     },
     {
       "path": "pubspec.lock",
-      "size": 30724,
-      "sha256": "327529ee4506f7a494bf041406f1e24f0448b2ddeb91acec11fd69146c454d40"
+      "size": 32470,
+      "sha256": "e9486f434c937e42b893979934b87798145cc0c3a6f3a17c78559e4933e46b29"
     },
     {
       "path": "pubspec.yaml",
-      "size": 894,
-      "sha256": "1e94b0b5d6d6aabcce96261516424780c48dc447a6284600cd93ec3c469ccbc3"
+      "size": 947,
+      "sha256": "588369a4ceb37b0c0763a486da5216eee1f0e164faa091c2750de3f9af88ff43"
     },
     {
       "path": "README.md",
-      "size": 15627,
-      "sha256": "a71dd04c68ec9d0b2177e21877cd5eb3b9009d750d74252fbb26f2821e9ab19d"
+      "size": 17082,
+      "sha256": "74d45028f3ecf20f90e085c8ad6f4f2e8d1d5e82dc247c946dc64f01e64f4802"
     },
     {
       "path": "RELEASE_SOURCE.json",
-      "size": 829,
-      "sha256": "f2049472d560b4494661add4a80f21995e22e57ed613d928fc1dab2de626bc7f"
+      "size": 848,
+      "sha256": "0c1994c0ee557c456386a2676b19f7b99008a5a2516a93c7c985d68353c07a19"
     },
     {
       "path": "test/content_interpreter_test.dart",
@@ -542,6 +562,11 @@
       "sha256": "bbbe869614a8c10b87826293b09723b7832a3cb64b8c3af8c5752bddfbebf6dd"
     },
     {
+      "path": "test/features/scan_status_bar_test.dart",
+      "size": 3257,
+      "sha256": "a9a98292a218ab3563a1648e221121b3f6b8d323f00b2ae6f1a9484fc611c48c"
+    },
+    {
       "path": "test/inventory_session_test.dart",
       "size": 930,
       "sha256": "3faff83a087fb7a55d32507fe1e0575d0b2bfb525933e36a5245ed4611521e02"
@@ -570,6 +595,11 @@
       "path": "test/services/import_service_test.dart",
       "size": 2457,
       "sha256": "1ee222826096200fa4d22122fc74abaeea47de2a425878bfb627b29ed4807291"
+    },
+    {
+      "path": "test/services/scan_feedback_test.dart",
+      "size": 2702,
+      "sha256": "e3e002684615bfb909c05c48cb945d66e333c4eb5b6e10e7b46bca88d9f89e28"
     },
     {
       "path": "test_assets/aztec/README.md",
@@ -692,6 +722,11 @@
       "sha256": "6a1f7dfa162b785dc12c899713c128cb8a4c8e89c3af3ac7310b3fc72b411e9b"
     },
     {
+      "path": "tool/generate_scan_beep.py",
+      "size": 2076,
+      "sha256": "0c0d124f84ddf90887b151ac43f1e433dfaaa8a2af8453a09c764963b8bfc25e"
+    },
+    {
       "path": "tool/generate_source_manifest.py",
       "size": 1172,
       "sha256": "d414eb1c5fbd460980ae3b37f2ac7ac19c06ccad2b067badb51a6ec0deb6cde7"
@@ -708,8 +743,8 @@
     },
     {
       "path": "VALIDATION.md",
-      "size": 5205,
-      "sha256": "12f30523290b173408213bdea090e61166edb241be38fec4ff0d0560686b56e3"
+      "size": 6979,
+      "sha256": "8c9ad90a49bd809045817bb3cbd84c0901ce8a367cd8450479febafa29278f2e"
     }
   ]
 }

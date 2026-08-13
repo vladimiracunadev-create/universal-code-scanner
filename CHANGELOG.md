@@ -4,6 +4,58 @@ Todas las versiones notables de este proyecto se documentan en este archivo.
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y
 el proyecto usa [Versionado Semántico](https://semver.org/lang/es/).
 
+## [1.1.0] — 2026-08-12
+
+Corrige el fallo de lectura reportado en un teléfono real y convierte el estado
+del escáner en algo visible. Verificado con Flutter 3.44.7: `analyze
+--fatal-infos` sin hallazgos y 57 pruebas en verde.
+
+### Corregido
+
+- **La cámara no leía al abrir la pestaña y sí al salir y volver.** La ventana de
+  lectura se calculaba una sola vez y quedaba congelada por un umbral de
+  actualización mal dimensionado: se expresa en porcentajes de 0 a 1 y el umbral
+  era 4, de modo que jamás se recalculaba. Si el primer cálculo salía mal
+  —porque el tamaño de la cámara o la orientación del dispositivo llegan después
+  del primer cuadro—, todos los códigos quedaban fuera de la región analizada.
+  Ahora la ventana se recalcula cuando esos datos cambian.
+- **Volver del segundo plano dejaba la vista previa congelada.** `MobileScanner`
+  solo atiende el ciclo de vida cuando él mismo crea el controlador; estas
+  pantallas le pasan el suyo. `ScannerScreen` e `InventoryScreen` ahora observan
+  el ciclo de vida y reinician la cámara al volver, incluido el regreso del
+  diálogo de permiso del sistema.
+- **Los errores de arranque de la cámara no llegaban a la interfaz.** Todo
+  arranque, parada y reinicio pasa por rutas que capturan la excepción y la
+  convierten en un estado visible con acción de recuperación.
+
+### Añadido
+
+- Barra de estado permanente en el escáner con los cuatro estados reales
+  —iniciando, escaneando, en pausa y no disponible— y una **barra horizontal que
+  solo se mueve mientras el motor analiza cuadros**.
+- Línea de lectura que recorre el marco mientras se escanea. Con movimiento
+  reducido activado, el marco y la barra se dibujan quietos.
+- Botón explícito **«Escanear» / «Pausar»** con texto, botón **«Reiniciar
+  cámara»** siempre disponible y **«Reintentar»** cuando la cámara no arranca.
+  Tocar la vista previa en pausa reanuda la lectura.
+- Mensaje específico cuando falta el permiso de cámara, con acción de reintento
+  en la propia pantalla.
+- Pausa y estado visible también en el inventario continuo.
+- `docs/quality/SCANNER_UX.md`: comportamiento por estado, causas del fallo y
+  comparación con las convenciones de otros lectores.
+
+### Cambiado
+
+- **Sonido de lectura conseguida.** La confirmación usaba el efecto de sonido de
+  la interfaz del sistema, que Android silencia en cuanto el usuario apaga los
+  sonidos táctiles: por eso no se oía nada. Ahora suena un tono propio
+  empaquetado en la aplicación (`assets/sounds/scan_success.wav`, generado por
+  `tool/generate_scan_beep.py`), reproducido con `audioplayers` en modo de baja
+  latencia y mezclado con el audio existente para no interrumpir música ni
+  llamadas. Si el reproductor falla, degrada al sonido del sistema.
+- Nueva dependencia directa: `audioplayers` 6.8.1.
+- 57 pruebas (9 nuevas sobre estado de escaneo, marco, sonido y vibración).
+
 ## [1.0.0] — 2026-08-03
 
 Primera versión pública. Todo lo que se describe a continuación está presente en
@@ -105,4 +157,5 @@ hallazgos y 48 pruebas en verde).
 - OCR, NFC, reputación remota de URLs, consulta de productos, sincronización y
   funciones empresariales permanecen apagadas en `FeatureFlags`.
 
+[1.1.0]: https://github.com/vladimiracunadev-create/universal-code-scanner/releases/tag/v1.1.0
 [1.0.0]: https://github.com/vladimiracunadev-create/universal-code-scanner/releases/tag/v1.0.0

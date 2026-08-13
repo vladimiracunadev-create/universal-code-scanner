@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:universal_code_scanner/features/scanner/widgets/scan_status_bar.dart';
 import 'package:universal_code_scanner/models/inventory_session.dart';
 import 'package:universal_code_scanner/models/scan_record.dart';
 import 'package:universal_code_scanner/services/export_service.dart';
 import 'package:universal_code_scanner/services/import_service.dart';
+import 'package:universal_code_scanner/services/scan_feedback.dart';
 import 'package:universal_code_scanner/state/inventory_store.dart';
 import 'package:universal_code_scanner/state/settings_store.dart';
 
@@ -20,16 +21,24 @@ class InventoryScreen extends StatefulWidget {
   State<InventoryScreen> createState() => _InventoryScreenState();
 }
 
-class _InventoryScreenState extends State<InventoryScreen> {
+class _InventoryScreenState extends State<InventoryScreen> with WidgetsBindingObserver {
   final TextEditingController _nameController = TextEditingController();
-  late final MobileScannerController _controller;
+  final ScanFeedback _feedback = ScanFeedback();
+  late MobileScannerController _controller;
+  Key _previewKey = UniqueKey();
+  bool _paused = false;
   String? _lastCode;
   DateTime? _lastAt;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     widget.store.addListener(_refresh);
+    _createController();
+  }
+
+  void _createController() {
     _controller = MobileScannerController(
       detectionSpeed: DetectionSpeed.noDuplicates,
       formats: const <BarcodeFormat>[],
@@ -40,10 +49,73 @@ class _InventoryScreenState extends State<InventoryScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     widget.store.removeListener(_refresh);
     _nameController.dispose();
     unawaited(_controller.dispose());
+    unawaited(_feedback.dispose());
     super.dispose();
+  }
+
+  /// A controller passed by hand opts out of the lifecycle handling built into
+  /// `MobileScanner`, so returning from the background has to be handled here
+  /// or the preview comes back frozen.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (widget.store.activeSession == null) return;
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if (!_paused) unawaited(_startCamera());
+      case AppLifecycleState.inactive:
+        unawaited(_stopCamera());
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        break;
+    }
+  }
+
+  Future<void> _startCamera() async {
+    try {
+      await _controller.start();
+    } on Object {
+      // The status bar already offers the restart action.
+    }
+    if (mounted) setState(() {});
+  }
+
+  Future<void> _stopCamera() async {
+    try {
+      await _controller.stop();
+    } on Object {
+      // Stopping a camera that never started is not an error here.
+    }
+    if (mounted) setState(() {});
+  }
+
+  Future<void> _restartCamera() async {
+    await _stopCamera();
+    try {
+      await _controller.dispose();
+    } on Object {
+      // An already disposed controller is the state we want.
+    }
+    if (!mounted) return;
+    setState(() {
+      _createController();
+      _previewKey = UniqueKey();
+      _paused = false;
+    });
+  }
+
+  Future<void> _togglePause() async {
+    if (_paused) {
+      if (mounted) setState(() => _paused = false);
+      await _startCamera();
+      return;
+    }
+    await _stopCamera();
+    if (mounted) setState(() => _paused = true);
   }
 
   void _refresh() => mounted ? setState(() {}) : null;
@@ -178,44 +250,87 @@ class _InventoryScreenState extends State<InventoryScreen> {
                     width: constraints.maxWidth.clamp(180, 260).toDouble(),
                     height: 120,
                   );
-                  return Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      MobileScanner(
-                        controller: _controller,
-                        scanWindow: widget.settings.value.useScanWindow ? scanWindow : null,
-                        tapToFocus: true,
-                        useAppLifecycleState: true,
-                        onDetect: _onDetect,
-                      ),
-                      if (widget.settings.value.useScanWindow)
-                        Center(
-                          child: Container(
-                            width: scanWindow.width,
-                            height: scanWindow.height,
-                            decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.primary, width: 4), borderRadius: BorderRadius.circular(20)),
+                  return ValueListenableBuilder<MobileScannerState>(
+                    valueListenable: _controller,
+                    builder: (BuildContext context, MobileScannerState state, Widget? child) {
+                      final ScanPhase phase = state.error != null
+                          ? ScanPhase.unavailable
+                          : _paused
+                              ? ScanPhase.paused
+                              : state.isRunning
+                                  ? ScanPhase.scanning
+                                  : ScanPhase.starting;
+                      return Stack(
+                        fit: StackFit.expand,
+                        children: <Widget>[
+                          MobileScanner(
+                            key: _previewKey,
+                            controller: _controller,
+                            scanWindow: widget.settings.value.useScanWindow ? scanWindow : null,
+                            tapToFocus: true,
+                            onDetect: _onDetect,
                           ),
-                        ),
-                      Positioned(
-                        left: 12,
-                        right: 12,
-                        bottom: 10,
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.65), borderRadius: BorderRadius.circular(12)),
-                          child: const Text('Lectura continua: cada código suma una unidad', textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                      Positioned(
-                        right: 10,
-                        top: 10,
-                        child: IconButton.filled(
-                          tooltip: 'Linterna',
-                          onPressed: _controller.toggleTorch,
-                          icon: const Icon(Icons.flashlight_on_outlined),
-                        ),
-                      ),
-                    ],
+                          if (widget.settings.value.useScanWindow)
+                            Center(
+                              child: Container(
+                                width: scanWindow.width,
+                                height: scanWindow.height,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: phase == ScanPhase.scanning ? Theme.of(context).colorScheme.primary : Colors.white70,
+                                    width: 4,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                          Positioned(
+                            left: 12,
+                            right: 12,
+                            bottom: 10,
+                            child: ScanStatusBar(
+                              phase: phase,
+                              message: switch (phase) {
+                                ScanPhase.scanning => 'Cada código leído suma una unidad.',
+                                ScanPhase.starting => 'Preparando la cámara del inventario.',
+                                ScanPhase.paused => 'Reanuda para seguir sumando unidades.',
+                                ScanPhase.unavailable => 'Revisa el permiso de cámara y reinicia la lectura.',
+                              },
+                              animate: !widget.settings.value.reduceMotion,
+                              actionLabel: switch (phase) {
+                                ScanPhase.paused => 'Reanudar',
+                                ScanPhase.unavailable => 'Reintentar',
+                                ScanPhase.starting || ScanPhase.scanning => null,
+                              },
+                              onAction: switch (phase) {
+                                ScanPhase.paused => _togglePause,
+                                ScanPhase.unavailable => _restartCamera,
+                                ScanPhase.starting || ScanPhase.scanning => null,
+                              },
+                            ),
+                          ),
+                          Positioned(
+                            right: 10,
+                            top: 10,
+                            child: Column(
+                              children: <Widget>[
+                                IconButton.filled(
+                                  tooltip: 'Linterna',
+                                  onPressed: _controller.toggleTorch,
+                                  icon: const Icon(Icons.flashlight_on_outlined),
+                                ),
+                                const SizedBox(height: 8),
+                                IconButton.filled(
+                                  tooltip: phase == ScanPhase.scanning ? 'Pausar lectura' : 'Reanudar lectura',
+                                  onPressed: _togglePause,
+                                  icon: Icon(phase == ScanPhase.scanning ? Icons.pause : Icons.play_arrow),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
               ),
@@ -272,6 +387,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
   }
 
   void _onDetect(BarcodeCapture capture) {
+    if (_paused) return;
     final DateTime now = DateTime.now();
     for (final Barcode barcode in capture.barcodes) {
       final String raw = ScanRecord.payloadForBarcode(barcode);
@@ -281,8 +397,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
       _lastAt = now;
       final ScanRecord record = ScanRecord.fromBarcode(barcode, source: 'Inventario', scannedAt: now);
       unawaited(widget.store.addScan(record));
-      if (widget.settings.value.vibrationEnabled) unawaited(HapticFeedback.selectionClick());
-      if (widget.settings.value.soundEnabled) unawaited(SystemSound.play(SystemSoundType.click));
+      unawaited(_feedback.success(
+        sound: widget.settings.value.soundEnabled,
+        vibration: widget.settings.value.vibrationEnabled,
+      ));
     }
   }
 

@@ -1,6 +1,6 @@
 # Accesibilidad e idiomas
 
-## Idiomas en 1.0.0
+## Idiomas en 1.1.0
 
 La interfaz se entrega **solo en español**: idioma del sistema, español de Chile
 (`es_CL`) y español internacional (`es`).
@@ -22,7 +22,9 @@ Opciones incluidas:
 
 - alto contraste;
 - controles táctiles más grandes;
-- reducción de transiciones;
+- reducción de transiciones —con ella activada, la barra de estado del escáner
+  se dibuja llena y quieta, y el marco no barre la línea de lectura: el estado
+  sigue siendo legible sin movimiento;
 - escala tipográfica del sistema sin limitar;
 - etiquetas semánticas en acciones críticas;
 - compatibilidad prevista con TalkBack, VoiceOver y teclado.
@@ -33,3 +35,8 @@ accesibles y tamaño táctil.
 Una prueba de widget levanta el Centro de recuperación con la escala tipográfica
 al 200 % y comprueba las guías `labeledTapTargetGuideline` y
 `textContrastGuideline` de Flutter.
+
+La barra de estado del escáner se anuncia como región activa (`liveRegion`) con
+el estado y la instrucción en una sola etiqueta, para que un lector de pantalla
+comunique el cambio de «Escaneando» a «Escaneo en pausa» sin que la persona
+tenga que buscarlo.

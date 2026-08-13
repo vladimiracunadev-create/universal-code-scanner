@@ -24,6 +24,23 @@ Resultado inmediato
         └── HistoryRepository (si corresponde)
 ```
 
+## Estado del escáner
+
+La pantalla de lectura crea su propio `MobileScannerController`, así que también
+le corresponde el ciclo de vida: `MobileScanner` solo lo atiende cuando el
+controlador es suyo. `ScannerScreen` e `InventoryScreen` observan
+`didChangeAppLifecycleState`, detienen la cámara al pasar a inactivo y la
+reinician al volver.
+
+Toda llamada al controlador —arrancar, detener, reiniciar— pasa por métodos que
+capturan la excepción y la traducen a uno de cuatro estados visibles:
+`starting`, `scanning`, `paused` y `unavailable` (`ScanPhase`). `ScanStatusBar`
+los nombra y dibuja; la barra horizontal solo se mueve mientras el motor analiza
+cuadros. `ScanFeedback` concentra la confirmación de lectura —tono empaquetado y
+vibración— con degradación al sonido del sistema si el reproductor falla.
+Comportamiento por estado en
+[`quality/SCANNER_UX.md`](quality/SCANNER_UX.md).
+
 ## Persistencia
 
 - `AppDatabase`: abre Sembast en archivos nativos o IndexedDB web.
@@ -55,7 +72,7 @@ un móvil es idéntico al que habría sin esa capa.
 ## Extensión de motores
 
 `ScannerEngine` es la frontera estable alrededor del paquete de captura;
-`MobileScannerEngine` es su única implementación en 1.0.0. La interpretación y la
+`MobileScannerEngine` es su única implementación en 1.1.0. La interpretación y la
 persistencia no dependen de `mobile_scanner`.
 
 Para añadir Windows o Linux nativos basta con una segunda implementación de

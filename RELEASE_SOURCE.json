@@ -1,7 +1,7 @@
 {
   "application": "Universal Code Scanner",
-  "version": "1.0.0+1",
-  "releaseType": "initial-public-release",
+  "version": "1.1.0+2",
+  "releaseType": "scanner-feedback-fix",
   "toolchain": {
     "flutter": "3.44.7",
     "dart": "3.12.2"
@@ -17,11 +17,11 @@
     "dependenciesResolved": true,
     "pubspecLockGenerated": true,
     "staticAnalysisFatalInfos": true,
-    "unitAndWidgetTests": "48/48",
+    "unitAndWidgetTests": "57/57",
     "webReleaseBuild": true,
     "androidBuild": true,
-    "androidReleaseApk": "87.7MB",
-    "androidEmulatorLaunch": true,
+    "androidReleaseApk": "87.7MB (medido en 1.0.0)",
+    "androidEmulatorLaunch": "1.0.0",
     "appleBuild": "ci-only",
     "physicalDeviceTestsExecuted": false
   },

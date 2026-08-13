@@ -3,7 +3,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:universal_code_scanner/core/localization/app_localizations.dart';
@@ -11,10 +10,12 @@ import 'package:universal_code_scanner/core/performance/cancellation_token.dart'
 import 'package:universal_code_scanner/features/result/scan_result_sheet.dart';
 import 'package:universal_code_scanner/features/scanner/data/mobile_scanner_engine.dart';
 import 'package:universal_code_scanner/features/scanner/domain/scanner_engine.dart';
+import 'package:universal_code_scanner/features/scanner/widgets/scan_status_bar.dart';
 import 'package:universal_code_scanner/features/scanner/widgets/scanner_overlay.dart';
 import 'package:universal_code_scanner/models/app_settings.dart';
 import 'package:universal_code_scanner/models/scan_record.dart';
 import 'package:universal_code_scanner/services/pdf_page_renderer.dart';
+import 'package:universal_code_scanner/services/scan_feedback.dart';
 import 'package:universal_code_scanner/state/scan_store.dart';
 import 'package:universal_code_scanner/state/settings_store.dart';
 
@@ -28,11 +29,19 @@ class ScannerScreen extends StatefulWidget {
   State<ScannerScreen> createState() => _ScannerScreenState();
 }
 
-class _ScannerScreenState extends State<ScannerScreen> {
+class _ScannerScreenState extends State<ScannerScreen> with WidgetsBindingObserver {
   late ScannerEngine _engine;
   final ImagePicker _imagePicker = ImagePicker();
+  final ScanFeedback _feedback = ScanFeedback();
+
+  /// Rebuilding the [MobileScanner] with a new key forces it to attach to the
+  /// freshly created controller. A controller that failed to start cannot be
+  /// reused, so "restart the camera" means "build a new one".
+  Key _previewKey = UniqueKey();
+
   bool _handlingResult = false;
   bool _paused = false;
+  String? _startFailure;
   String? _lastSignature;
   DateTime? _lastDetectedAt;
   double _zoom = 0;
@@ -42,6 +51,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _createEngine();
   }
 
@@ -51,8 +61,79 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     unawaited(_engine.dispose());
+    unawaited(_feedback.dispose());
     super.dispose();
+  }
+
+  /// The scanner owns its controller, so `MobileScanner` deliberately leaves
+  /// lifecycle handling to this screen. Without this, coming back from the
+  /// background — or from the system camera permission dialog — left the
+  /// preview frozen with no way to recover other than leaving the tab.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if (!_paused && !_handlingResult) unawaited(_startCamera());
+      case AppLifecycleState.inactive:
+        unawaited(_stopCamera());
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        break;
+    }
+  }
+
+  /// Every call into the controller can throw: it may be disposed, still
+  /// starting, or not yet attached to a widget. A failure here must leave the
+  /// screen in a state the user can act on, never in an exception.
+  Future<void> _startCamera() async {
+    try {
+      await _engine.start();
+      if (mounted) setState(() => _startFailure = null);
+    } on MobileScannerException catch (error) {
+      if (mounted) setState(() => _startFailure = _describe(error));
+    } on Object {
+      if (mounted) setState(() => _startFailure = 'No fue posible iniciar la cámara.');
+    }
+  }
+
+  Future<void> _stopCamera() async {
+    try {
+      await _engine.stop();
+    } on Object {
+      // Stopping an already stopped or disposed camera is not an error here.
+    }
+  }
+
+  String _describe(MobileScannerException error) => switch (error.errorCode) {
+        MobileScannerErrorCode.permissionDenied =>
+          'Falta el permiso de cámara. Actívalo en los ajustes del sistema y vuelve a intentarlo.',
+        MobileScannerErrorCode.unsupported => 'Este dispositivo no permite leer códigos con la cámara.',
+        _ => 'La cámara no pudo iniciarse. Toca «Reintentar».',
+      };
+
+  /// Replaces the controller and the preview widget. This is the recovery path
+  /// offered to the user whenever the camera does not come up.
+  Future<void> _restartCamera() async {
+    // The old controller is released before the new one exists: both share a
+    // single platform camera session, and disposing it afterwards would tear
+    // down the session the new controller has just claimed.
+    await _stopCamera();
+    try {
+      await _engine.dispose();
+    } on Object {
+      // An already disposed controller is exactly the state we want.
+    }
+    if (!mounted) return;
+    setState(() {
+      _createEngine();
+      _previewKey = UniqueKey();
+      _startFailure = null;
+      _paused = false;
+      _zoom = 0;
+    });
   }
 
   @override
@@ -115,90 +196,130 @@ class _ScannerScreenState extends State<ScannerScreen> {
                     width: side,
                     height: side,
                   );
-                  return Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      MobileScanner(
-                        controller: _engine.controller,
-                        scanWindow: _settings.useScanWindow ? window : null,
-                        scanWindowUpdateThreshold: 4,
-                        tapToFocus: true,
-                        useAppLifecycleState: true,
-                        onDetect: (BarcodeCapture capture) => unawaited(_handleCapture(capture, source: 'Cámara')),
-                        errorBuilder: (BuildContext context, MobileScannerException error) => _ScannerError(error: error),
-                      ),
-                      if (_settings.useScanWindow) ScannerOverlay(scanWindow: window),
-                      Positioned(
-                        top: 18,
-                        left: 18,
-                        right: 18,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                          decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.65), borderRadius: BorderRadius.circular(16)),
-                          child: Text(
-                            _paused
-                                ? 'Cámara pausada'
-                                : _settings.useScanWindow
-                                    ? 'Alinea uno o varios códigos dentro del marco'
-                                    : 'Apunta la cámara hacia uno o varios códigos',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(color: Colors.white),
+                  return ValueListenableBuilder<MobileScannerState>(
+                    valueListenable: _engine.state,
+                    builder: (BuildContext context, MobileScannerState state, Widget? child) {
+                      final ScanPhase phase = _phaseFor(state);
+                      final bool scanning = phase == ScanPhase.scanning;
+                      return Stack(
+                        fit: StackFit.expand,
+                        children: <Widget>[
+                          MobileScanner(
+                            key: _previewKey,
+                            controller: _engine.controller,
+                            scanWindow: _settings.useScanWindow ? window : null,
+                            // No threshold: the scan window is recalculated from
+                            // the camera output size and the device orientation,
+                            // both of which can arrive after the first frame. A
+                            // threshold froze the first — sometimes wrong —
+                            // window, and every code outside it was ignored
+                            // until the screen was rebuilt from scratch.
+                            tapToFocus: true,
+                            onDetect: (BarcodeCapture capture) => unawaited(_handleCapture(capture, source: 'Cámara')),
+                            errorBuilder: (BuildContext context, MobileScannerException error) =>
+                                _ScannerError(error: error, onRetry: _restartCamera),
                           ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 18,
-                        right: 18,
-                        bottom: 76,
-                        child: Row(
-                          children: <Widget>[
-                            const Icon(Icons.zoom_out, color: Colors.white),
-                            Expanded(
-                              child: Slider(
-                                value: _zoom,
-                                onChanged: (double value) {
-                                  setState(() => _zoom = value);
-                                  unawaited(_engine.setZoomScale(value));
-                                },
+                          if (_settings.useScanWindow && phase != ScanPhase.unavailable)
+                            ScannerOverlay(
+                              scanWindow: window,
+                              active: scanning,
+                              animate: !_settings.reduceMotion,
+                            ),
+                          if (phase == ScanPhase.paused)
+                            // A dimmed preview is not a control: tapping
+                            // anywhere resumes, the way every camera app does.
+                            // The unavailable state keeps its own retry button
+                            // visible instead of covering it with this layer.
+                            Positioned.fill(
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: _resumeScanning,
+                                child: ColoredBox(color: Colors.black.withValues(alpha: 0.35)),
                               ),
                             ),
-                            const Icon(Icons.zoom_in, color: Colors.white),
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        left: 18,
-                        right: 18,
-                        bottom: 18,
-                        child: ValueListenableBuilder<MobileScannerState>(
-                          valueListenable: _engine.state,
-                          builder: (BuildContext context, MobileScannerState state, Widget? child) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                          Positioned(
+                            top: 18,
+                            left: 18,
+                            right: 18,
+                            child: ScanStatusBar(
+                              phase: phase,
+                              message: _messageFor(phase),
+                              animate: !_settings.reduceMotion,
+                              actionLabel: switch (phase) {
+                                ScanPhase.paused => 'Reanudar escaneo',
+                                ScanPhase.unavailable => 'Reintentar',
+                                ScanPhase.starting || ScanPhase.scanning => null,
+                              },
+                              onAction: switch (phase) {
+                                ScanPhase.paused => _resumeScanning,
+                                ScanPhase.unavailable => () => unawaited(_restartCamera()),
+                                ScanPhase.starting || ScanPhase.scanning => null,
+                              },
+                            ),
+                          ),
+                          Positioned(
+                            left: 18,
+                            right: 18,
+                            bottom: 82,
+                            child: Row(
+                              children: <Widget>[
+                                const Icon(Icons.zoom_out, color: Colors.white),
+                                Expanded(
+                                  child: Slider(
+                                    value: _zoom,
+                                    onChanged: (double value) {
+                                      setState(() => _zoom = value);
+                                      unawaited(_engine.setZoomScale(value));
+                                    },
+                                  ),
+                                ),
+                                const Icon(Icons.zoom_in, color: Colors.white),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            left: 12,
+                            right: 12,
+                            bottom: 18,
+                            // Wrap, not Row: with large controls or a big text
+                            // scale these four actions do not fit on one line,
+                            // and a second line is better than a clipped one.
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              spacing: 10,
+                              runSpacing: 8,
                               children: <Widget>[
                                 _CameraButton(
                                   tooltip: 'Linterna',
                                   onPressed: state.torchState == TorchState.unavailable ? null : _engine.toggleTorch,
                                   icon: state.torchState == TorchState.on ? Icons.flash_on : Icons.flash_off,
                                 ),
-                                const SizedBox(width: 12),
-                                _CameraButton(
-                                  tooltip: _paused ? 'Reanudar' : 'Pausar',
+                                FilledButton.icon(
                                   onPressed: _togglePause,
-                                  icon: _paused ? Icons.play_arrow : Icons.pause,
+                                  style: FilledButton.styleFrom(
+                                    backgroundColor: scanning ? Colors.white : Theme.of(context).colorScheme.primary,
+                                    foregroundColor: scanning ? Colors.black : Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                  icon: Icon(scanning ? Icons.pause : Icons.play_arrow),
+                                  label: Text(scanning ? 'Pausar' : 'Escanear'),
                                 ),
-                                const SizedBox(width: 12),
                                 _CameraButton(
                                   tooltip: 'Cambiar cámara',
                                   onPressed: () => _engine.switchCamera(),
                                   icon: Icons.cameraswitch_outlined,
                                 ),
+                                _CameraButton(
+                                  tooltip: 'Reiniciar cámara',
+                                  onPressed: _restartCamera,
+                                  icon: Icons.refresh,
+                                ),
                               ],
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
               ),
@@ -209,13 +330,34 @@ class _ScannerScreenState extends State<ScannerScreen> {
     );
   }
 
+  ScanPhase _phaseFor(MobileScannerState state) {
+    if (_startFailure != null || state.error != null) return ScanPhase.unavailable;
+    if (_paused || _handlingResult) return ScanPhase.paused;
+    if (state.isRunning) return ScanPhase.scanning;
+    return ScanPhase.starting;
+  }
+
+  String _messageFor(ScanPhase phase) => switch (phase) {
+        ScanPhase.starting => 'Preparando el enfoque. Si no aparece la imagen, toca «Reiniciar cámara».',
+        ScanPhase.scanning => _settings.useScanWindow
+            ? 'Alinea uno o varios códigos dentro del marco.'
+            : 'Apunta la cámara hacia uno o varios códigos.',
+        ScanPhase.paused => 'La cámara no está leyendo. Toca la pantalla para continuar.',
+        ScanPhase.unavailable => _startFailure ?? 'Revisa el permiso de cámara y vuelve a intentarlo.',
+      };
+
+  Future<void> _resumeScanning() async {
+    if (mounted) setState(() => _paused = false);
+    await _startCamera();
+  }
+
   Future<void> _togglePause() async {
     if (_paused) {
-      await _engine.start();
-    } else {
-      await _engine.stop();
+      await _resumeScanning();
+      return;
     }
-    if (mounted) setState(() => _paused = !_paused);
+    await _stopCamera();
+    if (mounted) setState(() => _paused = true);
   }
 
   Future<void> _scanFromGallery() async {
@@ -229,7 +371,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
         token: token,
         operation: () async {
           final List<ScanRecord> records = <ScanRecord>[];
-          await _engine.stop();
+          await _stopCamera();
           try {
             for (int index = 0; index < images.length; index++) {
               token.throwIfCancelled();
@@ -249,7 +391,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
             token.throwIfCancelled();
             return records;
           } finally {
-            if (mounted && !_paused) await _engine.start();
+            if (mounted && !_paused) await _startCamera();
           }
         },
       );
@@ -277,7 +419,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
         token: token,
         operation: () async {
           final List<ScanRecord> found = <ScanRecord>[];
-          await _engine.stop();
+          await _stopCamera();
           try {
             pages.addAll(await PdfPageRenderer.pickAndRender(
               maxPages: 50,
@@ -317,7 +459,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
             return found;
           } finally {
             await PdfPageRenderer.cleanup(pages);
-            if (mounted && !_paused) await _engine.start();
+            if (mounted && !_paused) await _startCamera();
           }
         },
       );
@@ -372,19 +514,18 @@ class _ScannerScreenState extends State<ScannerScreen> {
     if (_lastSignature == joined && _lastDetectedAt != null && now.difference(_lastDetectedAt!) < const Duration(seconds: 2)) return;
     _lastSignature = joined;
     _lastDetectedAt = now;
-    _handlingResult = true;
+    if (mounted) setState(() => _handlingResult = true);
 
     try {
-      await _engine.stop();
-      if (_settings.vibrationEnabled) await HapticFeedback.mediumImpact();
-      if (_settings.soundEnabled) await SystemSound.play(SystemSoundType.click);
+      await _stopCamera();
+      await _feedback.success(sound: _settings.soundEnabled, vibration: _settings.vibrationEnabled);
       final List<ScanRecord> records = unique.values
           .map((Barcode barcode) => ScanRecord.fromBarcode(barcode, source: source, scannedAt: now))
           .toList(growable: false);
       await _persistAndShow(records);
     } finally {
-      _handlingResult = false;
-      if (mounted && !_paused) await _engine.start();
+      if (mounted) setState(() => _handlingResult = false);
+      if (mounted && !_paused) await _startCamera();
     }
   }
 
@@ -458,8 +599,9 @@ class _BatchProgressDialog extends StatelessWidget {
 }
 
 class _ScannerError extends StatelessWidget {
-  const _ScannerError({required this.error});
+  const _ScannerError({required this.error, required this.onRetry});
   final MobileScannerException error;
+  final Future<void> Function() onRetry;
 
   @override
   Widget build(BuildContext context) {
@@ -475,7 +617,18 @@ class _ScannerError extends StatelessWidget {
               const SizedBox(height: 14),
               Text('No se pudo iniciar la cámara', style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
               const SizedBox(height: 8),
-              Text('${error.errorCode}', textAlign: TextAlign.center),
+              Text(
+                error.errorCode == MobileScannerErrorCode.permissionDenied
+                    ? 'Concede el permiso de cámara en los ajustes del sistema y vuelve a intentarlo.'
+                    : 'Cierra otras aplicaciones que estén usando la cámara y reinicia la lectura.',
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              FilledButton.icon(
+                onPressed: () => unawaited(onRetry()),
+                icon: const Icon(Icons.refresh),
+                label: const Text('Reintentar'),
+              ),
             ],
           ),
         ),
