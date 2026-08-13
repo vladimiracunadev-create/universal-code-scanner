@@ -77,7 +77,7 @@ Descarga el que corresponda a tu teléfono:
 | `app-arm64-v8a-release.apk` | **Prácticamente cualquier móvil actual** | 32,8 MB |
 | `app-armeabi-v7a-release.apk` | Móviles antiguos de 32 bits | 26,8 MB |
 | `app-x86_64-release.apk` | Emuladores y equipos x86 | 35,3 MB |
-| `app-release.apk` | Universal: funciona en todos, pesa el triple | ~92 MB |
+| `app-release.apk` | Universal: funciona en todos, pesa el triple | 88,1 MB |
 
 Android pedirá permiso para instalar desde una fuente desconocida; es el flujo
 normal de cualquier APK que no venga de una tienda. Cada archivo publica su
