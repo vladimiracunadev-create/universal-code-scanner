@@ -68,8 +68,8 @@
     },
     {
       "path": "docs/images/capturas/escanear.png",
-      "size": 385718,
-      "sha256": "5f072fd4462efcdec82ce5520d5f9fc6ee2fb34550ac9819a9c9cd35458e9dd0"
+      "size": 387894,
+      "sha256": "f8e809d8269e9ec7fed03b267be4e47aa950ebe6846573243b323b4be5c1d4ea"
     },
     {
       "path": "docs/images/capturas/generar.png",
@@ -498,8 +498,8 @@
     },
     {
       "path": "README.md",
-      "size": 17082,
-      "sha256": "74d45028f3ecf20f90e085c8ad6f4f2e8d1d5e82dc247c946dc64f01e64f4802"
+      "size": 18719,
+      "sha256": "fb7e25c9d3f9563d45a9f79490ea6549b6fb2219b57a320dd1a66e02194a79c6"
     },
     {
       "path": "RELEASE_SOURCE.json",

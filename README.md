@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="assets/launcher/icon-1024.png" width="128" alt="Icono de Universal Code Scanner: marco de lectura con un patrón QR al centro" />
-</p>
-
 # Universal Code Scanner
 
 ```text
@@ -76,16 +72,24 @@ Los APK de cada versión están en
 [Releases](https://github.com/vladimiracunadev-create/universal-code-scanner/releases/latest).
 Descarga el que corresponda a tu teléfono:
 
-| Archivo | Para quién | Tamaño aproximado |
+| Archivo | Para quién | Tamaño en 1.1.0 |
 |---|---|---|
-| `app-arm64-v8a-release.apk` | **Prácticamente cualquier móvil actual** | ~32 MB |
-| `app-armeabi-v7a-release.apk` | Móviles antiguos de 32 bits | ~30 MB |
-| `app-x86_64-release.apk` | Emuladores y equipos x86 | ~34 MB |
+| `app-arm64-v8a-release.apk` | **Prácticamente cualquier móvil actual** | 32,8 MB |
+| `app-armeabi-v7a-release.apk` | Móviles antiguos de 32 bits | 26,8 MB |
+| `app-x86_64-release.apk` | Emuladores y equipos x86 | 35,3 MB |
 | `app-release.apk` | Universal: funciona en todos, pesa el triple | ~92 MB |
 
 Android pedirá permiso para instalar desde una fuente desconocida; es el flujo
 normal de cualquier APK que no venga de una tienda. Cada archivo publica su
 SHA-256 para que puedas verificar la descarga.
+
+Al terminar, este es el icono que buscarás en el cajón de aplicaciones:
+
+<img src="assets/launcher/icon-1024.png" width="72" alt="Icono de Universal Code Scanner: marco de lectura con un patrón QR al centro" />
+
+La primera vez que abras la pestaña **Escanear**, Android pedirá el permiso de
+cámara. Concédelo: sin él la barra de estado dirá «Cámara no disponible» y
+ofrecerá reintentar.
 
 > [!IMPORTANT]
 > Estos APK están firmados con la **clave de depuración** de Android
@@ -157,6 +161,17 @@ cuanto se apagan los sonidos táctiles— y vibra. Sonido y vibración son dos
 ajustes independientes, y con movimiento reducido activado la barra y el marco se
 dibujan quietos.
 
+### Si un código no se lee
+
+| Lo que ves | Qué significa | Qué hacer |
+|---|---|---|
+| «Escaneando» y la barra en movimiento, pero el código no entra | El motor sí está analizando: el problema es el encuadre, la distancia o la luz | Acerca o aleja el teléfono, usa el zoom, enciende la linterna o toca la imagen para enfocar |
+| «Escaneando» y ningún código de ningún tipo entra | El recorte de lectura podría no coincidir con lo que ves | Toca **Reiniciar cámara**, o desactiva **Marco de lectura** en Ajustes para analizar toda la imagen |
+| «Iniciando cámara…» que no avanza | La cámara no llegó a entregar imagen | **Reiniciar cámara**; si persiste, cierra otras aplicaciones que la estén usando |
+| «Cámara no disponible» | Falta el permiso, o el sistema negó el acceso | Concede el permiso de cámara en los ajustes de Android y pulsa **Reintentar** |
+| «Escaneo en pausa» | La lectura está detenida a propósito | Pulsa **Escanear** o toca la vista previa |
+| Lee, pero no suena | El sonido está desactivado en Ajustes, o el teléfono está en silencio | Revisa **Sonido** en Ajustes y el volumen multimedia |
+
 Detalle por estado, causas del fallo corregido en 1.1.0 y comparación con las
 convenciones de otros lectores en
 [`docs/quality/SCANNER_UX.md`](docs/quality/SCANNER_UX.md).
@@ -166,10 +181,12 @@ convenciones de otros lectores en
 ## 📸 Capturas
 
 La aplicación corriendo en el emulador oficial de Android (API 36), desde el APK
-release compilado en este repositorio:
+release compilado en este repositorio. La captura de **Escanear** corresponde a
+1.1.0 y muestra la barra de estado en «Escaneando»; las demás se tomaron en
+1.0.0 sobre pantallas que no han cambiado:
 
 <p align="center">
-  <img src="docs/images/capturas/escanear.png" width="235" alt="Pestaña Escanear: marco de lectura con esquinas, zoom, linterna, pausa y cambio de cámara" />
+  <img src="docs/images/capturas/escanear.png" width="235" alt="Pestaña Escanear: barra de estado en «Escaneando» con barra de progreso, marco con esquinas y línea de lectura, zoom y botones de linterna, pausar, cambiar cámara y reiniciar" />
   &nbsp;&nbsp;
   <img src="docs/images/capturas/generar.png" width="235" alt="Pestaña Generar: tipo de contenido, formato, corrección de errores y QR renderizado" />
   &nbsp;&nbsp;
