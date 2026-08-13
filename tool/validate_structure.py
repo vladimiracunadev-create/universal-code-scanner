@@ -81,6 +81,29 @@ def check_version() -> None:
         fail(f"Versión inválida: {version}")
 
 
+def check_interface_version() -> None:
+    """The version shown in the interface must match the one that is built.
+
+    The «Acerca de» tile carried the number as a literal and stayed at 1.0.0
+    after the release was raised, so the application told the user a version it
+    was not. `lib/core/app_info.dart` is now the only place that writes it, and
+    this check keeps it tied to `pubspec.yaml`.
+    """
+    pubspec = yaml.safe_load((ROOT / "pubspec.yaml").read_text(encoding="utf-8"))
+    expected = str(pubspec.get("version", "")).split("+", 1)[0]
+    path = ROOT / "lib" / "core" / "app_info.dart"
+    if not path.exists():
+        fail("Falta lib/core/app_info.dart con la versión de la interfaz")
+    match = re.search(r"const String appVersion = '([^']+)';", path.read_text(encoding="utf-8"))
+    if match is None:
+        fail("No se encontró appVersion en lib/core/app_info.dart")
+    if match.group(1) != expected:
+        fail(
+            "La versión mostrada en la interfaz "
+            f"({match.group(1)}) no coincide con pubspec.yaml ({expected})"
+        )
+
+
 def check_sensitive_logging() -> None:
     suspicious = re.compile(r"(?:print|debugPrint|log)\s*\([^\n]*(?:rawValue|password|secret|otp|payload)", re.IGNORECASE)
     for path in (ROOT / "lib").rglob("*.dart"):
@@ -147,6 +170,7 @@ def main() -> None:
     check_imports()
     check_absolute_paths()
     check_version()
+    check_interface_version()
     check_sensitive_logging()
     check_test_assets()
     check_json_files()

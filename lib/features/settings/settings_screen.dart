@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:universal_code_scanner/core/app_info.dart';
 import 'package:universal_code_scanner/core/localization/app_localizations.dart';
 import 'package:universal_code_scanner/core/recovery/recovery_repository.dart';
 import 'package:universal_code_scanner/core/recovery/recovery_service.dart';
@@ -62,8 +63,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               title: const Text('Idioma'),
               trailing: DropdownButton<AppLanguage>(
-                // English is not offered in 1.0.0. A preference stored by a
-                // future build must not leave the dropdown without a match.
+                // English is not offered yet. A preference stored by a future
+                // build must not leave the dropdown without a match.
                 value: value.language == AppLanguage.en ? AppLanguage.system : value.language,
                 items: const <DropdownMenuItem<AppLanguage>>[
                   DropdownMenuItem(value: AppLanguage.system, child: Text('Sistema')),
@@ -234,10 +235,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 title: Text('Modo temporal activo'),
                 subtitle: Text('Los datos persistentes no se están utilizando.'),
               ),
-            const ListTile(
-              leading: Icon(Icons.verified_user_outlined),
-              title: Text('Universal Code Scanner 1.0.0'),
-              subtitle: Text('Lector local y seguro con historial cifrado, inventario, generador y centro de recuperación. Licencia MIT.'),
+            ListTile(
+              leading: const Icon(Icons.verified_user_outlined),
+              title: Text('$appName $appVersion'),
+              subtitle: const Text('Lector local y seguro con historial cifrado, inventario, generador y centro de recuperación. Licencia MIT.'),
             ),
           ],
         ),

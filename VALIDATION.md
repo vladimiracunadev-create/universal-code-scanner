@@ -13,12 +13,11 @@
 | Suite de pruebas | `flutter test` | **57 de 57 en verde** |
 | Generación de plataformas | `python3 tool/bootstrap.py --platforms android,web` | Correcta · permisos, `minSdk 24`, `FlutterFragmentActivity`, etiqueta y cadena Gradle aplicados |
 | Compilación web | `flutter build web --release` | Compila |
-| Compilación Android | `flutter build apk --debug` | Compila con la dependencia de audio añadida |
+| Compilación Android | `flutter build apk --debug` · `--release --split-per-abi` · `--release` | Compila · 32,8 MB (arm64-v8a), 26,8 MB (armeabi-v7a), 35,3 MB (x86_64) y 88,1 MB (universal) |
+| Tono de lectura dentro del artefacto | Inspección del ZIP de los cuatro APK y de `build/web` | `assets/flutter_assets/assets/sounds/scan_success.wav` presente en todos |
+| Ejecución en Android | Instalación del APK release y arranque en emulador API 36 | Arranca, la cámara transmite y la barra de estado marca «Escaneando» |
+| Publicación | `gh release create v1.1.0` con los cuatro APK y `checksums.txt` | Publicada · el SHA-256 del APK descargado coincide con el publicado |
 | Validación estructural | `python3 tool/validate_structure.py --require-lock` | Sin errores |
-
-Medido en 1.0.0 y no repetido en 1.1.0: el APK release pesó 87,7 MB y arrancó en
-el emulador de Android API 36 con la cámara transmitiendo y las cinco pestañas
-respondiendo.
 
 Además, la CI de GitHub completa ambos trabajos en verde: análisis, pruebas,
 SBOM, compilación web, **APK de Android**, iOS sin firma y macOS.

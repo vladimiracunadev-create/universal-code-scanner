@@ -7,7 +7,7 @@ class AppLocalizations {
 
   static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
-  /// Version 1.0.0 ships a Spanish interface. English keys already exist here,
+  /// The application ships a Spanish interface. English keys already exist here,
   /// but the rest of the screens still hold Spanish literals, so offering
   /// English would produce a half-translated interface: an English navigation
   /// bar over Spanish content. The locale is therefore not exposed until every

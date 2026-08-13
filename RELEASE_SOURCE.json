@@ -20,10 +20,12 @@
     "unitAndWidgetTests": "57/57",
     "webReleaseBuild": true,
     "androidBuild": true,
-    "androidReleaseApk": "87.7MB (medido en 1.0.0)",
-    "androidEmulatorLaunch": "1.0.0",
+    "androidReleaseApk": "32.8MB arm64-v8a · 26.8MB armeabi-v7a · 35.3MB x86_64 · 88.1MB universal",
+    "androidEmulatorLaunch": true,
     "appleBuild": "ci-only",
-    "physicalDeviceTestsExecuted": false
+    "physicalDeviceTestsExecuted": false,
+    "scanTonePackagedInApk": true,
+    "publishedRelease": "v1.1.0"
   },
   "excluded": [
     "store-signing",

@@ -4,6 +4,28 @@ Todas las versiones notables de este proyecto se documentan en este archivo.
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y
 el proyecto usa [Versionado Semántico](https://semver.org/lang/es/).
 
+## [No publicado]
+
+Pendiente de entrar en la próxima versión etiquetada. **El APK de 1.1.0 ya
+publicado sigue mostrando «1.0.0» en Ajustes › Acerca de**; el resto de la
+aplicación es 1.1.0.
+
+### Corregido
+
+- **La pantalla «Acerca de» mostraba 1.0.0 en la versión 1.1.0.** El número
+  estaba escrito como literal en `settings_screen.dart` y nadie lo subió al
+  publicar. Ahora vive en `lib/core/app_info.dart`, y
+  `tool/validate_structure.py` compara esa constante con `pubspec.yaml` y falla
+  la compilación si divergen, de modo que la deriva no puede volver en silencio.
+
+### Cambiado
+
+- Descripción del repositorio en GitHub sincronizada con la versión publicada.
+- `VALIDATION.md` y `RELEASE_SOURCE.json` recogen lo verificado al publicar
+  1.1.0: los cuatro APK compilados y medidos, el tono de lectura presente dentro
+  de cada uno, el arranque en el emulador API 36 y la coincidencia del SHA-256
+  del APK descargado con el publicado.
+
 ## [1.1.0] — 2026-08-12
 
 Corrige el fallo de lectura reportado en un teléfono real y convierte el estado

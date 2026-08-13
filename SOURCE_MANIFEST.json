@@ -48,8 +48,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 8206,
-      "sha256": "86b8542e7c5233495b76d9f405038dc3e43314655c4cb1b3e046dc2338421b7f"
+      "size": 9164,
+      "sha256": "5aeafe6d3caf347e6884d27b4ea90968d5a83970e6927d12c112c9650e2b7054"
     },
     {
       "path": "docs/ARCHITECTURE.md",
@@ -207,6 +207,11 @@
       "sha256": "d0762656af5a1d3770004a698cb1b2eaeae5c7dccc0557eb36eaa5cdcd73f5cf"
     },
     {
+      "path": "lib/core/app_info.dart",
+      "size": 828,
+      "sha256": "ba949dff526c9b24b063e8ea856d0bc3f2e811ac2e4bc7b4d56b146c22f0dcf7"
+    },
+    {
       "path": "lib/core/database/app_database.dart",
       "size": 917,
       "sha256": "8238ea8dd19c2f5c4c33df41fccf9accc0b11f158a5cdf1675c07db02d97ab8b"
@@ -253,8 +258,8 @@
     },
     {
       "path": "lib/core/localization/app_localizations.dart",
-      "size": 2258,
-      "sha256": "537264122cb4636c21b75f7744d0815e05eea6ce4a3de6ed9aa736cd32aff9cc"
+      "size": 2260,
+      "sha256": "a2de6275988b13c84055ae7f0c3a2c05b4492a416af13e5e90205db1c6e928a0"
     },
     {
       "path": "lib/core/performance/async_write_queue.dart",
@@ -378,8 +383,8 @@
     },
     {
       "path": "lib/features/settings/settings_screen.dart",
-      "size": 16867,
-      "sha256": "156150ec48fb4503755cb49ec03a51a921cceab2477512417b5608e4e1998949"
+      "size": 16920,
+      "sha256": "11ddd1d7405dc56a93ec176ec35a229183a81b70b7e19f716c7443045c7e386f"
     },
     {
       "path": "lib/main.dart",
@@ -498,13 +503,13 @@
     },
     {
       "path": "README.md",
-      "size": 18720,
-      "sha256": "e92b4eeca68cf3b09ca1876cb12b72bedd040981de59fadcbd44dee18f1f59f6"
+      "size": 19091,
+      "sha256": "6a8dac78ee0ded70052074cfd1538ae3115587b6b02fa73dc9b86220bf74e4a9"
     },
     {
       "path": "RELEASE_SOURCE.json",
-      "size": 848,
-      "sha256": "0c1994c0ee557c456386a2676b19f7b99008a5a2516a93c7c985d68353c07a19"
+      "size": 965,
+      "sha256": "d5a48aea5b2e4a5828a4a5c8e3cfe0dd8fc9d8d26b48c64ddffa5bbee7a4e304"
     },
     {
       "path": "test/content_interpreter_test.dart",
@@ -738,13 +743,13 @@
     },
     {
       "path": "tool/validate_structure.py",
-      "size": 5566,
-      "sha256": "c6f586bedc688bab8302e5c8cc7b92a4b7dc9e442f37f37881f275b44976cba9"
+      "size": 6682,
+      "sha256": "62527adc8e561258140151a8e0aecd02077cc11c5231cd43b40d439cba4f7908"
     },
     {
       "path": "VALIDATION.md",
-      "size": 6979,
-      "sha256": "8c9ad90a49bd809045817bb3cbd84c0901ce8a367cd8450479febafa29278f2e"
+      "size": 7383,
+      "sha256": "82942ed2e48d584da01156d73bceabef42d6278b5fce902171d3c85e29ecee53"
     }
   ]
 }

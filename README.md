@@ -282,6 +282,10 @@ Ejecutado con Flutter 3.44.7 sobre esta misma versión del código:
 | `flutter analyze --fatal-infos` | **0 hallazgos** |
 | `flutter test` | **57 de 57 en verde** |
 | `flutter build web --release` | Compila |
+| `flutter build apk --release` | Compila los cuatro APK publicados |
+| Tono de lectura dentro del APK | Presente en los cuatro artefactos, no solo en el repositorio |
+| Instalación y arranque | Emulador Android API 36: la cámara transmite y la barra marca «Escaneando» |
+| SHA-256 del APK publicado | El archivo descargado del release coincide con `checksums.txt` |
 | `python3 tool/validate_structure.py` | Sin errores estructurales |
 
 Lo que **no** se ha verificado todavía está declarado sin adornos en
