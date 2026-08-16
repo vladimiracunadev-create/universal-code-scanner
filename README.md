@@ -24,7 +24,7 @@
 [![Analyzer](https://img.shields.io/badge/analyze%20--fatal--infos-0%20issues-brightgreen.svg)](VALIDATION.md)
 [![Telemetría](https://img.shields.io/badge/telemetr%C3%ADa-cero-success.svg)](docs/PRIVACY_POLICY.md)
 
-📲 **[Descargar APK para Android →](https://github.com/vladimiracunadev-create/universal-code-scanner/releases/latest)** · 📘 **[Arquitectura →](docs/ARCHITECTURE.md)** · 🔐 **[Seguridad →](docs/SECURITY.md)** · 🧾 **[Formatos →](docs/SUPPORTED_FORMATS.md)** · ✅ **[Validación real →](VALIDATION.md)**
+🌐 **[Sitio del producto →](https://vladimiracunadev-create.github.io/universal-code-scanner/)** · ▶️ **[Probar en el navegador →](https://vladimiracunadev-create.github.io/universal-code-scanner/app/)** · 📲 **[Descargar APK para Android →](https://github.com/vladimiracunadev-create/universal-code-scanner/releases/latest)** · 📘 **[Arquitectura →](docs/ARCHITECTURE.md)** · 🔐 **[Seguridad →](docs/SECURITY.md)** · 🧾 **[Formatos →](docs/SUPPORTED_FORMATS.md)** · ✅ **[Validación real →](VALIDATION.md)**
 
 ---
 
@@ -53,7 +53,7 @@ operativo.
 | **Android** (API 24+) | **APK compilado y ejecutado** en emulador | Motor ML Kit vía `mobile_scanner` |
 | **iOS** (15.5+) | Compila en CI (`--no-codesign`) | Motor Apple Vision · sin ejecución verificada |
 | **macOS** | Compila en CI | Cámara y galería · sin ejecución verificada |
-| **Web / PWA** | **Compila y se ejecuta** (release) | Sin lectura de PDF local |
+| **Web / PWA** | **Compila y se ejecuta** (release) | Publicada en [`/app/`](https://vladimiracunadev-create.github.io/universal-code-scanner/app/) · sin lectura de PDF local |
 | **Windows · Linux** | Vía PWA | Sin motor nativo en 1.1.0 |
 
 Las carpetas nativas **no se versionan**: se generan de forma reproducible con
