@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Universal Code Scanner — lector Flutter de códigos QR y de barras que interpreta antes de actuar: 16 señales de riesgo locales por URL, confirmación explícita, historial e inventario cifrados con AES-256-GCM. Telemetría: cero." />
+  <meta property="og:title" content="Universal Code Scanner — interpretar primero, actuar después" />
+  <meta property="og:description"
+    content="Un QR es una instrucción opaca. Este lector la interpreta, explica sus campos, evalúa 16 señales de riesgo locales y espera tu confirmación antes de abrir nada. Android · iOS · macOS · PWA. Telemetría: cero." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vladimiracunadev-create.github.io/universal-code-scanner/" />
+  <meta property="og:image"
+    content="https://vladimiracunadev-create.github.io/universal-code-scanner/assets/icon-512.png" />
+  <meta name="theme-color" content="#0d1117" />
+  <title>Universal Code Scanner</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <!-- El PNG es el mismo icono de la aplicación: assets/launcher/web/Icon-512.png. -->
+  <link rel="apple-touch-icon" href="assets/icon-512.png" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════  NAV  ═══════════════════════════════ -->
+  <header class="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+          <path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M14 3h3.5A1.5 1.5 0 0 1 19 4.5V8M19 14v3.5a1.5 1.5 0 0 1-1.5 1.5H14M8 19H4.5A1.5 1.5 0 0 1 3 17.5V14"
+            stroke="#5bd7cd" stroke-width="1.6" stroke-linecap="round" />
+          <rect x="7" y="7" width="3.2" height="3.2" rx=".8" fill="#5bd7cd" />
+          <rect x="11.8" y="11.8" width="3.2" height="3.2" rx=".8" fill="#5bd7cd" />
+        </svg>
+        Universal Code Scanner
+      </span>
+      <nav class="nav-links">
+        <a href="#que-hace">Qué hace</a>
+        <a href="#escaner">Escáner</a>
+        <a href="#formatos">Formatos</a>
+        <a href="#seguridad">Seguridad</a>
+        <a href="#descargar">Descargar</a>
+        <a href="app/" class="btn-nav">Probar en el navegador</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════  HERO  ══════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ascii-block">
+        <pre>
+██╗   ██╗███╗   ██╗██╗██╗   ██╗███████╗██████╗ ███████╗ █████╗ ██╗
+██║   ██║████╗  ██║██║██║   ██║██╔════╝██╔══██╗██╔════╝██╔══██╗██║
+██║   ██║██╔██╗ ██║██║╚██╗ ██╔╝█████╗  ██████╔╝███████╗███████║██║
+██║   ██║██║╚██╗██║██║ ╚████╔╝ ██╔══╝  ██╔══██╗╚════██║██╔══██║██║
+╚██████╔╝██║ ╚████║██║  ╚██╔╝  ███████╗██║  ██║███████║██║  ██║███████╗
+ ╚═════╝ ╚═╝  ╚═══╝╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝
+                    C O D E   S C A N N E R
+</pre>
+      </div>
+
+      <p class="hero-sub">
+        Un lector de códigos que <strong>asume que un código puede mentir</strong>.<br />
+        Interpreta el contenido, lo explica en campos legibles, evalúa
+        <strong>16 señales de riesgo locales</strong><br />
+        y espera una confirmación explícita antes de ejecutar cualquier acción externa.
+      </p>
+
+      <div class="badges">
+        <img
+          src="https://github.com/vladimiracunadev-create/universal-code-scanner/actions/workflows/flutter-ci.yml/badge.svg"
+          alt="Estado de la integración continua" />
+        <img src="https://img.shields.io/badge/Flutter-3.44.7-02569B.svg?logo=flutter" alt="Flutter 3.44.7" />
+        <img src="https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20macOS%20%7C%20Web-lightgrey.svg"
+          alt="Android, iOS, macOS y Web" />
+        <img src="https://img.shields.io/badge/versi%C3%B3n-1.1.0-brightgreen.svg" alt="Versión 1.1.0" />
+        <img src="https://img.shields.io/badge/tests-57%20passing-brightgreen.svg" alt="57 pruebas en verde" />
+        <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Licencia MIT" />
+        <img src="https://img.shields.io/badge/telemetr%C3%ADa-cero-success.svg" alt="Telemetría cero" />
+      </div>
+
+      <div class="hero-cta">
+        <a href="app/" class="btn-primary">▶ Probar en el navegador</a>
+        <a href="#descargar" class="btn-ghost">⬇ Descargar APK</a>
+        <a href="https://github.com/vladimiracunadev-create/universal-code-scanner" class="btn-ghost">⌂ Código fuente</a>
+      </div>
+
+      <p class="hero-tagline"><em>Interpretar primero. Actuar después.</em></p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  QUÉ HACE  ══════════════════════════ -->
+  <section id="que-hace" class="section">
+    <div class="container">
+      <h2 class="section-title">🔍 Qué problema resuelve</h2>
+      <p class="section-sub">
+        Un QR es una instrucción opaca: nadie puede leer a simple vista si lleva a un banco o a una copia del banco.
+        La mayoría de los lectores resuelve esa ambigüedad abriendo el enlace de inmediato. Este hace lo contrario.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Pregunta</th>
+              <th>Cómo responde Universal Code Scanner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>¿A dónde lleva realmente este QR?</strong></td>
+              <td>Muestra dominio, protocolo, ruta y consulta antes de abrir nada.</td>
+            </tr>
+            <tr>
+              <td><strong>¿Este enlace intenta engañarme?</strong></td>
+              <td>16 señales locales: Punycode, alfabetos mezclados, credenciales en la URL, IP literal, acortador,
+                descarga ejecutable…</td>
+            </tr>
+            <tr>
+              <td><strong>¿Qué dice un código que no es un enlace?</strong></td>
+              <td>Interpreta Wi-Fi, vCard, eventos, OTP, GS1, ISBN, EMVCo, SEPA, Swiss QR, criptomonedas y AAMVA.</td>
+            </tr>
+            <tr>
+              <td><strong>¿Puedo contar existencias con el teléfono?</strong></td>
+              <td>Sesiones de inventario con conteo, notas y exportación a CSV, XLSX y JSON.</td>
+            </tr>
+            <tr>
+              <td><strong>¿Y si el código está en un PDF o en fotos?</strong></td>
+              <td>Lotes de hasta 20 imágenes y 50 páginas, con progreso y cancelación.</td>
+            </tr>
+            <tr>
+              <td><strong>¿Queda mi historial expuesto?</strong></td>
+              <td>Cifrado AES-256-GCM en disco; OTP y Wi-Fi con contraseña nunca se guardan solos.</td>
+            </tr>
+            <tr>
+              <td><strong>¿Qué pasa si la base se corrompe?</strong></td>
+              <td>Modo temporal en memoria y Centro de recuperación por registro.</td>
+            </tr>
+            <tr>
+              <td><strong>¿Necesito generar un código?</strong></td>
+              <td>Generador PNG y SVG de 10 simbologías.</td>
+            </tr>
+            <tr>
+              <td><strong>¿Está escaneando ahora mismo?</strong></td>
+              <td>Barra de estado permanente: solo se mueve mientras el motor analiza cuadros.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  CAPTURAS  ══════════════════════════ -->
+  <section id="capturas" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">📸 La aplicación en marcha</h2>
+      <p class="section-sub">
+        Capturas del APK release corriendo en el emulador oficial de Android (API 36). La pestaña
+        <strong>Escanear</strong> corresponde a 1.1.0 y muestra la barra de estado en «Escaneando»; las demás se
+        tomaron en 1.0.0 sobre pantallas que no han cambiado.
+      </p>
+      <div class="shots">
+        <figure>
+          <img src="assets/capturas/escanear.png"
+            alt="Pestaña Escanear: barra de estado en «Escaneando», marco con esquinas y línea de lectura, zoom, linterna, pausa, cambio de cámara y reinicio" />
+          <figcaption>Escanear — estado siempre visible</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/capturas/generar.png"
+            alt="Pestaña Generar: tipo de contenido, formato, corrección de errores y QR renderizado" />
+          <figcaption>Generar — 10 simbologías</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/capturas/historial.png"
+            alt="Pestaña Historial: buscador y filtros por nivel de riesgo" />
+          <figcaption>Historial — cifrado en disco</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/capturas/inventario.png"
+            alt="Pestaña Inventario: sesiones con nombre e importación JSON" />
+          <figcaption>Inventario — conteo y exportación</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/capturas/ajustes.png"
+            alt="Pestaña Ajustes: apariencia, idioma, accesibilidad y opciones del escáner" />
+          <figcaption>Ajustes — apariencia y escáner</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  ESCÁNER  ═══════════════════════════ -->
+  <section id="escaner" class="section">
+    <div class="container">
+      <h2 class="section-title">🎯 Cómo se comporta el escáner</h2>
+      <p class="section-sub">
+        La lectura es automática: no hay que pulsar nada para leer un código. Lo que sí está siempre a la vista es en
+        qué estado se encuentra la cámara, porque una cámara que no arranca no puede parecerse a una cámara esperando
+        un código.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Estado</th>
+              <th>Qué se ve</th>
+              <th>Qué se ofrece</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Iniciando cámara</strong></td>
+              <td>Barra en movimiento</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Escaneando</strong></td>
+              <td>Barra en movimiento y línea que recorre el marco</td>
+              <td>Botón «Pausar»</td>
+            </tr>
+            <tr>
+              <td><strong>Escaneo en pausa</strong></td>
+              <td>Barra detenida y vista atenuada</td>
+              <td>«Reanudar escaneo», o tocar la vista</td>
+            </tr>
+            <tr>
+              <td><strong>Cámara no disponible</strong></td>
+              <td>Barra en color de error y motivo concreto</td>
+              <td>«Reintentar» y «Reiniciar cámara»</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="feature-grid" style="margin-top:2rem">
+        <div class="feature-card">
+          <div class="feature-icon">🔔</div>
+          <h3>Tono propio, no el del sistema</h3>
+          <p>Cada lectura conseguida suena con un tono empaquetado en la aplicación —no con el efecto de sonido del
+            sistema, que Android silencia en cuanto se apagan los sonidos táctiles— y vibra. Sonido y vibración son
+            ajustes independientes.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">♿</div>
+          <h3>Movimiento reducido</h3>
+          <p>Con movimiento reducido activado, la barra de estado y el marco se dibujan quietos: la información sigue
+            estando, la animación no.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧩</div>
+          <h3>Cuando un código no entra</h3>
+          <p>La landing no adivina por ti: la guía de diagnóstico por síntoma —encuadre, recorte de lectura, permiso
+            denegado, silencio— está en <a
+              href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/docs/quality/SCANNER_UX.md">SCANNER_UX.md</a>,
+            con la causa técnica de cada fallo corregido en 1.1.0.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  FORMATOS  ══════════════════════════ -->
+  <section id="formatos" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">🧾 Formatos</h2>
+      <p class="section-sub">
+        La cobertura real de cada simbología depende del backend activo —ML Kit, Apple Vision o el motor web—. Detalle
+        y exclusiones en <a
+          href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/docs/SUPPORTED_FORMATS.md">SUPPORTED_FORMATS.md</a>.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Categoría</th>
+              <th>Cobertura en 1.1.0</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>2D</strong></td>
+              <td>QR, Micro QR, Data Matrix, Aztec, PDF417, MaxiCode</td>
+            </tr>
+            <tr>
+              <td><strong>Lineales</strong></td>
+              <td>Code 128, Code 39, Code 93, Codabar, EAN-13, EAN-8, UPC-A, UPC-E, ITF</td>
+            </tr>
+            <tr>
+              <td><strong>GS1</strong></td>
+              <td>DataBar, DataBar Expanded, DataBar Limited, Application Identifiers</td>
+            </tr>
+            <tr>
+              <td><strong>Contenidos</strong></td>
+              <td>URL, texto, binario, Wi-Fi, vCard, MeCard, vEvent, correo, teléfono, SMS, geo, OTP, ISBN, producto</td>
+            </tr>
+            <tr>
+              <td><strong>Pagos</strong></td>
+              <td>EMVCo, EPC/SEPA, Swiss QR Bill, Bitcoin, Lightning, Ethereum</td>
+            </tr>
+            <tr>
+              <td><strong>Identidad</strong></td>
+              <td>AAMVA/PDF417 reconocible</td>
+            </tr>
+            <tr>
+              <td><strong>Generación</strong></td>
+              <td>QR, Data Matrix, Aztec, PDF417, Code 128, Code 39, EAN-13, EAN-8, UPC-A, GS1-128</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  SEGURIDAD  ═════════════════════════ -->
+  <section id="seguridad" class="section">
+    <div class="container">
+      <h2 class="section-title">🔐 Del código a la acción</h2>
+      <p class="section-sub">
+        Ninguna rama de este flujo abre un enlace, marca un teléfono ni conecta una red sin que la persona lo confirme
+        viendo antes los campos interpretados.
+      </p>
+
+      <div class="diagram">
+        <img src="assets/flujo-seguridad.svg"
+          alt="Flujo: captura, interpretación, análisis de riesgo, confirmación explícita y persistencia cifrada" />
+      </div>
+
+      <h2 class="section-title" style="margin-top:3rem">🛡️ Seguridad y privacidad</h2>
+      <p class="section-sub">Todo ocurre en el dispositivo. Sin cuentas, sin publicidad, sin analítica, sin servidores
+        propios.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Garantía</th>
+              <th>Implementación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nada se abre solo</strong></td>
+              <td>Confirmación explícita para cada acción externa</td>
+            </tr>
+            <tr>
+              <td><strong>Historial cifrado</strong></td>
+              <td>AES-256-GCM con nonce y MAC por registro</td>
+            </tr>
+            <tr>
+              <td><strong>Llave protegida</strong></td>
+              <td>Keychain / Keystore vía <code>flutter_secure_storage</code></td>
+            </tr>
+            <tr>
+              <td><strong>Llave ausente ≠ llave nueva</strong></td>
+              <td>El descifrado falla, informa y bloquea escrituras con ese identificador</td>
+            </tr>
+            <tr>
+              <td><strong>Rotación segura</strong></td>
+              <td>Reencriptado completo dentro de una transacción; llave huérfana eliminada si falla</td>
+            </tr>
+            <tr>
+              <td><strong>Secretos efímeros</strong></td>
+              <td>OTP y Wi-Fi con contraseña fuera del historial; portapapeles con borrado programado</td>
+            </tr>
+            <tr>
+              <td><strong>Diagnóstico sin datos</strong></td>
+              <td>Solo tipo de error y huella de pila: nunca cargas, URLs ni notas</td>
+            </tr>
+            <tr>
+              <td><strong>Telemetría</strong></td>
+              <td class="ok">Cero. No hay red saliente propia</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  PLATAFORMAS  ═══════════════════════ -->
+  <section id="plataformas" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">📱 Plataformas</h2>
+      <p class="section-sub">
+        Las carpetas nativas no se versionan: se generan de forma reproducible con <code>tool/bootstrap.py</code>, que
+        además aplica permisos, <code>minSdk</code>, entitlements, descripciones de uso, la cadena de compilación de
+        Gradle y los iconos. Así el repositorio contiene únicamente fuente propia.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Plataforma</th>
+              <th>Estado en 1.1.0</th>
+              <th>Notas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Android</strong> (API 24+)</td>
+              <td class="ok">APK compilado y ejecutado en emulador</td>
+              <td>Motor ML Kit vía <code>mobile_scanner</code></td>
+            </tr>
+            <tr>
+              <td><strong>iOS</strong> (15.5+)</td>
+              <td class="warn">Compila en CI (<code>--no-codesign</code>)</td>
+              <td>Motor Apple Vision · sin ejecución verificada</td>
+            </tr>
+            <tr>
+              <td><strong>macOS</strong></td>
+              <td class="warn">Compila en CI</td>
+              <td>Cámara y galería · sin ejecución verificada</td>
+            </tr>
+            <tr>
+              <td><strong>Web / PWA</strong></td>
+              <td class="ok">Compila y se ejecuta (release)</td>
+              <td>Es la versión publicada en <a href="app/">/app/</a> · sin lectura de PDF local</td>
+            </tr>
+            <tr>
+              <td><strong>Windows · Linux</strong></td>
+              <td>Vía PWA</td>
+              <td>Sin motor nativo en 1.1.0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="section-sub" style="margin-top:1.5rem; margin-bottom:0">
+        En pantallas anchas —navegador de escritorio o tablet— la interfaz se centra con un ancho máximo de teléfono en
+        lugar de estirarse de borde a borde.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  DESCARGAR  ═════════════════════════ -->
+  <section id="descargar" class="section">
+    <div class="container">
+      <h2 class="section-title">⬇ Descargar</h2>
+      <p class="section-sub">
+        Los APK de cada versión están en <a
+          href="https://github.com/vladimiracunadev-create/universal-code-scanner/releases/latest">Releases</a>. Cada
+        archivo publica su SHA-256 en <code>checksums.txt</code> para que puedas verificar la descarga.
+      </p>
+
+      <div class="download-grid">
+        <div class="download-card primary">
+          <span class="dl-badge">Recomendado</span>
+          <h3>app-arm64-v8a-release.apk</h3>
+          <p>Prácticamente cualquier móvil actual.</p>
+          <p class="dl-meta">32,8 MB · 1.1.0</p>
+          <a class="btn-nav" style="text-align:center"
+            href="https://github.com/vladimiracunadev-create/universal-code-scanner/releases/latest">Ir al release</a>
+        </div>
+        <div class="download-card">
+          <h3>app-armeabi-v7a-release.apk</h3>
+          <p>Móviles antiguos de 32 bits.</p>
+          <p class="dl-meta">26,8 MB · 1.1.0</p>
+        </div>
+        <div class="download-card">
+          <h3>app-x86_64-release.apk</h3>
+          <p>Emuladores y equipos x86.</p>
+          <p class="dl-meta">35,3 MB · 1.1.0</p>
+        </div>
+        <div class="download-card">
+          <h3>app-release.apk</h3>
+          <p>Universal: funciona en todos, pesa el triple.</p>
+          <p class="dl-meta">88,1 MB · 1.1.0</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Estos APK están firmados con la clave de depuración de Android</strong> (<code>CN=Android Debug</code>),
+        porque 1.1.0 no incluye firma de publicación. Sirven para instalar y probar. <strong>No</strong> sirven para
+        subir a Google Play, y una versión futura firmada con una clave propia no podrá actualizarlos: habrá que
+        desinstalar antes. Android pedirá permiso para instalar desde una fuente desconocida; es el flujo normal de
+        cualquier APK que no venga de una tienda.
+      </div>
+
+      <p class="section-sub" style="margin-top:1.5rem; margin-bottom:0">
+        ¿Prefieres no instalar nada? La misma aplicación corre en el navegador en
+        <a href="app/">/app/</a>: pedirá el permiso de cámara del navegador y, como toda la versión web, no lee PDF
+        locales.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  CALIDAD  ═══════════════════════════ -->
+  <section id="calidad" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">✅ Calidad verificada</h2>
+      <p class="section-sub">Ejecutado con Flutter 3.44.7 sobre esta misma versión del código.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Comprobación</th>
+              <th>Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>flutter analyze --fatal-infos</code></td>
+              <td class="ok">0 hallazgos</td>
+            </tr>
+            <tr>
+              <td><code>flutter test</code></td>
+              <td class="ok">57 de 57 en verde</td>
+            </tr>
+            <tr>
+              <td><code>flutter build web --release</code></td>
+              <td class="ok">Compila</td>
+            </tr>
+            <tr>
+              <td><code>flutter build apk --release</code></td>
+              <td class="ok">Compila los cuatro APK publicados</td>
+            </tr>
+            <tr>
+              <td>Tono de lectura dentro del APK</td>
+              <td class="ok">Presente en los cuatro artefactos, no solo en el repositorio</td>
+            </tr>
+            <tr>
+              <td>Instalación y arranque</td>
+              <td class="ok">Emulador Android API 36: la cámara transmite y la barra marca «Escaneando»</td>
+            </tr>
+            <tr>
+              <td>SHA-256 del APK publicado</td>
+              <td class="ok">El archivo descargado del release coincide con <code>checksums.txt</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="section-sub" style="margin-top:1.5rem; margin-bottom:0">
+        Lo que <strong>no</strong> se ha verificado todavía está declarado sin adornos en
+        <a href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/VALIDATION.md">VALIDATION.md</a>
+        y <a
+          href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/IMPLEMENTATION_STATUS.md">IMPLEMENTATION_STATUS.md</a>:
+        esta versión no ha sido probada en dispositivos físicos.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  LÍMITES  ═══════════════════════════ -->
+  <section id="limites" class="section">
+    <div class="container">
+      <h2 class="section-title">🚧 Límites declarados de 1.1.0</h2>
+      <p class="section-sub">Esta versión prefiere decir lo que no hace antes que insinuar que lo hace.</p>
+
+      <ul class="limits">
+        <li><strong>No hay firma de publicación ni tiendas.</strong> Los APK van firmados con la clave de depuración:
+          sirven para instalar y probar, no para Google Play.</li>
+        <li><strong>No hay pruebas en dispositivos físicos.</strong> Cámara real, biometría, PDF grandes, TalkBack y
+          VoiceOver siguen pendientes.</li>
+        <li><strong>No hay motor nativo para Windows ni Linux.</strong> Se cubren mediante la PWA.</li>
+        <li><strong>No se promete compatibilidad</strong> con códigos privados, cifrados o sin especificación
+          pública.</li>
+        <li><strong>El analizador no consulta reputación remota.</strong> Solo muestra señales locales y nunca declara
+          que un enlace sea seguro.</li>
+        <li><strong>La interfaz está solo en español.</strong> La infraestructura admite inglés y sus claves ya existen,
+          pero media traducción se ve peor que ninguna.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  DOCUMENTACIÓN  ═════════════════════ -->
+  <section id="documentacion" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">📚 Documentación</h2>
+      <p class="section-sub">Todo lo que sostiene lo anterior, en el repositorio.</p>
+
+      <div class="doc-grid">
+        <div class="doc-entry">
+          <a href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/docs/ARCHITECTURE.md">Arquitectura</a>
+          <span>Capas, flujo de lectura y puntos de extensión</span>
+        </div>
+        <div class="doc-entry">
+          <a href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/docs/SECURITY.md">Seguridad</a>
+          <span>Modelo aplicado y señales de URL</span>
+        </div>
+        <div class="doc-entry">
+          <a href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/docs/security/THREAT_MODEL.md">Modelo
+            de amenazas</a>
+          <span>Actores, superficies y mitigaciones</span>
+        </div>
+        <div class="doc-entry">
+          <a href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/docs/PRIVACY_POLICY.md">Privacidad</a>
+          <span>Qué se guarda, dónde y por cuánto tiempo</span>
+        </div>
+        <div class="doc-entry">
+          <a href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/docs/SUPPORTED_FORMATS.md">Formatos</a>
+          <span>Simbologías, contenidos y exclusiones</span>
+        </div>
+        <div class="doc-entry">
+          <a href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/docs/quality/SCANNER_UX.md">UX
+            del escáner</a>
+          <span>Estados, causas de fallo y comparación con otros lectores</span>
+        </div>
+        <div class="doc-entry">
+          <a href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/docs/quality/ACCESSIBILITY.md">Accesibilidad</a>
+          <span>Contraste, lectores de pantalla e idiomas</span>
+        </div>
+        <div class="doc-entry">
+          <a href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/CHANGELOG.md">Changelog</a>
+          <span>Qué cambió en cada versión</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════  FOOTER  ════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>Universal Code Scanner</h4>
+        <p>Lector, intérprete, generador e inventario seguro de códigos QR y de barras.<br />
+          Interpretar primero. Actuar después.<br />
+          Telemetría: cero.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Producto</h4>
+        <ul>
+          <li><a href="app/">Probar en el navegador</a></li>
+          <li><a
+              href="https://github.com/vladimiracunadev-create/universal-code-scanner/releases/latest">Descargar APK</a>
+          </li>
+          <li><a href="https://github.com/vladimiracunadev-create/universal-code-scanner">Repositorio</a></li>
+          <li><a
+              href="https://github.com/vladimiracunadev-create/universal-code-scanner/tree/main/docs">Documentación</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Más productos</h4>
+        <ul>
+          <li><a href="https://vladimiracunadev-create.github.io/">Portafolio</a></li>
+          <li><a href="https://vladimiracunadev-create.github.io/rootcause-mobile-inspector/">RootCause Mobile</a></li>
+          <li><a href="https://vladimiracunadev-create.github.io/rootcause-windows-inspector/">RootCause Windows</a></li>
+          <li><a href="https://github.com/vladimiracunadev-create">@vladimiracunadev-create</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Vladimir Acuña · <a
+          href="https://github.com/vladimiracunadev-create/universal-code-scanner/blob/main/LICENSE">MIT</a> · 2026</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>

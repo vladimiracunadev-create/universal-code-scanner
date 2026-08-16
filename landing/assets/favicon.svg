@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Universal Code Scanner">
+  <rect width="32" height="32" rx="7" fill="#0d1117"/>
+  <g fill="none" stroke="#5bd7cd" stroke-width="2" stroke-linecap="round">
+    <path d="M5 11V6.5A1.5 1.5 0 0 1 6.5 5H11"/>
+    <path d="M21 5h4.5A1.5 1.5 0 0 1 27 6.5V11"/>
+    <path d="M27 21v4.5a1.5 1.5 0 0 1-1.5 1.5H21"/>
+    <path d="M11 27H6.5A1.5 1.5 0 0 1 5 25.5V21"/>
+  </g>
+  <g fill="#5bd7cd">
+    <rect x="10" y="10" width="4" height="4" rx="1"/>
+    <rect x="18" y="10" width="4" height="4" rx="1"/>
+    <rect x="10" y="18" width="4" height="4" rx="1"/>
+    <rect x="18" y="18" width="2" height="2" rx=".5"/>
+    <rect x="20.5" y="20.5" width="1.5" height="1.5" rx=".4"/>
+  </g>
+  <rect x="5" y="15.2" width="22" height="1.6" rx=".8" fill="#12847b"/>
+</svg>

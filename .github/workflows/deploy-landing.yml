@@ -1,0 +1,95 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Deploy Landing Page — Universal Code Scanner
+#
+# Publica en GitHub Pages un sitio con dos partes:
+#   /      → la landing estática de landing/
+#   /app/  → la propia aplicación compilada para web (PWA), con su base href
+#
+# Las imágenes no se duplican en landing/: se copian aquí desde docs/ y desde
+# assets/launcher/, que son la única fuente de esos archivos en el repositorio.
+# ─────────────────────────────────────────────────────────────────────────────
+name: Deploy Landing Page
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "landing/**"
+      - "lib/**"
+      - "web/**"
+      - "assets/**"
+      - "docs/images/**"
+      - "pubspec.yaml"
+      - "pubspec.lock"
+      - "tool/bootstrap.py"
+      - ".github/workflows/deploy-landing.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  FLUTTER_VERSION: 3.44.7
+  # Debe empezar y terminar en «/»: es la ruta desde la que se sirve la PWA.
+  APP_BASE_HREF: /universal-code-scanner/app/
+
+jobs:
+  deploy:
+    name: Publicar landing y PWA en GitHub Pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install Python tooling
+        run: python3 -m pip install --upgrade pyyaml
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Generate the web project
+        run: python3 tool/bootstrap.py --platforms web
+
+      - name: Build the PWA
+        run: flutter build web --release --base-href "$APP_BASE_HREF"
+
+      - name: Assemble the site
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          cp -r landing _site
+          touch _site/.nojekyll
+          mkdir -p _site/assets/capturas
+          cp docs/images/capturas/*.png _site/assets/capturas/
+          cp docs/images/flujo-seguridad.svg _site/assets/
+          cp assets/launcher/web/Icon-512.png _site/assets/icon-512.png
+          cp -r build/web _site/app
+          test -f _site/app/index.html
+          test -f _site/assets/capturas/escanear.png
+          test -f _site/assets/icon-512.png
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
