@@ -2,6 +2,7 @@
 # SOURCE_MANIFEST.json stay verifiable after a clone on Windows.
 * text=auto eol=lf
 
+*.pdf binary
 *.png binary
 *.jpg binary
 *.jpeg binary

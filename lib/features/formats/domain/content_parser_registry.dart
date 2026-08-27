@@ -15,12 +15,18 @@ class ContentParserRegistry {
     _parsers.sort((ContentParser a, ContentParser b) => b.priority.compareTo(a.priority));
   }
 
+  /// Removes a parser by id. The built-in one is protected: without it the
+  /// registry could end up with no parser willing to accept a payload, and
+  /// every scan would fall through to the defensive branch in `parse`.
   void unregister(String id) => _parsers.removeWhere((ContentParser item) => item.id == id && id != 'builtin-v2');
 
   ParsedContent parse(String rawValue) {
     for (final ContentParser parser in _parsers) {
       if (parser.canParse(rawValue)) return parser.parse(rawValue);
     }
+    // Unreachable while `LegacyContentParser` is registered — it accepts every
+    // payload and cannot be unregistered. Kept as a deliberate guarantee that
+    // this method always returns a `ParsedContent` rather than throwing.
     return ContentInterpreter.parse(rawValue);
   }
 }

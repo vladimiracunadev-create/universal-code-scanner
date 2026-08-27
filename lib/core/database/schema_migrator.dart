@@ -7,6 +7,13 @@ class SchemaMigrationResult {
   final List<int> applied;
 }
 
+/// Advances the application's own logical schema, kept in `_schema_meta`.
+///
+/// Unrelated to the `version` Sembast receives when the file is opened. None of
+/// the steps creates a store or transforms a record — Sembast creates stores
+/// lazily on first use — so what they really record is «this installation has
+/// reached that point». They run inside one transaction and are idempotent, so
+/// calling `migrate` twice applies nothing the second time.
 class SchemaMigrator {
   SchemaMigrator(this.database);
   static const int currentVersion = 4;

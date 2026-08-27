@@ -1,6 +1,20 @@
 import 'package:universal_code_scanner/models/parsed_content.dart';
 
 abstract final class ContentInterpreter {
+  /// Turns a raw payload into named fields a person can read before acting.
+  ///
+  /// The branch order below is the specification, not an accident: the first
+  /// match wins and there is no scoring. Two consequences worth knowing.
+  ///
+  /// The payment and secret formats are tested before anything generic so that
+  /// they always reach `sensitive: true` and stay out of the automatic history.
+  /// And `_isIsbn` runs before the plain product branch, which is why a 13-digit
+  /// EAN starting with 978 or 979 is reported as an ISBN — correct, since that
+  /// is the Bookland range — at the cost of also claiming any ten-character
+  /// numeric payload.
+  ///
+  /// Never throws: the final branch accepts everything as plain text, because
+  /// failing to interpret a code must not stop the user from seeing it.
   static ParsedContent parse(String rawValue) {
     final String raw = rawValue.trim();
     final String lower = raw.toLowerCase();
@@ -321,6 +335,13 @@ abstract final class ContentInterpreter {
     );
   }
 
+  /// Splits a `key:value;key:value;` payload honouring backslash escapes.
+  ///
+  /// This is what makes a Wi-Fi QR with a semicolon or a colon inside the
+  /// network name or the password readable instead of mangled. It walks runes
+  /// rather than UTF-16 units so a character outside the basic plane is never
+  /// cut in half, and it splits each segment on its **first** colon so a value
+  /// containing an unescaped colon does not corrupt the key.
   static Map<String, String> _segments(String value) {
     final Map<String, String> result = <String, String>{};
     final StringBuffer current = StringBuffer();
@@ -348,6 +369,13 @@ abstract final class ContentInterpreter {
     return result;
   }
 
+  /// Walks an EMVCo tag-length-value payload: two characters of id, two of
+  /// length, then the value.
+  ///
+  /// Stops at the first malformed field instead of throwing, so a truncated
+  /// payment QR still yields the fields that were readable. The caller always
+  /// adds the untouched payload as a `Carga` field so the user can verify what
+  /// the partial interpretation was based on.
   static Map<String, String> _tlv(String raw) {
     final Map<String, String> result = <String, String>{};
     int index = 0;

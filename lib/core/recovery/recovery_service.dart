@@ -19,6 +19,15 @@ class RecoveryService {
 
   Future<List<RecoveryIssue>> load({bool unresolvedOnly = false}) => repository.load(unresolvedOnly: unresolvedOnly);
 
+  /// Attempts to bring a damaged record back, returning whether it worked.
+  ///
+  /// Decrypts **and rebuilds the model** before writing anything: if the
+  /// recovered JSON is not a valid record, `fromJson` throws and the whole
+  /// attempt reports failure instead of reinserting something corrupt. The
+  /// stored envelope is upgraded to the current format on the way in.
+  ///
+  /// Every failure collapses into `false`, which the interface shows as «no
+  /// fue posible recuperar el elemento con la llave disponible».
   Future<bool> retry(RecoveryIssue issue) async {
     final String? encrypted = issue.encryptedPayload;
     if (encrypted == null || issue.state != RecoveryIssueState.unresolved) return false;
@@ -70,6 +79,12 @@ class RecoveryService {
     await repository.mark(issue.id, RecoveryIssueState.deleted);
   }
 
+  /// Serialises the recovery issues for someone to look at outside the app.
+  ///
+  /// The encrypted payloads travel **still encrypted** and no key is included,
+  /// which is what makes this safe to paste into a support thread. A test
+  /// enforces that: it encrypts a marker value, exports, and asserts that
+  /// neither the marker nor the secure-storage key prefix appears.
   Future<String> exportBundle() async {
     final List<RecoveryIssue> issues = await repository.load(unresolvedOnly: false);
     return const JsonEncoder.withIndent('  ').convert(<String, Object?>{

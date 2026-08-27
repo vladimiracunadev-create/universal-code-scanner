@@ -132,6 +132,14 @@ class InventoryStore extends ChangeNotifier {
         notifyListeners();
       });
 
+  /// Persists a session and swaps it into the in-memory list.
+  ///
+  /// «Unlocked» means *already inside the write queue*. Every public mutation
+  /// wraps its body in `_writes.run`, so calling this from outside would defeat
+  /// the serialisation the inventory depends on: the camera keeps feeding
+  /// readings while the user edits quantities and notes, and `InventorySession`
+  /// is immutable, so two concurrent writers would both start from the same
+  /// base and the second would silently discard the first.
   Future<void> _replaceUnlocked(InventorySession session) async {
     final int index = _sessions.indexWhere((InventorySession item) => item.id == session.id);
     if (index < 0) return;

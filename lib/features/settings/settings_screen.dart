@@ -248,11 +248,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _update(AppSettings settings) => widget.settings.update(settings);
 
+  /// Saves the retention window and prunes immediately.
+  ///
+  /// Choosing «30 días» deletes everything older right away, with no
+  /// confirmation dialog and no undo — unlike «Borrar todo el historial», which
+  /// does confirm.
   Future<void> _updateRetention(int days) async {
     await _update(value.copyWith(historyRetentionDays: days));
     await widget.scanStore.pruneOlderThan(days);
   }
 
+  /// Turning the lock **on** requires proving it works first.
+  ///
+  /// The setting is only stored after a successful authentication, so nobody
+  /// can end up locked out of their own application by a device that reports
+  /// support it does not really have. Turning it off needs no proof.
   Future<void> _changeBiometricLock(bool enabled) async {
     if (!enabled) {
       await _update(value.copyWith(biometricLock: false));

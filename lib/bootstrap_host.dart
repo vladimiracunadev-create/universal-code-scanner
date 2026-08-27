@@ -6,6 +6,14 @@ import 'package:universal_code_scanner/core/diagnostics/app_diagnostics.dart';
 import 'package:universal_code_scanner/core/diagnostics/startup_failure.dart';
 import 'package:universal_code_scanner/services/settings_repository.dart';
 
+/// Runs the startup sequence and, if it fails, offers a way out instead of a
+/// blank screen.
+///
+/// This widget is the reason a corrupted database or an unreadable preference
+/// store does not turn into an application that simply will not open. The four
+/// actions it offers are ordered by how much they cost the user: retry first,
+/// then a reset of the visual preferences, then a fully in-memory session that
+/// touches no persistent data at all.
 class BootstrapHost extends StatefulWidget {
   const BootstrapHost({super.key});
 

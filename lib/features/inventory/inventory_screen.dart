@@ -38,6 +38,10 @@ class _InventoryScreenState extends State<InventoryScreen> with WidgetsBindingOb
     _createController();
   }
 
+  // This screen builds its controller directly instead of going through
+  // `ScannerEngine`, unlike `ScannerScreen`. Two consequences: a second engine
+  // would have to be wired in here separately, and the `autoTorch` preference
+  // is not applied — the option below has no `torchEnabled`.
   void _createController() {
     _controller = MobileScannerController(
       detectionSpeed: DetectionSpeed.noDuplicates,
@@ -386,6 +390,16 @@ class _InventoryScreenState extends State<InventoryScreen> with WidgetsBindingOb
     );
   }
 
+  /// One reading equals one unit.
+  ///
+  /// The de-bounce window is 1200 ms on a **single code**, not two seconds on
+  /// the whole capture as in the scanner tab: counting stock means scanning the
+  /// same product twice in a row has to add two units without a wait.
+  ///
+  /// Unlike `ScannerScreen._persistAndShow`, this path does not check
+  /// `record.isSensitive` before storing. A code carrying a secret scanned into
+  /// an inventory session is persisted — encrypted, like everything else — with
+  /// its full text as the item key.
   void _onDetect(BarcodeCapture capture) {
     if (_paused) return;
     final DateTime now = DateTime.now();

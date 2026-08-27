@@ -320,6 +320,61 @@ esta versión no ha sido probada en dispositivos físicos, y esa matriz vive en
 
 ---
 
+## 📖 Documentación del sistema
+
+Veinte documentos escritos recorriendo el código fuente completo, no resumiendo
+la documentación existente: **cada afirmación apunta a un archivo, una función,
+una prueba o un comando concreto de este repositorio**, y lo que no se pudo
+comprobar queda marcado como tal.
+
+📚 **[Índice general →](docs/system-documentation/README.md)** · 📄 **[Los mismos documentos en PDF →](docs/system-documentation/pdf/)**
+
+| Por dónde empezar | Documento |
+|---|---|
+| No eres técnico y quieres entender qué hace | [Descripción general](docs/system-documentation/01-system-overview.md) · sección final |
+| Vas a trabajar en el código | [Guía para nuevos desarrolladores](docs/system-documentation/18-new-developer-guide.md) |
+| Necesitas decidir sobre el proyecto | [Resumen ejecutivo](docs/system-documentation/17-executive-summary.md) |
+| Vas a auditarlo | [Seguridad](docs/system-documentation/11-security.md) → [Riesgos y deuda técnica](docs/system-documentation/15-risks-and-technical-debt.md) |
+| Algo no funciona | [Solución de problemas](docs/system-documentation/14-troubleshooting.md) |
+
+<details>
+<summary><b>Los veinte documentos</b></summary>
+
+| # | Documento | Contenido |
+|---|---|---|
+| 01 | [Descripción general](docs/system-documentation/01-system-overview.md) | Qué es, qué problema resuelve, actores, flujo y límites |
+| 02 | [Instalación y ejecución](docs/system-documentation/02-installation-and-execution.md) | Requisitos, generación de plataformas, ejecución y pruebas |
+| 03 | [Arquitectura](docs/system-documentation/03-architecture.md) | Capas, patrones, estado, errores y fronteras de extensión |
+| 04 | [Mapa del código](docs/system-documentation/04-code-map.md) | Inventario de directorios, archivos, clases y estado aparente |
+| 05 | [Referencia técnica](docs/system-documentation/05-technical-reference.md) | Constantes, tipos, funciones, claves y códigos de error |
+| 06 | [Explicación profunda](docs/system-documentation/06-deep-code-explanation.md) | Flujo interno, decisiones y casos límite, módulo a módulo |
+| 07 | [Base de datos](docs/system-documentation/07-database.md) | Almacenes, diccionario de datos, migraciones y cifrado |
+| 08 | [Flujo de datos](docs/system-documentation/08-data-flow.md) | Origen, validación, transformación, almacenamiento y salida |
+| 09 | [APIs e integraciones](docs/system-documentation/09-apis-and-integrations.md) | Contratos JSON, plataforma y ausencia demostrada de red |
+| 10 | [Configuración](docs/system-documentation/10-configuration.md) | Preferencias, banderas, límites y consecuencia de cada valor |
+| 11 | [Seguridad](docs/system-documentation/11-security.md) | Controles presentes **y ausentes**, y hallazgos sin cadenas explotables |
+| 12 | [Pruebas y calidad](docs/system-documentation/12-testing-and-quality.md) | Suite existente, huecos y propuesta priorizada |
+| 13 | [Despliegue y operación](docs/system-documentation/13-deployment-and-operations.md) | CI/CD, artefactos, PWA, mantenimiento y reversión |
+| 14 | [Solución de problemas](docs/system-documentation/14-troubleshooting.md) | Síntoma → causa → diagnóstico → solución → riesgo |
+| 15 | [Riesgos y deuda técnica](docs/system-documentation/15-risks-and-technical-debt.md) | 35 hallazgos clasificados. **Informativo: nada se corrigió** |
+| 16 | [Glosario](docs/system-documentation/16-glossary.md) | Términos comprensibles sin formación técnica |
+| 17 | [Resumen ejecutivo](docs/system-documentation/17-executive-summary.md) | Para decisión, con el esfuerzo de cada recomendación |
+| 18 | [Guía para nuevos desarrolladores](docs/system-documentation/18-new-developer-guide.md) | Itinerario, convenciones y primeras tareas |
+| 19 | [Matriz de trazabilidad](docs/system-documentation/19-traceability-matrix.md) | De la funcionalidad al código, a los datos y a su prueba |
+
+</details>
+
+Los PDF se generan desde esos mismos Markdown —fuente única— con:
+
+```bash
+python tool/build_system_documentation_pdf.py
+```
+
+Los diagramas Mermaid se rasterizan con `mmdc` si está instalado; si no, se
+incluyen como texto **y el script lo avisa**, nunca en silencio.
+
+---
+
 ## 🚧 Límites declarados de 1.1.0
 
 Esta versión prefiere decir lo que no hace antes que insinuar que lo hace:

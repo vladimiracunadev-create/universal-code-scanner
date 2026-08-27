@@ -14,6 +14,13 @@ class InventoryRepository {
   final RecoveryRepository _recovery;
   final StoreRef<String, Map<String, Object?>> _store = stringMapStoreFactory.store('inventory_sessions');
 
+  /// Loads and decrypts every session, oldest envelopes upgraded on the way.
+  ///
+  /// Two behaviours worth knowing. Reading **writes**: when `inspect` — which
+  /// does not decrypt — reports a legacy or older envelope, the record is
+  /// rewritten in the current format. And a session that fails to decrypt does
+  /// not abort the load: it is skipped and filed as a recovery issue with its
+  /// ciphertext preserved, so one damaged record never costs the user the rest.
   Future<List<InventorySession>> load() async {
     final List<RecordSnapshot<String, Map<String, Object?>>> snapshots = await _store.find(
       _database.database,

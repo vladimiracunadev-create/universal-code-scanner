@@ -63,6 +63,13 @@ class SettingsRepository {
     ]);
   }
 
+  /// Clears the visual and behavioural preferences, offered from the safe-start
+  /// screen when a bad preference value is the suspected cause of a failure.
+  ///
+  /// Three keys are deliberately absent from this list: `save_history`,
+  /// `private_mode` and `biometric_lock`. An emergency recovery button must not
+  /// be able to unlock the application or to switch history back on for someone
+  /// who had turned it off on purpose. That is what «non sensitive» means here.
   Future<void> resetNonSensitive() async {
     const List<String> keys = <String>[
       'theme_mode', 'language', 'sound_enabled', 'vibration_enabled', 'auto_torch',

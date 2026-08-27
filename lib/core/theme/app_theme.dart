@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+/// Builds both themes from a single seed colour, with the three accessibility
+/// switches folded in.
+///
+/// `reduceMotion` is applied here rather than at each call site because page
+/// transitions are configured on `ThemeData`: replacing them with a builder
+/// that returns the child unchanged is the only way to remove them globally.
+/// The scanner's own animations honour the same setting separately, since they
+/// are not page transitions.
 abstract final class AppTheme {
   static ThemeData light({bool highContrast = false, bool largeControls = false, bool reduceMotion = false}) =>
       _build(Brightness.light, highContrast: highContrast, largeControls: largeControls, reduceMotion: reduceMotion);

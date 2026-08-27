@@ -8,13 +8,18 @@
     },
     {
       "path": ".gitattributes",
-      "size": 329,
-      "sha256": "505ddd00ef43c7d93ef7d07ff5ddc96a79433a78202e43e9c7b12b15d87ae231"
+      "size": 342,
+      "sha256": "cd0c2ec0db85a72a1b1dccb2c2cd37bb3869161947765158fa327ad810de1d1c"
     },
     {
       "path": ".github/dependabot.yml",
       "size": 746,
       "sha256": "e6ef22ca0486a7c18f5733085214bf2efb7ca390c950ba4f67f9cf65e0b81430"
+    },
+    {
+      "path": ".github/workflows/deploy-landing.yml",
+      "size": 3030,
+      "sha256": "981a034fea8e4498a2d38c5d5c18bd244a03f231349b2efbdf470d2bf7b4b916"
     },
     {
       "path": ".github/workflows/flutter-ci.yml",
@@ -23,8 +28,8 @@
     },
     {
       "path": ".gitignore",
-      "size": 192,
-      "sha256": "6ce65903e33c585c4ab577afb3ad771b527b6347c7c4f1bd34ebcf7df1ab6748"
+      "size": 378,
+      "sha256": "9763ceb0709e45f211846e637d7554c483e4310f1d1e37cabc9f96547a6bb4b4"
     },
     {
       "path": "analysis_options.yaml",
@@ -182,6 +187,211 @@
       "sha256": "9fe614baa0114d0a9b4431c01e7ecdcaa7386577fa1120b86e26ea3fe72571dd"
     },
     {
+      "path": "docs/system-documentation/01-system-overview.md",
+      "size": 12446,
+      "sha256": "b765f9c095cfa501a3205b584cca21263cbed2ce9354b19e9aa19212f310b98f"
+    },
+    {
+      "path": "docs/system-documentation/02-installation-and-execution.md",
+      "size": 12642,
+      "sha256": "8a6dad0339a30b40d0e4a9ac23ceea71eaf664cc8e2dcaf0d5756f370084d397"
+    },
+    {
+      "path": "docs/system-documentation/03-architecture.md",
+      "size": 19309,
+      "sha256": "b897fe0b92745710f7b095227486a59cd6cfcb7d1b7cc48fe7b8d559276f6424"
+    },
+    {
+      "path": "docs/system-documentation/04-code-map.md",
+      "size": 21571,
+      "sha256": "d7f71a0dd42f7f4293698ca136e67d75d314ef6d936d7e924d339c7a7ebd4066"
+    },
+    {
+      "path": "docs/system-documentation/05-technical-reference.md",
+      "size": 25827,
+      "sha256": "2f0a699bd02054eadeadf9553dcd95d679499bb5a5376a6742e2993ba6fc1b8a"
+    },
+    {
+      "path": "docs/system-documentation/06-deep-code-explanation.md",
+      "size": 43013,
+      "sha256": "ee9a578b28e90ca5ecc07a862a825effc322c7018b6cef5e1659f252caeb63fd"
+    },
+    {
+      "path": "docs/system-documentation/07-database.md",
+      "size": 19182,
+      "sha256": "fafa32874ab9ae01941d8fef153d699b3c2750d3e153f7a68074e3d9ed9b7598"
+    },
+    {
+      "path": "docs/system-documentation/08-data-flow.md",
+      "size": 15560,
+      "sha256": "9b2acf71d2a5f67fdc628eac42a957c66a7e4b6a8cf1de72ba6f08dda5514665"
+    },
+    {
+      "path": "docs/system-documentation/09-apis-and-integrations.md",
+      "size": 16884,
+      "sha256": "da2a9546e78ef0500cde33ca069a1d80d47cea8eea854408ffd3315eb5c78687"
+    },
+    {
+      "path": "docs/system-documentation/10-configuration.md",
+      "size": 16892,
+      "sha256": "8cdecdfaf218cd9d15edef24f04d377a505784334daad174a89218b6e1f807b3"
+    },
+    {
+      "path": "docs/system-documentation/11-security.md",
+      "size": 25960,
+      "sha256": "6dd84e1a2301735faa3b5d00b250d48e75b70da77ebc0792f3039117ae2b17dc"
+    },
+    {
+      "path": "docs/system-documentation/12-testing-and-quality.md",
+      "size": 20426,
+      "sha256": "51e9209fa6a35b676302917761a4a25b3298b8bb2f6d8dd5f4d0016b59606a9c"
+    },
+    {
+      "path": "docs/system-documentation/13-deployment-and-operations.md",
+      "size": 17087,
+      "sha256": "6fdab5eb228aef7c45ff5127b95ce4f73b791c041c8bfe772496b964e2dd613c"
+    },
+    {
+      "path": "docs/system-documentation/14-troubleshooting.md",
+      "size": 25588,
+      "sha256": "b28e5cd50fc8427b3636ff57f99f47269f6e8dbb14140690830f412f6d07b13b"
+    },
+    {
+      "path": "docs/system-documentation/15-risks-and-technical-debt.md",
+      "size": 25594,
+      "sha256": "1ebe6ec77611abacb5f73cafd4154968de72ef77a213de16a6264bc0533adae0"
+    },
+    {
+      "path": "docs/system-documentation/16-glossary.md",
+      "size": 15230,
+      "sha256": "038696394bccaaf1a79c571ae314ec5033b2fbaee6245a14bf3b9b89fe81a29d"
+    },
+    {
+      "path": "docs/system-documentation/17-executive-summary.md",
+      "size": 10773,
+      "sha256": "4f79010e41db296374d35038a5708f25f3b87a21cf7498984be7dde4e59b17b3"
+    },
+    {
+      "path": "docs/system-documentation/18-new-developer-guide.md",
+      "size": 16776,
+      "sha256": "8c6dc16e50c888833fa68d7141589fd3e19f582c31b294cc3ec93f7f564b48d9"
+    },
+    {
+      "path": "docs/system-documentation/19-traceability-matrix.md",
+      "size": 24307,
+      "sha256": "675053534f77c1c94b8a10cf2e5bc4111b3bff58ddc424fa289c7100f606f08b"
+    },
+    {
+      "path": "docs/system-documentation/pdf/00-documentacion-completa.pdf",
+      "size": 1375391,
+      "sha256": "7acd4cb043e8372d77ed23b088061669765fe00523b5b6d28ac832b3573f739b"
+    },
+    {
+      "path": "docs/system-documentation/pdf/01-system-overview.pdf",
+      "size": 76035,
+      "sha256": "c1f8c367ee37740e6d6404127b77771d448bc3d6a21a605a27e44ccfa2b95a22"
+    },
+    {
+      "path": "docs/system-documentation/pdf/02-installation-and-execution.pdf",
+      "size": 31590,
+      "sha256": "7aa0f00602b14884551e467b308108209aad151d50c95cba207fd833fde8ca44"
+    },
+    {
+      "path": "docs/system-documentation/pdf/03-architecture.pdf",
+      "size": 221252,
+      "sha256": "5529e201f22da604379bf6e306fb65710d172a22acb376024a5c7d8f8e5be56b"
+    },
+    {
+      "path": "docs/system-documentation/pdf/04-code-map.pdf",
+      "size": 54010,
+      "sha256": "c552b7d470adf16c5fcbe9049bcdec48cc12b1e25d35800c61f5c98d860455f0"
+    },
+    {
+      "path": "docs/system-documentation/pdf/05-technical-reference.pdf",
+      "size": 62878,
+      "sha256": "df890cb2ff38df23d02539cc86afc4e5c6745bf5b872730645953f3f88c6eb2d"
+    },
+    {
+      "path": "docs/system-documentation/pdf/06-deep-code-explanation.pdf",
+      "size": 70529,
+      "sha256": "d96caa8b880c17f5d025f6eabfccc0d55734ee71a5357d3a810695c326da4ec7"
+    },
+    {
+      "path": "docs/system-documentation/pdf/07-database.pdf",
+      "size": 96539,
+      "sha256": "a75ad4391f92a942d0c17edf9427f9c1c89462d10a7914dd1948070f4137f3d7"
+    },
+    {
+      "path": "docs/system-documentation/pdf/08-data-flow.pdf",
+      "size": 198761,
+      "sha256": "f819dac3e4b2d02760b058554753e022611577407d6678a8c544a17ce099b2ee"
+    },
+    {
+      "path": "docs/system-documentation/pdf/09-apis-and-integrations.pdf",
+      "size": 37728,
+      "sha256": "8355967aab626bd7da6fa99387d3f2e6f5a0612ae1f18adb21c1276759750446"
+    },
+    {
+      "path": "docs/system-documentation/pdf/10-configuration.pdf",
+      "size": 42128,
+      "sha256": "c18fefc48923a7ec3677098e2a9be4ad137011101c94ad117350a3fb5e313035"
+    },
+    {
+      "path": "docs/system-documentation/pdf/11-security.pdf",
+      "size": 133706,
+      "sha256": "18302a2965a41012c93431695945cc52be9a046b9706a273fefe160f47e757f2"
+    },
+    {
+      "path": "docs/system-documentation/pdf/12-testing-and-quality.pdf",
+      "size": 45892,
+      "sha256": "599c82a29bb7f59f2ffd04414abfc9bdf3fb22650ab4862aeec9785c535300bf"
+    },
+    {
+      "path": "docs/system-documentation/pdf/13-deployment-and-operations.pdf",
+      "size": 88792,
+      "sha256": "974fb1a20a26ea0427a796d819aaa0ac01d1927f2bc2cd55de1b16eb0c7f90ff"
+    },
+    {
+      "path": "docs/system-documentation/pdf/14-troubleshooting.pdf",
+      "size": 56199,
+      "sha256": "76c342f2b9c2c7e81556e6ed53929de81c1cd641105db35221b2f5c385003db0"
+    },
+    {
+      "path": "docs/system-documentation/pdf/15-risks-and-technical-debt.pdf",
+      "size": 52754,
+      "sha256": "0cb5725dd8cd29b5a36020a89b915fc321cd69f1a551f874473b9d301cd61e36"
+    },
+    {
+      "path": "docs/system-documentation/pdf/16-glossary.pdf",
+      "size": 24634,
+      "sha256": "afd7cea95cbe5eb2c64b51ca6984763c244ed51a79d5663887d98488b4b767b8"
+    },
+    {
+      "path": "docs/system-documentation/pdf/17-executive-summary.pdf",
+      "size": 23864,
+      "sha256": "9de40f7c00a86152693811126678fe706e66265f602a9781c4352e222db09677"
+    },
+    {
+      "path": "docs/system-documentation/pdf/18-new-developer-guide.pdf",
+      "size": 39127,
+      "sha256": "04b6cf7e03ca54936c87b9a784bc8d6116fbfaee75573065079715560236fa35"
+    },
+    {
+      "path": "docs/system-documentation/pdf/19-traceability-matrix.pdf",
+      "size": 66846,
+      "sha256": "c30f082b183f8ff828844f02c3575561001b4e4ff968a0f0178d8b877b365492"
+    },
+    {
+      "path": "docs/system-documentation/pdf/README.pdf",
+      "size": 21615,
+      "sha256": "4cbd449764b37e288e143809964ca10ac642086acdcc21cc967fb0b9efb86470"
+    },
+    {
+      "path": "docs/system-documentation/README.md",
+      "size": 9578,
+      "sha256": "c3983401cbfe58d2caf9bb3e661c47100e204f5f9fc09eee71143881e39ec9c8"
+    },
+    {
       "path": "IMPLEMENTATION_STATUS.md",
       "size": 3512,
       "sha256": "6a9b55e2be8362efdafc935ec9780787a6b7050b97187f9111daf8391e07384c"
@@ -190,6 +400,26 @@
       "path": "integration_test/app_launch_test.dart",
       "size": 710,
       "sha256": "9107dbfd628f1cfd8cfad4f504ce39c9d384fe9f9f351abdfee3efd19be5a1c8"
+    },
+    {
+      "path": "landing/assets/favicon.svg",
+      "size": 834,
+      "sha256": "c0480e88ab38c15eda5088c88b0340be1112d74d5f5f6ec6a80e57293c8287cf"
+    },
+    {
+      "path": "landing/assets/style.css",
+      "size": 11679,
+      "sha256": "c8bbb612ccc45a5de0cb58bec813ef93e2960458f087026aa1a3aa568dc15f49"
+    },
+    {
+      "path": "landing/index.html",
+      "size": 31754,
+      "sha256": "4fa124c1360aa226deeaefe3ab96e50ee933bd0e6ac16c1f335dd294e276414c"
+    },
+    {
+      "path": "landing/README.md",
+      "size": 1337,
+      "sha256": "c5134719c46ed71820ffc9b6c4f6f42ce5a40f36de539ab547f396f1e080cfe4"
     },
     {
       "path": "lib/app.dart",
@@ -203,8 +433,8 @@
     },
     {
       "path": "lib/bootstrap_host.dart",
-      "size": 5537,
-      "sha256": "d0762656af5a1d3770004a698cb1b2eaeae5c7dccc0557eb36eaa5cdcd73f5cf"
+      "size": 5994,
+      "sha256": "7b007e77d7a026f691eaf8d18fe566a7702145c662d9152591c57f0a8c6bfff2"
     },
     {
       "path": "lib/core/app_info.dart",
@@ -213,13 +443,13 @@
     },
     {
       "path": "lib/core/database/app_database.dart",
-      "size": 917,
-      "sha256": "8238ea8dd19c2f5c4c33df41fccf9accc0b11f158a5cdf1675c07db02d97ab8b"
+      "size": 1839,
+      "sha256": "c99c24651271d99a32e6370854ce316dbb04efd78da1d918431710ba8acf1492"
     },
     {
       "path": "lib/core/database/database_opener.dart",
-      "size": 147,
-      "sha256": "30cd0f2c48e1dd5a186ec3e2b33a08eddca0dfb20da243c0f645cbde86a20432"
+      "size": 381,
+      "sha256": "7871e4ae136783920370c57627314973b2cc1d0bfa2b09385287dd81e24bf7ff"
     },
     {
       "path": "lib/core/database/database_opener_io.dart",
@@ -238,8 +468,8 @@
     },
     {
       "path": "lib/core/database/schema_migrator.dart",
-      "size": 1579,
-      "sha256": "dab1096e2801139ad81410db1c6f1bda7282ca6b253f66d2f77d796ccae3268b"
+      "size": 2043,
+      "sha256": "1ca2ef72153a2ef73191d16aae3acebebf6944db25bbf73a379f5fb7bc09227f"
     },
     {
       "path": "lib/core/diagnostics/app_diagnostics.dart",
@@ -278,13 +508,13 @@
     },
     {
       "path": "lib/core/recovery/recovery_repository.dart",
-      "size": 2522,
-      "sha256": "03517982a5d7e29c104e8a991cdbce848f41986fc6cec0f33be79039ebd36d40"
+      "size": 3025,
+      "sha256": "7171ca906bd2942dea2f4fe724569272471aa7cc72ab9b566e710aa61076f54f"
     },
     {
       "path": "lib/core/recovery/recovery_service.dart",
-      "size": 3539,
-      "sha256": "eb0fdd309964d3de3959e77011c4e14a2738a4e18053521093ad2daaa277b5fa"
+      "size": 4450,
+      "sha256": "ea366583df7ac30fae60484e1e8ac3fbea4218afd7c6e4d3210885ce41e8cefa"
     },
     {
       "path": "lib/core/security/data_maintenance_service.dart",
@@ -293,8 +523,8 @@
     },
     {
       "path": "lib/core/security/encryption_metadata_repository.dart",
-      "size": 1488,
-      "sha256": "6344fe576855bfd2ac2842cb88b0aa462ee73683fce4267489355921883597be"
+      "size": 2023,
+      "sha256": "c63a4daa901ff3749547715088e854a2d1b501de37ef1716661229dbef98e8c3"
     },
     {
       "path": "lib/core/security/payload_cipher.dart",
@@ -303,13 +533,13 @@
     },
     {
       "path": "lib/core/security/scan_security_analyzer.dart",
-      "size": 7333,
-      "sha256": "129b616765258c2466cf1d092f26a732bb67f80b519f9eb2972f5ac4faea582e"
+      "size": 9696,
+      "sha256": "1d12478a5c83d3a6395237f3e2211daebb72d261d337e142d3c5afaa8527b158"
     },
     {
       "path": "lib/core/theme/app_theme.dart",
-      "size": 2542,
-      "sha256": "b63f1a88dff26be6e617be2560a0856fa5952e9e9e3b292b6cf82d598312acc5"
+      "size": 2992,
+      "sha256": "7adc7e143a68f2219876c2d903fffc5da6fa0b868f585262649c6ac08eef4b88"
     },
     {
       "path": "lib/core/utils/barcode_labels.dart",
@@ -323,8 +553,8 @@
     },
     {
       "path": "lib/features/formats/domain/content_parser_registry.dart",
-      "size": 1428,
-      "sha256": "1d0aa0af391c9b50e1d77316f4734ad717bfd5b2c2d2b62d9f652c71bf136b85"
+      "size": 1887,
+      "sha256": "1277c631e61010dd147ff4861788cd61706dda18042fecc94762b2f7cc9d85fe"
     },
     {
       "path": "lib/features/formats/formats_screen.dart",
@@ -343,8 +573,8 @@
     },
     {
       "path": "lib/features/inventory/inventory_screen.dart",
-      "size": 21765,
-      "sha256": "9269f0dfebf66c9d0a9c67c259f110936e0c0d6a590ff84d3eb61161662509ff"
+      "size": 22613,
+      "sha256": "6e5e5bb4c4a4b656fc73877fa09d56471ddb1a751a78b5938e9a2d325a39e04d"
     },
     {
       "path": "lib/features/recovery/recovery_screen.dart",
@@ -353,8 +583,8 @@
     },
     {
       "path": "lib/features/result/scan_result_sheet.dart",
-      "size": 13499,
-      "sha256": "500a8b9fffdd8842e8216ab0dc6bf92709517c9d386a79481c5a0624eeb6dfc1"
+      "size": 14171,
+      "sha256": "202e57de8749fcb97f70fc2b6734c5d6166e2f85aae1d3bbdbdd6de7b107295a"
     },
     {
       "path": "lib/features/scanner/data/mobile_scanner_engine.dart",
@@ -368,8 +598,8 @@
     },
     {
       "path": "lib/features/scanner/scanner_screen.dart",
-      "size": 27458,
-      "sha256": "454b63553cad5c330275a48e56d625809a6f82000a8274ee8b562ef54b4bcf9e"
+      "size": 28335,
+      "sha256": "ffa80ef1257ef0ddbde5eac1e2e7cb2b036a0113f3d184daaae58ed62f1c23ca"
     },
     {
       "path": "lib/features/scanner/widgets/scan_status_bar.dart",
@@ -383,8 +613,8 @@
     },
     {
       "path": "lib/features/settings/settings_screen.dart",
-      "size": 16920,
-      "sha256": "11ddd1d7405dc56a93ec176ec35a229183a81b70b7e19f716c7443045c7e386f"
+      "size": 17456,
+      "sha256": "ee9df8673d93a6058d1c0ec1a29b004e75b7668cfe7aaf094376b3c00f1678df"
     },
     {
       "path": "lib/main.dart",
@@ -403,33 +633,33 @@
     },
     {
       "path": "lib/models/parsed_content.dart",
-      "size": 1185,
-      "sha256": "f9feb8cb286c666ed86d17d793e6b6c145e2a87c6ec344fb65f02a39cf97e6ab"
+      "size": 1630,
+      "sha256": "98a1eb4cfb2f2f330da9805eda3ee273de35ca7195e3eb2bb74195f6c093fd1b"
     },
     {
       "path": "lib/models/scan_record.dart",
-      "size": 5987,
-      "sha256": "ccf94c6d79dbf89201d2526bbd41606d8ae1ed5dc11f441e95c0fdca1a36dd2d"
+      "size": 6758,
+      "sha256": "0c3906647d18ae906131a24c57a737175068f9f7bf7bd76041674f2c22784109"
     },
     {
       "path": "lib/services/biometric_service.dart",
-      "size": 571,
-      "sha256": "1f6e377a4e636543bf6bb5e1da0830a335c98e3879f12327ecdd3f9ba64b150e"
+      "size": 1198,
+      "sha256": "25a0981a1aeeca355414c1d61fc4cc03642095ed97e5720ff34ca5a279351511"
     },
     {
       "path": "lib/services/clipboard_service.dart",
-      "size": 526,
-      "sha256": "38e9cb9b43e7adacf55ab2a61f348e549ec65c88a48001960e704557c975810b"
+      "size": 1095,
+      "sha256": "97ca42ba43fedae2326f38e8a02c18fac52c49e8e196b774104b15525a37cb53"
     },
     {
       "path": "lib/services/content_interpreter.dart",
-      "size": 14347,
-      "sha256": "6a0fefc349bd9a69eb32f5585f2c04c31b32a3c081afa266ba850066099aee18"
+      "size": 16024,
+      "sha256": "a35480db96f2f8c4bec5184ebc9e77436ba68d9a5a00b9794bc70ee0c479de46"
     },
     {
       "path": "lib/services/export_service.dart",
-      "size": 6437,
-      "sha256": "c68e67a95c47bb63f452ac2c1a0d8bfe2d71264e9d1e7b9665fb52bb3b087fa4"
+      "size": 7050,
+      "sha256": "493f115c77671292f2b7ceea70b84604755bbe2a48d19aeb82d6216fdf1e9e58"
     },
     {
       "path": "lib/services/history_repository.dart",
@@ -438,13 +668,13 @@
     },
     {
       "path": "lib/services/import_service.dart",
-      "size": 7577,
-      "sha256": "6d9692a767089aadb9e2c8737ff0f4b7f7c0d070a98abb863a75e9dc2035dc34"
+      "size": 7922,
+      "sha256": "fde15af3eed03fa5dfa2bdce71b8c69591c1b22878cc0a2f45741008abdf3899"
     },
     {
       "path": "lib/services/inventory_repository.dart",
-      "size": 2532,
-      "sha256": "9eabf8ad972c0bf5a3123de8ab6d3872302a7794167fa43010ea6aef81765a4e"
+      "size": 3014,
+      "sha256": "3a4a57b18b253719c5e59bef0191e66fee77522dbce230067a3d28547f12da27"
     },
     {
       "path": "lib/services/pdf_page_renderer.dart",
@@ -468,13 +698,13 @@
     },
     {
       "path": "lib/services/settings_repository.dart",
-      "size": 4073,
-      "sha256": "d44d840964599786ec4d26fce0159d7a255608fa18797adc3cf1b56282e51b4c"
+      "size": 4556,
+      "sha256": "7c7b1009aa4d3729dd0e3cc6fe51348656b37176abc286b7d494b487fd2429a5"
     },
     {
       "path": "lib/state/inventory_store.dart",
-      "size": 6130,
-      "sha256": "962980c563ae6f7d3bf528207c917e3e782df886ab0efaccc2f027f76a466e4d"
+      "size": 6654,
+      "sha256": "ef2035e441c48d6b0b2309abdf5d5268954e8babc5aca4ec29c3119dabe5b11b"
     },
     {
       "path": "lib/state/scan_store.dart",
@@ -503,8 +733,8 @@
     },
     {
       "path": "README.md",
-      "size": 19091,
-      "sha256": "6a8dac78ee0ded70052074cfd1538ae3115587b6b02fa73dc9b86220bf74e4a9"
+      "size": 23605,
+      "sha256": "43f1b1453e6349e32b58636ec37774a37daca23d0ec9a9d353275a3be0dcd738"
     },
     {
       "path": "RELEASE_SOURCE.json",
@@ -702,6 +932,11 @@
       "sha256": "78d8c83d703e764b44fec6dfb9e0d1b7c742483c128848d0ccbf52ccf84816b5"
     },
     {
+      "path": "tool/build_system_documentation_pdf.py",
+      "size": 15795,
+      "sha256": "bedabeb3c455904a75556ee98ae3a4e9aa88e54087db33652186411fbb69dab9"
+    },
+    {
       "path": "tool/finalize_stable.sh",
       "size": 597,
       "sha256": "4fba43e96b980be744969a8ee26fe6e9993f5776b0ee1493e97b38036cd79ba1"
@@ -733,8 +968,8 @@
     },
     {
       "path": "tool/generate_source_manifest.py",
-      "size": 1172,
-      "sha256": "d414eb1c5fbd460980ae3b37f2ac7ac19c06ccad2b067badb51a6ec0deb6cde7"
+      "size": 1420,
+      "sha256": "0d8d0e51a87337d000af1eb17b4736e6a105fb0cc2572655d21c0e9705150bca"
     },
     {
       "path": "tool/run_quality_gate.sh",

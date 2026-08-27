@@ -9,6 +9,14 @@ class RecoveryRepository {
   final AppDatabase _database;
   final StoreRef<String, Map<String, Object?>> _store = stringMapStoreFactory.store('recovery_issues');
 
+  /// Registers a damaged record so the user can decide what to do with it.
+  ///
+  /// The identifier is derived from the issue itself, not generated: the same
+  /// problem detected on two consecutive launches overwrites its own entry
+  /// instead of filling the list with duplicates. The cost of that choice is
+  /// that marking a recurring issue as reviewed sends it back to `unresolved`
+  /// the next time it is detected, which is the honest outcome — the problem
+  /// really is still there.
   Future<RecoveryIssue> record({
     required RecoveryEntityType entityType,
     required String entityId,

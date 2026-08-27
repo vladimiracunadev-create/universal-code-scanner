@@ -1,3 +1,10 @@
+/// How much doubt a scanned payload deserves before any external action.
+///
+/// `low` is deliberately named «Sin señales evidentes» in the interface, not
+/// «seguro»: the analyzer only inspects the text of the code and never consults
+/// a remote reputation service, so it is in no position to declare anything
+/// safe. Raising this to a promise of safety would be the single most damaging
+/// change that could be made to this file.
 enum RiskLevel { low, caution, high }
 
 class SecurityAssessment {
@@ -20,16 +27,36 @@ class SecurityAssessment {
       };
 }
 
+/// The only defence standing between a scanned code and an external action.
+///
+/// Everything here is local and offline by design: no reputation lookup, no
+/// certificate check, no redirect following. That keeps the promise that
+/// nothing about a scan leaves the device, and it is also why the two lists
+/// below cannot learn about new shorteners or new dangerous extensions without
+/// a rebuild.
 abstract final class ScanSecurityAnalyzer {
+  /// Domains whose whole purpose is to hide the real destination. Closed list:
+  /// a shortener that is not here simply produces no signal, which is the
+  /// conservative failure mode — a false negative, never a false «safe» claim.
   static const Set<String> _shorteners = <String>{
     'bit.ly', 'tinyurl.com', 't.co', 'goo.gl', 'ow.ly', 'buff.ly',
     'is.gd', 'cutt.ly', 'rebrand.ly', 'shorturl.at', 'tiny.one',
   };
+  /// Extensions that turn «open this link» into «run this program». `.zip` and
+  /// `.iso` are here because they are the usual wrapper for the rest.
   static const Set<String> _dangerousExtensions = <String>{
     '.apk', '.appx', '.bat', '.cmd', '.com', '.dmg', '.exe', '.hta',
     '.iso', '.jar', '.js', '.msi', '.pkg', '.ps1', '.scr', '.vbs', '.zip',
   };
 
+  /// Classifies a raw payload. Never throws: every path returns an assessment,
+  /// because a failure to analyse must not become a failure to show the code.
+  ///
+  /// The order of the early returns below is part of the contract. A payment or
+  /// secret scheme is caught first so that it can never fall through to the URI
+  /// branch and be reported as an openable link; the known structured formats
+  /// come next so that a Wi-Fi or vCard payload is not measured against rules
+  /// written for URLs.
   static SecurityAssessment analyze(String rawValue) {
     final String value = rawValue.trim();
     final String lower = value.toLowerCase();
@@ -60,6 +87,10 @@ abstract final class ScanSecurityAnalyzer {
       );
     }
 
+    // Sixteen local signals follow. `caution` only lifts a `low`; `high` is
+    // absorbing, so a single serious finding cannot be diluted by later mild
+    // ones. Every reason is user-facing Spanish: it is shown verbatim in the
+    // risk banner, so it has to say what was observed, not name the rule.
     final List<String> reasons = <String>[];
     RiskLevel level = RiskLevel.low;
     void caution(String reason) {
@@ -90,6 +121,10 @@ abstract final class ScanSecurityAnalyzer {
     if (_looksLikeLogin(uri)) caution('La ruta parece conducir a una pantalla de acceso; confirma el dominio antes de ingresar credenciales.');
     if (_hasExcessiveTracking(uri)) caution('La dirección contiene varios parámetros de seguimiento.');
 
+    // `canOpen` says «an external application could handle this», not «this is
+    // safe to open»: a high-risk link still reports true. What actually gates
+    // the action is the confirmation dialog in `ScanRecordCard._openRecord`,
+    // which becomes mandatory whenever the level is not `low`.
     return SecurityAssessment(
       level: level,
       reasons: reasons,

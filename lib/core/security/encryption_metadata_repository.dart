@@ -11,6 +11,16 @@ class EncryptionMetadataRepository {
   final StoreRef<String, Object?> _store = StoreRef<String, Object?>('_security_meta');
   final SharedPreferencesAsync _legacyPreferences = SharedPreferencesAsync();
 
+  /// Identifier of the key the cipher must use right now.
+  ///
+  /// Must be read *before* building the `PayloadCipher`, not after: a cipher
+  /// started on the default identifier would create a brand new key on its
+  /// first write and leave everything encrypted under the rotated one
+  /// unreadable.
+  ///
+  /// Also performs a one-way migration from the release that kept this value in
+  /// preferences. The preference is removed only once the database copy is
+  /// written, so an interruption leaves the old source intact.
   Future<String> loadActiveKeyId() async {
     final String? stored = await _store.record(_activeKeyId).get(_database.database) as String?;
     if (stored != null && stored.trim().isNotEmpty) return stored;

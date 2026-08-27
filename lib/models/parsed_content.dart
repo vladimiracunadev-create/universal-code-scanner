@@ -19,6 +19,14 @@ enum ContentKind {
 }
 
 class ParsedContent {
+  /// Interpreted view of a scanned payload: what it is, and its fields with
+  /// human names.
+  ///
+  /// `sensitive` is not decoration. It is the single predicate that decides
+  /// whether a reading is written to the encrypted history at all, and whether
+  /// its delicate fields are masked on screen. Setting it wrongly in a new
+  /// parser is the way to leak a Wi-Fi password into a history the user
+  /// believed would never hold one.
   const ParsedContent({
     required this.kind,
     required this.title,

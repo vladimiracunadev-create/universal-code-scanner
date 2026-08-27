@@ -15,3 +15,7 @@ coverage/
 /ios/
 /web/
 /macos/
+
+# Caché de los diagramas rasterizados de la documentación de sistema.
+# Los PNG se regeneran con tool/build_system_documentation_pdf.py.
+docs/system-documentation/pdf/.mermaid-cache/

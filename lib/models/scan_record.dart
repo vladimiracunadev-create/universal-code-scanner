@@ -72,6 +72,15 @@ class ScanRecord {
     );
   }
 
+  /// The canonical text of a code, or a stable stand-in when it has no text.
+  ///
+  /// A binary payload becomes `binary-base64:<base64>`. That prefix is an
+  /// internal contract shared by three places — this method,
+  /// `ScanSecurityAnalyzer._isKnownStructuredContent` and the first branch of
+  /// `ContentInterpreter.parse` — and all three have to change together.
+  ///
+  /// Returns an empty string when there is neither text nor bytes; callers use
+  /// that to drop the detection instead of storing an empty record.
   static String payloadForBarcode(Barcode barcode) {
     final String text = (barcode.rawValue ?? barcode.displayValue ?? '').trim();
     if (text.isNotEmpty) return text;
@@ -80,6 +89,9 @@ class ScanRecord {
     return 'binary-base64:${base64Encode(bytes)}';
   }
 
+  // Written as explicit type checks rather than a switch: the equivalent switch
+  // had an unreachable arm that the analyzer rejected under `--fatal-infos`.
+  // Apple Vision returns both fields, and `bytes` is the already-decoded one.
   static Uint8List? _decodedBytes(BarcodeBytes? value) {
     if (value is DecodedBarcodeBytes) return value.bytes;
     if (value is DecodedVisionBarcodeBytes) return value.bytes ?? value.rawBytes;

@@ -142,6 +142,13 @@ abstract final class ExportService {
 
 }
 
+// Top-level rather than static: `compute` needs an entry point it can send to
+// another isolate, and a top-level function is the form that always works.
+//
+// Three choices here only make sense with Excel on Windows as the destination:
+// every cell is quoted rather than only the ones that need it, lines end in
+// CRLF, and the output starts with a UTF-8 BOM. Without the BOM Excel reads the
+// file in the system code page and every accent comes out broken.
 List<int> _encodeCsv(List<List<String>> rows) {
   String csvCell(String value) => '"${value.replaceAll('"', '""')}"';
   final String csv = rows.map((List<String> row) => row.map(csvCell).join(',')).join('\r\n');
@@ -159,6 +166,8 @@ List<int>? _encodeXlsx(Map<String, Object?> request) {
   for (final List<String> row in rows) {
     sheet.appendRow(row.map<TextCellValue>((String value) => TextCellValue(value)).toList(growable: false));
   }
+  // The library always creates a default sheet. Removing it keeps the exported
+  // workbook from carrying an empty «Sheet1» next to the real one.
   if (firstSheet != sheetName) workbook.delete(firstSheet);
   return workbook.save();
 }

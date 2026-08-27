@@ -110,6 +110,11 @@ class _ScanRecordCardState extends State<ScanRecordCard> {
             ),
             const SizedBox(height: 14),
             ...record.parsed.fields.entries.map((MapEntry<String, String> field) {
+              // Masking is decided per field, by name, from a literal list: a
+              // sensitive Wi-Fi record still shows its network name and hides
+              // only the password. The consequence to keep in mind when adding
+              // a parser is that a delicate field called anything else — «Clave»,
+              // «Semilla» — would be shown in the clear.
               final bool sensitiveField = record.parsed.sensitive && <String>{'Contraseña', 'Secreto', 'Dirección', 'IBAN', 'Carga'}.contains(field.key);
               final String value = conceal && sensitiveField ? '••••••••' : field.value;
               if (value.isEmpty) return const SizedBox.shrink();
@@ -214,6 +219,10 @@ class _ScanRecordCardState extends State<ScanRecordCard> {
   Future<void> _openRecord(BuildContext context) async {
     final Uri? uri = _actionUri(record);
     if (uri == null) return;
+    // A disjunction, not a conjunction: turning off «confirmar antes de abrir»
+    // is allowed for ordinary links, but it can never suppress the dialog for a
+    // link the analyzer flagged. This is the last gate before the only
+    // `launchUrl` call in the whole application.
     final bool shouldConfirm = widget.settings.value.confirmBeforeOpen || record.riskLevel != RiskLevel.low;
     if (shouldConfirm) {
       final bool confirmed = await showDialog<bool>(

@@ -20,6 +20,10 @@ EXCLUDED = {
     "macos",
     "windows",
     "linux",
+    # Caché de los diagramas rasterizados de la documentación de sistema. Está
+    # en .gitignore, así que incluirla aquí haría que el manifiesto no se
+    # pudiera verificar tras un clon: los archivos no existirían.
+    ".mermaid-cache",
 }
 EXCLUDED_FILES = {".flutter-plugins", ".flutter-plugins-dependencies", ".packages"}
 OUTPUT = ROOT / "SOURCE_MANIFEST.json"

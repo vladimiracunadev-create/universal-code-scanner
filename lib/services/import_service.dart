@@ -152,6 +152,12 @@ abstract final class ImportService {
     return session;
   }
 
+  /// Rejects hostile JSON before anything is interpreted or written.
+  ///
+  /// Uses an explicit stack instead of recursion on purpose: a recursive walk
+  /// would blow the call stack on a deeply nested document *before* reaching
+  /// the depth check meant to stop it. Depth is measured per branch, node count
+  /// over the whole document.
   static void _validateJsonShape(dynamic root) {
     final List<(dynamic value, int depth)> pending = <(dynamic, int)>[(root, 0)];
     int nodes = 0;

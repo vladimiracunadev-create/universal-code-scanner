@@ -508,6 +508,13 @@ class _ScannerScreenState extends State<ScannerScreen> with WidgetsBindingObserv
     }
     if (unique.isEmpty) return;
 
+    // Second level of de-duplication, between captures: the same *combination*
+    // of codes within two seconds is ignored. The keys are sorted before being
+    // joined so that the order in which the engine reports them cannot produce
+    // two different signatures for the same set.
+    //
+    // Needed even with `DetectionSpeed.noDuplicates`, because that mode resets
+    // on every `start()` and this screen starts and stops the camera constantly.
     final List<String> signature = unique.keys.toList()..sort();
     final String joined = signature.join('|');
     final DateTime now = DateTime.now();
@@ -529,6 +536,13 @@ class _ScannerScreenState extends State<ScannerScreen> with WidgetsBindingObserv
     }
   }
 
+  /// Stores what may be stored and always shows everything that was read.
+  ///
+  /// Note the asymmetry between the two halves: the sheet receives `records`,
+  /// the repository receives only the non-sensitive ones. A Wi-Fi password or a
+  /// one-time-code seed is displayed to the person who scanned it and is never
+  /// written to the history — that is the privacy promise stated in
+  /// `docs/SECURITY.md`.
   Future<void> _persistAndShow(List<ScanRecord> records) async {
     if (_settings.saveHistory && !_settings.privateMode) {
       final List<ScanRecord> persistent = records.where((ScanRecord record) => !record.isSensitive).toList(growable: false);
