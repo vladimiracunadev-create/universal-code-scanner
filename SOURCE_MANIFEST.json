@@ -248,8 +248,8 @@
     },
     {
       "path": "docs/system-documentation/13-deployment-and-operations.md",
-      "size": 17087,
-      "sha256": "6fdab5eb228aef7c45ff5127b95ce4f73b791c041c8bfe772496b964e2dd613c"
+      "size": 17488,
+      "sha256": "9e310d76811ea6d1c4eda41e586097503c599ea469865305edd0914c435a984d"
     },
     {
       "path": "docs/system-documentation/14-troubleshooting.md",
@@ -283,108 +283,108 @@
     },
     {
       "path": "docs/system-documentation/pdf/00-documentacion-completa.pdf",
-      "size": 1375391,
-      "sha256": "7acd4cb043e8372d77ed23b088061669765fe00523b5b6d28ac832b3573f739b"
+      "size": 1375922,
+      "sha256": "5a784e68514d27f7554259c31ea9d8b47630ace640739551bc7004abc67338ff"
     },
     {
       "path": "docs/system-documentation/pdf/01-system-overview.pdf",
       "size": 76035,
-      "sha256": "c1f8c367ee37740e6d6404127b77771d448bc3d6a21a605a27e44ccfa2b95a22"
+      "sha256": "c9058e95dfd2ab9ca4792d728def3206bf36a019008e72e28251bf77f3bba581"
     },
     {
       "path": "docs/system-documentation/pdf/02-installation-and-execution.pdf",
       "size": 31590,
-      "sha256": "7aa0f00602b14884551e467b308108209aad151d50c95cba207fd833fde8ca44"
+      "sha256": "78e1d04aac7e53b15d93a67d61a5e5e99d61647318d85dde5e6d4adc731d80dc"
     },
     {
       "path": "docs/system-documentation/pdf/03-architecture.pdf",
-      "size": 221252,
-      "sha256": "5529e201f22da604379bf6e306fb65710d172a22acb376024a5c7d8f8e5be56b"
+      "size": 221249,
+      "sha256": "9fdbad0588b9b66586e0c91e898e91efda6553066c4fa480ba170e519bf0e264"
     },
     {
       "path": "docs/system-documentation/pdf/04-code-map.pdf",
       "size": 54010,
-      "sha256": "c552b7d470adf16c5fcbe9049bcdec48cc12b1e25d35800c61f5c98d860455f0"
+      "sha256": "d332cf862de85d22e62d84ae5ceb04c3f6d53a42a31b633d33b902b66c77b906"
     },
     {
       "path": "docs/system-documentation/pdf/05-technical-reference.pdf",
       "size": 62878,
-      "sha256": "df890cb2ff38df23d02539cc86afc4e5c6745bf5b872730645953f3f88c6eb2d"
+      "sha256": "798344878c11eacc8924fd3c07eb3f1a259b711785b5ad3634ddcdf7cc1582bb"
     },
     {
       "path": "docs/system-documentation/pdf/06-deep-code-explanation.pdf",
       "size": 70529,
-      "sha256": "d96caa8b880c17f5d025f6eabfccc0d55734ee71a5357d3a810695c326da4ec7"
+      "sha256": "c61d3a8aa945cf7f0c6ef88fc7902c2cceb0781f1d3aa6183593f57f5944a155"
     },
     {
       "path": "docs/system-documentation/pdf/07-database.pdf",
       "size": 96539,
-      "sha256": "a75ad4391f92a942d0c17edf9427f9c1c89462d10a7914dd1948070f4137f3d7"
+      "sha256": "e5db950910d0b9e101e18aee45d0af2d8f78ff818709c866c3f56dfd3a72a1e5"
     },
     {
       "path": "docs/system-documentation/pdf/08-data-flow.pdf",
       "size": 198761,
-      "sha256": "f819dac3e4b2d02760b058554753e022611577407d6678a8c544a17ce099b2ee"
+      "sha256": "743993f4df4a9cb770b58797b4684824acd00ed6885e11401c334cbcad6be222"
     },
     {
       "path": "docs/system-documentation/pdf/09-apis-and-integrations.pdf",
-      "size": 37728,
-      "sha256": "8355967aab626bd7da6fa99387d3f2e6f5a0612ae1f18adb21c1276759750446"
+      "size": 37727,
+      "sha256": "1f22348ed674a7152115330a41f8b55128bd4c9d1225d5e87b98ec85b7ddd7ed"
     },
     {
       "path": "docs/system-documentation/pdf/10-configuration.pdf",
-      "size": 42128,
-      "sha256": "c18fefc48923a7ec3677098e2a9be4ad137011101c94ad117350a3fb5e313035"
+      "size": 42126,
+      "sha256": "307ed4848ea488c528c9f344eb3b2a7b8336eea999eced7e09a8902e5b32a7b8"
     },
     {
       "path": "docs/system-documentation/pdf/11-security.pdf",
-      "size": 133706,
-      "sha256": "18302a2965a41012c93431695945cc52be9a046b9706a273fefe160f47e757f2"
+      "size": 133708,
+      "sha256": "c5013897fbf7b49cd352cc49523603c0267f40bf561c8d35786c74ab1474b866"
     },
     {
       "path": "docs/system-documentation/pdf/12-testing-and-quality.pdf",
       "size": 45892,
-      "sha256": "599c82a29bb7f59f2ffd04414abfc9bdf3fb22650ab4862aeec9785c535300bf"
+      "sha256": "aae2e5959007e2bcd928c7696903fc7aaebea894969e72cb7f315148c6b3b772"
     },
     {
       "path": "docs/system-documentation/pdf/13-deployment-and-operations.pdf",
-      "size": 88792,
-      "sha256": "974fb1a20a26ea0427a796d819aaa0ac01d1927f2bc2cd55de1b16eb0c7f90ff"
+      "size": 89282,
+      "sha256": "a247375100339100e7d7c61c629823c50d805bb33c111d64b9ef29d93d16aba3"
     },
     {
       "path": "docs/system-documentation/pdf/14-troubleshooting.pdf",
-      "size": 56199,
-      "sha256": "76c342f2b9c2c7e81556e6ed53929de81c1cd641105db35221b2f5c385003db0"
+      "size": 56197,
+      "sha256": "107468654480a183829c2c8a58036c2bd32caee4db7ba5d10edd370fb87c6444"
     },
     {
       "path": "docs/system-documentation/pdf/15-risks-and-technical-debt.pdf",
       "size": 52754,
-      "sha256": "0cb5725dd8cd29b5a36020a89b915fc321cd69f1a551f874473b9d301cd61e36"
+      "sha256": "c633d3a089e671dfd3bc743a3a5012e01cde725fe1ac4d200333698a3bbcf8ec"
     },
     {
       "path": "docs/system-documentation/pdf/16-glossary.pdf",
-      "size": 24634,
-      "sha256": "afd7cea95cbe5eb2c64b51ca6984763c244ed51a79d5663887d98488b4b767b8"
+      "size": 24633,
+      "sha256": "6be72ea5a7b5c18e7a4f7ea120e96050b580eda50658edce3ad87e6e4e7d02ed"
     },
     {
       "path": "docs/system-documentation/pdf/17-executive-summary.pdf",
-      "size": 23864,
-      "sha256": "9de40f7c00a86152693811126678fe706e66265f602a9781c4352e222db09677"
+      "size": 23863,
+      "sha256": "0e4960352e2ffeca2c1f48217a2aba6883c057fa9f3a0b4c90768cb33d5aee0f"
     },
     {
       "path": "docs/system-documentation/pdf/18-new-developer-guide.pdf",
       "size": 39127,
-      "sha256": "04b6cf7e03ca54936c87b9a784bc8d6116fbfaee75573065079715560236fa35"
+      "sha256": "168162594f541359e7c5e21d309ffd84e7bf28d45f44fcef76340fc049b78ffc"
     },
     {
       "path": "docs/system-documentation/pdf/19-traceability-matrix.pdf",
-      "size": 66846,
-      "sha256": "c30f082b183f8ff828844f02c3575561001b4e4ff968a0f0178d8b877b365492"
+      "size": 66845,
+      "sha256": "b6071dc88c1f2e3de6e6b0d983eea8224728077087934c2d8836a0ad5403ef66"
     },
     {
       "path": "docs/system-documentation/pdf/README.pdf",
-      "size": 21615,
-      "sha256": "4cbd449764b37e288e143809964ca10ac642086acdcc21cc967fb0b9efb86470"
+      "size": 21614,
+      "sha256": "9d4f25b69fac0ddd05f351b2567797da494b9cff46387ac262b5299c02b1859f"
     },
     {
       "path": "docs/system-documentation/README.md",

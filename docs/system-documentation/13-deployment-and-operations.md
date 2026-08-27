@@ -96,10 +96,16 @@ workflow.
 está en `.gitignore` y no hay ningún archivo versionado bajo esa ruta. Es un
 filtro inerte. R-12.
 
-**Consecuencia práctica de esta lista**: este trabajo de documentación toca
-`docs/system-documentation/**` y `README.md`, ninguno de los cuales está en el
-filtro. **El commit de documentación no disparará la publicación de la landing**,
-solo `flutter-ci.yml`.
+**Consecuencia práctica de esta lista**: un commit que solo toque
+`docs/system-documentation/**` o `README.md` **no dispara la publicación de la
+landing**; solo `flutter-ci.yml`. Pero basta con que toque un archivo de `lib/`
+—aunque el cambio sea únicamente un comentario— para que el filtro `lib/**`
+coincida y la PWA se vuelva a compilar y a publicar.
+
+Es exactamente lo que ocurrió con el commit que introdujo esta documentación:
+además de los veinte Markdown, añadió comentarios a 24 archivos de `lib/`, y
+eso disparó **los dos** workflows. Conviene tenerlo presente antes de suponer
+que un cambio «solo de documentación» no toca la publicación.
 
 ### Cómo se monta el sitio
 
