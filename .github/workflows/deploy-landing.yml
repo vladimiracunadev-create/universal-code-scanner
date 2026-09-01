@@ -84,7 +84,7 @@ jobs:
           test -f _site/assets/capturas/escanear.png
           test -f _site/assets/icon-512.png
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
       - uses: actions/upload-pages-artifact@v3
         with:
